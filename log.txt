@@ -1,0 +1,400 @@
+User : 10 0 command.c:494 command_run_line(): 
+Debug: 11 0 configuration.c:88 find_file(): found vsllink.cfg
+Debug: 13 0 command.c:91 script_command(): script_command - interface
+Debug: 14 0 command.c:108 script_command(): script_command - interface, argv[0]=ocd_interface
+Debug: 15 0 command.c:108 script_command(): script_command - interface, argv[1]=vsllink
+Debug: 17 15 command.c:91 script_command(): script_command - vsllink_usb_vid
+Debug: 18 15 command.c:108 script_command(): script_command - vsllink_usb_vid, argv[0]=ocd_vsllink_usb_vid
+Debug: 19 15 command.c:108 script_command(): script_command - vsllink_usb_vid, argv[1]=0x0483
+Debug: 21 15 command.c:91 script_command(): script_command - vsllink_usb_pid
+Debug: 22 15 command.c:108 script_command(): script_command - vsllink_usb_pid, argv[0]=ocd_vsllink_usb_pid
+Debug: 23 15 command.c:108 script_command(): script_command - vsllink_usb_pid, argv[1]=0x5740
+Debug: 25 15 command.c:91 script_command(): script_command - vsllink_usb_bulkin
+Debug: 26 15 command.c:108 script_command(): script_command - vsllink_usb_bulkin, argv[0]=ocd_vsllink_usb_bulkin
+Debug: 27 15 command.c:108 script_command(): script_command - vsllink_usb_bulkin, argv[1]=0x02
+Debug: 29 15 command.c:91 script_command(): script_command - vsllink_usb_bulkout
+Debug: 30 15 command.c:108 script_command(): script_command - vsllink_usb_bulkout, argv[0]=ocd_vsllink_usb_bulkout
+Debug: 31 15 command.c:108 script_command(): script_command - vsllink_usb_bulkout, argv[1]=0x03
+User : 32 15 command.c:494 command_run_line(): 
+Debug: 33 15 configuration.c:88 find_file(): found stm32_mdBZ.cfg
+Debug: 35 15 command.c:91 script_command(): script_command - reset_config
+Debug: 36 15 command.c:108 script_command(): script_command - reset_config, argv[0]=ocd_reset_config
+Debug: 37 15 command.c:108 script_command(): script_command - reset_config, argv[1]=trst_and_srst
+Debug: 38 15 command.c:108 script_command(): script_command - reset_config, argv[2]=srst_pulls_trst
+Debug: 40 15 command.c:91 script_command(): script_command - jtag_nsrst_delay
+Debug: 41 15 command.c:108 script_command(): script_command - jtag_nsrst_delay, argv[0]=ocd_jtag_nsrst_delay
+Debug: 42 15 command.c:108 script_command(): script_command - jtag_nsrst_delay, argv[1]=100
+Debug: 44 15 command.c:91 script_command(): script_command - jtag_ntrst_delay
+Debug: 45 15 command.c:108 script_command(): script_command - jtag_ntrst_delay, argv[0]=ocd_jtag_ntrst_delay
+Debug: 46 15 command.c:108 script_command(): script_command - jtag_ntrst_delay, argv[1]=100
+Debug: 48 15 command.c:91 script_command(): script_command - reset_config
+Debug: 49 15 command.c:108 script_command(): script_command - reset_config, argv[0]=ocd_reset_config
+Debug: 50 15 command.c:108 script_command(): script_command - reset_config, argv[1]=trst_and_srst
+Debug: 51 15 jtag.c:1851 jim_newtap_cmd(): Creating New Tap, Chip: stm32, Tap: cpu, Dotted: stm32.cpu, 8 params
+Debug: 52 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -irlen
+Debug: 53 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -ircapture
+Debug: 54 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -irmask
+Debug: 55 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -expected-id
+Debug: 56 15 jtag.c:1983 jim_newtap_cmd(): Created Tap: stm32.cpu @ abs position 0, irlen 4, capture: 0x1 mask: 0xf
+Debug: 57 15 jtag.c:1851 jim_newtap_cmd(): Creating New Tap, Chip: stm32, Tap: bs, Dotted: stm32.bs, 8 params
+Debug: 58 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -irlen
+Debug: 59 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -ircapture
+Debug: 60 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -irmask
+Debug: 61 15 jtag.c:1870 jim_newtap_cmd(): Processing option: -expected-id
+Debug: 62 15 jtag.c:1983 jim_newtap_cmd(): Created Tap: stm32.bs @ abs position 1, irlen 5, capture: 0x1 mask: 0x1
+Debug: 63 15 target.c:3920 jim_target(): Target command params:
+Debug: 64 15 target.c:3921 jim_target(): target create stm32.cpu cortex_m3 -endian little -chain-position stm32.cpu 
+Debug: 66 15 command.c:91 script_command(): script_command - bank
+Debug: 67 15 command.c:108 script_command(): script_command - bank, argv[0]=ocd_flash_bank
+Debug: 68 15 command.c:108 script_command(): script_command - bank, argv[1]=stm32x
+Debug: 69 15 command.c:108 script_command(): script_command - bank, argv[2]=0
+Debug: 70 15 command.c:108 script_command(): script_command - bank, argv[3]=0
+Debug: 71 15 command.c:108 script_command(): script_command - bank, argv[4]=0
+Debug: 72 15 command.c:108 script_command(): script_command - bank, argv[5]=0
+Debug: 73 15 command.c:108 script_command(): script_command - bank, argv[6]=0
+User : 74 15 command.c:494 command_run_line(): 
+Debug: 75 15 configuration.c:88 find_file(): found stm32_gdb.cfg
+Debug: 77 15 command.c:91 script_command(): script_command - telnet_port
+Debug: 78 15 command.c:108 script_command(): script_command - telnet_port, argv[0]=ocd_telnet_port
+Debug: 79 15 command.c:108 script_command(): script_command - telnet_port, argv[1]=4444
+Debug: 81 15 command.c:91 script_command(): script_command - gdb_port
+Debug: 82 15 command.c:108 script_command(): script_command - gdb_port, argv[0]=ocd_gdb_port
+Debug: 83 15 command.c:108 script_command(): script_command - gdb_port, argv[1]=3333
+Debug: 85 15 command.c:91 script_command(): script_command - tcl_port
+Debug: 86 15 command.c:108 script_command(): script_command - tcl_port, argv[0]=ocd_tcl_port
+Debug: 87 15 command.c:108 script_command(): script_command - tcl_port, argv[1]=6666
+Debug: 89 15 command.c:91 script_command(): script_command - init
+Debug: 90 15 command.c:108 script_command(): script_command - init, argv[0]=ocd_init
+Debug: 91 15 openocd.c:137 handle_init_command(): target init complete
+Info : 92 31 vsllink.c:497 vsllink_init(): Versaloon(0x13)by Simon(compiled on Feb 17 2009)
+Info : 93 31 vsllink.c:515 vsllink_init(): buffer size for USB is 12288 bytes
+Info : 94 47 vsllink.c:641 vsllink_connect(): VSLLink_20080905 by Simon(compiled on Feb 17 2009)
+Info : 95 47 vsllink.c:557 vsllink_init(): vsllink run in NORMAL mode
+Debug: 96 47 vsllink.c:1346 vsllink_reset(): trst: 0, srst: 0
+Info : 97 47 vsllink.c:586 vsllink_init(): VSLLink JTAG Interface ready
+Debug: 98 47 openocd.c:144 handle_init_command(): jtag interface init complete
+Debug: 99 47 jtag.c:2199 jtag_init_inner(): Init JTAG chain
+Debug: 100 47 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 101 47 jtag.c:1446 jtag_reset_callback(): -
+Debug: 102 47 jtag.c:1446 jtag_reset_callback(): -
+Debug: 103 47 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 104 47 jtag.c:1446 jtag_reset_callback(): -
+Debug: 105 47 jtag.c:1446 jtag_reset_callback(): -
+Info : 106 47 jtag.c:1566 jtag_examine_chain(): JTAG tap: stm32.cpu tap/device found: 0x3ba00477 (Manufacturer: 0x23b, Part: 0xba00, Version: 0x3)
+Info : 107 47 jtag.c:1604 jtag_examine_chain(): JTAG Tap/device matched
+Info : 108 47 jtag.c:1566 jtag_examine_chain(): JTAG tap: stm32.bs tap/device found: 0x06414041 (Manufacturer: 0x020, Part: 0x6414, Version: 0x0)
+Info : 109 47 jtag.c:1604 jtag_examine_chain(): JTAG Tap/device matched
+Debug: 110 47 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 111 47 jtag.c:1446 jtag_reset_callback(): -
+Debug: 112 47 jtag.c:1446 jtag_reset_callback(): -
+Debug: 113 47 openocd.c:150 handle_init_command(): jtag init complete
+Debug: 114 47 cortex_swjdp.c:956 ahbap_debugport_init():  
+Debug: 115 62 cortex_swjdp.c:1000 ahbap_debugport_init(): AHB-AP ID Register 0x14770011, Debug ROM Address 0xe00ff003
+Debug: 116 78 target.c:1185 target_read_u32(): address: 0xe000ed00, value: 0x411fc231
+Debug: 117 78 cortex_m3.c:1395 cortex_m3_examine(): CORTEX-M3 processor detected
+Debug: 118 78 cortex_m3.c:1396 cortex_m3_examine(): cpuid: 0x411fc231
+Debug: 119 78 target.c:1185 target_read_u32(): address: 0xe000e004, value: 0x00000001
+Debug: 120 78 target.c:1185 target_read_u32(): address: 0xe000e100, value: 0x00000000
+Debug: 121 78 cortex_m3.c:1404 cortex_m3_examine(): interrupt enable[0] = 0x00000000
+Debug: 122 78 target.c:1185 target_read_u32(): address: 0xe000e104, value: 0x00000000
+Debug: 123 78 cortex_m3.c:1404 cortex_m3_examine(): interrupt enable[1] = 0x00000000
+Debug: 124 93 target.c:1185 target_read_u32(): address: 0xe0002000, value: 0x00000261
+Debug: 125 93 cortex_m3.c:1420 cortex_m3_examine(): FPB fpcr 0x261, numcode 6, numlit 2
+Debug: 126 93 target.c:1185 target_read_u32(): address: 0xe0001000, value: 0x40000000
+Debug: 127 93 openocd.c:153 handle_init_command(): jtag examine complete
+Debug: 128 93 openocd.c:159 handle_init_command(): flash init complete
+Debug: 129 93 openocd.c:163 handle_init_command(): mflash init complete
+Debug: 130 93 openocd.c:167 handle_init_command(): NAND init complete
+Debug: 131 93 openocd.c:171 handle_init_command(): pld init complete
+Debug: 132 109 gdb_server.c:2225 gdb_init(): gdb service for target cortex_m3 at port 3333
+Debug: 134 125 command.c:91 script_command(): script_command - jtag_khz
+Debug: 135 125 command.c:108 script_command(): script_command - jtag_khz, argv[0]=ocd_jtag_khz
+Debug: 136 125 command.c:108 script_command(): script_command - jtag_khz, argv[1]=565
+Debug: 137 125 jtag.c:2604 handle_jtag_khz_command(): handle jtag khz
+Debug: 138 125 jtag.c:2612 handle_jtag_khz_command(): have interface set up
+User : 139 125 command.c:383 command_print(): 565 kHz
+Debug: 141 125 command.c:91 script_command(): script_command - reset
+Debug: 142 125 command.c:108 script_command(): script_command - reset, argv[0]=ocd_reset
+Debug: 143 125 command.c:108 script_command(): script_command - reset, argv[1]=halt
+Debug: 144 125 target.c:3920 jim_target(): Target command params:
+Debug: 145 125 target.c:3921 jim_target(): target names 
+Debug: 146 125 target.c:3054 target_handle_event(): event: 11 reset-start - no action
+Debug: 147 125 jtag.c:2232 jtag_init_reset(): Trying to bring the JTAG controller to life by asserting TRST / RESET
+Debug: 148 125 jtag.c:1138 jtag_add_reset(): SRST line released
+Debug: 149 125 jtag.c:1157 jtag_add_reset(): TRST line asserted
+Debug: 150 125 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 151 125 jtag.c:1446 jtag_reset_callback(): -
+Debug: 152 125 jtag.c:1446 jtag_reset_callback(): -
+Debug: 153 125 jtag.c:1134 jtag_add_reset(): SRST line asserted
+Debug: 154 125 jtag.c:1157 jtag_add_reset(): TRST line asserted
+Debug: 155 125 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 156 125 jtag.c:1446 jtag_reset_callback(): -
+Debug: 157 125 jtag.c:1446 jtag_reset_callback(): -
+Debug: 158 125 jtag.c:1134 jtag_add_reset(): SRST line asserted
+Debug: 159 125 jtag.c:1138 jtag_add_reset(): SRST line released
+Debug: 160 125 vsllink.c:1346 vsllink_reset(): trst: 1, srst: 0
+Debug: 161 234 vsllink.c:1346 vsllink_reset(): trst: 1, srst: 1
+Debug: 162 234 vsllink.c:1346 vsllink_reset(): trst: 0, srst: 1
+Debug: 163 343 vsllink.c:1346 vsllink_reset(): trst: 0, srst: 0
+Debug: 165 561 jtag.c:2199 jtag_init_inner(): Init JTAG chain
+Debug: 166 561 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 167 561 jtag.c:1446 jtag_reset_callback(): -
+Debug: 168 561 jtag.c:1446 jtag_reset_callback(): -
+Info : 169 561 jtag.c:1566 jtag_examine_chain(): JTAG tap: stm32.cpu tap/device found: 0x3ba00477 (Manufacturer: 0x23b, Part: 0xba00, Version: 0x3)
+Info : 170 561 jtag.c:1604 jtag_examine_chain(): JTAG Tap/device matched
+Info : 171 561 jtag.c:1566 jtag_examine_chain(): JTAG tap: stm32.bs tap/device found: 0x06414041 (Manufacturer: 0x020, Part: 0x6414, Version: 0x0)
+Info : 172 561 jtag.c:1604 jtag_examine_chain(): JTAG Tap/device matched
+Debug: 173 561 jtag.c:385 jtag_call_event_callbacks(): jtag event: JTAG controller reset (RESET or TRST)
+Debug: 174 561 jtag.c:1446 jtag_reset_callback(): -
+Debug: 175 561 jtag.c:1446 jtag_reset_callback(): -
+Debug: 176 577 target.c:3920 jim_target(): Target command params:
+Debug: 177 577 target.c:3921 jim_target(): target names 
+Debug: 178 577 cortex_swjdp.c:956 ahbap_debugport_init():  
+Debug: 179 577 cortex_swjdp.c:1000 ahbap_debugport_init(): AHB-AP ID Register 0x14770011, Debug ROM Address 0xe00ff003
+Debug: 180 577 target.c:3920 jim_target(): Target command params:
+Debug: 181 577 target.c:3921 jim_target(): target names 
+Debug: 182 577 target.c:3054 target_handle_event(): event: 12 reset-assert-pre - no action
+Debug: 183 577 cortex_m3.c:707 cortex_m3_assert_reset(): target->state: halted
+Debug: 184 577 jtag.c:1134 jtag_add_reset(): SRST line asserted
+Debug: 185 577 cortex_m3.c:485 cortex_m3_halt(): target->state: reset
+Debug: 186 577 target.c:3054 target_handle_event(): event: 13 reset-assert-post - no action
+Debug: 187 577 target.c:3920 jim_target(): Target command params:
+Debug: 188 577 target.c:3921 jim_target(): target names 
+Debug: 189 577 target.c:3054 target_handle_event(): event: 14 reset-deassert-pre - no action
+Debug: 190 577 cortex_m3.c:813 cortex_m3_deassert_reset(): target->state: reset
+Debug: 191 577 jtag.c:1138 jtag_add_reset(): SRST line released
+Debug: 192 593 target.c:3054 target_handle_event(): event: 15 reset-deassert-post - no action
+Debug: 193 593 target.c:3920 jim_target(): Target command params:
+Debug: 194 593 target.c:3921 jim_target(): target names 
+Debug: 195 593 vsllink.c:1346 vsllink_reset(): trst: 0, srst: 1
+Debug: 196 749 vsllink.c:1346 vsllink_reset(): trst: 0, srst: 0
+Debug: 197 967 cortex_m3.c:441 cortex_m3_poll(): Exit from reset with dcb_dhcsr 0x30003
+Debug: 198 967 cortex_m3.c:208 cortex_m3_endreset_event(): DCB_DEMCR = 0x01000501
+Debug: 199 983 target.c:1253 target_write_u32(): address: 0xe0002000, value: 0x00000003
+Debug: 200 983 target.c:1253 target_write_u32(): address: 0xe0002008, value: 0x00000000
+Debug: 201 983 target.c:1253 target_write_u32(): address: 0xe000200c, value: 0x00000000
+Debug: 202 983 target.c:1253 target_write_u32(): address: 0xe0002010, value: 0x00000000
+Debug: 203 983 target.c:1253 target_write_u32(): address: 0xe0002014, value: 0x00000000
+Debug: 204 998 target.c:1253 target_write_u32(): address: 0xe0002018, value: 0x00000000
+Debug: 205 998 target.c:1253 target_write_u32(): address: 0xe000201c, value: 0x00000000
+Debug: 206 998 target.c:1253 target_write_u32(): address: 0xe0002020, value: 0x00000000
+Debug: 207 998 target.c:1253 target_write_u32(): address: 0xe0002024, value: 0x00000000
+Debug: 208 998 target.c:1253 target_write_u32(): address: 0xe0001020, value: 0x00000000
+Debug: 209 1014 target.c:1253 target_write_u32(): address: 0xe0001024, value: 0x00000000
+Debug: 210 1014 target.c:1253 target_write_u32(): address: 0xe0001028, value: 0x00000000
+Debug: 211 1014 target.c:1253 target_write_u32(): address: 0xe0001030, value: 0x00000000
+Debug: 212 1014 target.c:1253 target_write_u32(): address: 0xe0001034, value: 0x00000000
+Debug: 213 1014 target.c:1253 target_write_u32(): address: 0xe0001038, value: 0x00000000
+Debug: 214 1029 target.c:1253 target_write_u32(): address: 0xe0001040, value: 0x00000000
+Debug: 216 1029 target.c:1253 target_write_u32(): address: 0xe0001044, value: 0x00000000
+Debug: 217 1029 target.c:1253 target_write_u32(): address: 0xe0001048, value: 0x00000000
+Debug: 218 1029 target.c:1253 target_write_u32(): address: 0xe0001050, value: 0x00000000
+Debug: 219 1029 target.c:1253 target_write_u32(): address: 0xe0001054, value: 0x00000000
+Debug: 220 1029 target.c:1253 target_write_u32(): address: 0xe0001058, value: 0x00000000
+Debug: 221 1045 cortex_m3.c:338 cortex_m3_debug_entry():  
+Debug: 222 1045 cortex_m3.c:133 cortex_m3_clear_halt():  NVIC_DFSR 0x9
+Debug: 223 1061 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 0  value 0x0
+Debug: 224 1076 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 1  value 0xfffff007
+Debug: 225 1076 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 2  value 0x6c000000
+Debug: 226 1092 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 3  value 0x1
+Debug: 227 1107 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 4  value 0xa5a5a5a5
+Debug: 228 1107 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 5  value 0xa5a5a5a5
+Debug: 229 1123 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 6  value 0xa5a5a5a5
+Debug: 230 1123 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 7  value 0x2000255c
+Debug: 231 1139 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 8  value 0xa5a5a5a5
+Debug: 232 1139 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 9  value 0xa5a5a5a5
+Debug: 233 1154 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 10  value 0xa5a5a5a5
+Debug: 234 1170 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 11  value 0xa5a5a5a5
+Debug: 235 1170 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 12  value 0xa5a5a5a5
+Debug: 236 1185 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 13  value 0x200046a4
+Debug: 237 1185 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 14  value 0xffffffff
+Debug: 238 1201 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 15  value 0x1329c
+Debug: 239 1201 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 16  value 0x1000000
+Debug: 240 1217 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 17  value 0x200046a4
+Debug: 241 1232 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 18  value 0x2000255c
+Debug: 242 1232 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 19 value 0x0
+Debug: 243 1248 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 20 value 0x0
+Debug: 244 1248 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 21 value 0x0
+Debug: 245 1263 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 22 value 0x0
+Debug: 246 1263 cortex_m3.c:400 cortex_m3_debug_entry(): entered debug state in core mode: Thread at PC 0x1329c, target->state: halted
+Debug: 247 1263 target.c:696 target_call_event_callbacks(): target event 4 (early-halted)
+Debug: 248 1263 target.c:3054 target_handle_event(): event: 4 early-halted - no action
+Debug: 249 1263 target.c:696 target_call_event_callbacks(): target event 5 (halted)
+Debug: 250 1263 target.c:3054 target_handle_event(): event: 5 halted - no action
+User : 251 1263 target.c:959 target_arch_state(): target state: halted
+User : 252 1263 armv7m.c:473 armv7m_arch_state(): target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0001329c
+Debug: 253 1263 target.c:3920 jim_target(): Target command params:
+Debug: 254 1263 target.c:3921 jim_target(): target names 
+Debug: 255 1263 target.c:3054 target_handle_event(): event: 21 reset-end - no action
+Debug: 257 1263 command.c:91 script_command(): script_command - verify_ircapture
+Debug: 258 1263 command.c:108 script_command(): script_command - verify_ircapture, argv[0]=ocd_verify_ircapture
+Debug: 259 1263 command.c:108 script_command(): script_command - verify_ircapture, argv[1]=disable
+User : 260 1263 command.c:383 command_print(): verify Capture-IR is disabled
+User : 261 1263 command.c:494 command_run_line(): 
+Debug: 263 1279 command.c:91 script_command(): script_command - init
+Debug: 264 1279 command.c:108 script_command(): script_command - init, argv[0]=ocd_init
+User : 265 1279 command.c:494 command_run_line(): 
+Info : 266 11356 server.c:89 add_connection(): accepting 'gdb' connection from 0
+Debug: 267 11356 cortex_m3.c:485 cortex_m3_halt(): target->state: halted
+Debug: 268 11356 cortex_m3.c:489 cortex_m3_halt(): target was already halted
+Debug: 269 11356 target.c:696 target_call_event_callbacks(): target event 26 (gdb-attach)
+Debug: 270 11356 target.c:3054 target_handle_event(): event: 26 gdb-attach - no action
+Debug: 271 11356 target.c:3054 target_handle_event(): event: 26 gdb-attach - no action
+Debug: 272 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'qSupported'
+Debug: 273 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'QStartNoAckMode'
+Warn : 274 11356 gdb_server.c:586 gdb_get_packet_inner(): acknowledgment received, but no packet pending
+Debug: 275 11356 gdb_server.c:2050 gdb_input_inner(): received packet: '!'
+Debug: 276 11356 gdb_server.c:2050 gdb_input_inner(): received packet: '?'
+Debug: 277 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'Hc-1'
+Debug: 278 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'qC'
+Debug: 279 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'qOffsets'
+Debug: 280 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'Hg0'
+Debug: 281 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'g'
+Debug: 282 11356 gdb_server.c:2050 gdb_input_inner(): received packet: 'qXfer:memory-map:read::0,fff'
+Debug: 283 11356 target.c:1185 target_read_u32(): address: 0xe0042000, value: 0x10016414
+Info : 284 11356 stm32x.c:706 stm32x_probe(): device id = 0x10016414
+Debug: 285 11371 target.c:1210 target_read_u16(): address: 0x1ffff7e0, value: 0x0200
+Info : 286 11371 stm32x.c:766 stm32x_probe(): flash size = 512kbytes
+Debug: 287 11371 gdb_server.c:2050 gdb_input_inner(): received packet: 'm1329c,4'
+Debug: 288 11371 gdb_server.c:1190 gdb_read_memory_packet(): addr: 0x0001329c, len: 0x00000004
+Debug: 289 11371 target.c:1050 target_read_buffer(): reading buffer of 4 byte at 0x0001329c
+Debug: 290 11371 gdb_server.c:2050 gdb_input_inner(): received packet: 'qSymbol::'
+Debug: 291 11387 gdb_server.c:2050 gdb_input_inner(): received packet: 'qRcmd,736f66745f72657365745f68616c74'
+Debug: 293 11387 command.c:91 script_command(): script_command - soft_reset_halt
+Debug: 294 11387 command.c:108 script_command(): script_command - soft_reset_halt, argv[0]=ocd_soft_reset_halt
+User : 295 11387 target.c:1758 handle_soft_reset_halt_command(): requesting target halt and executing a soft reset
+Debug: 296 11402 cortex_m3.c:551 cortex_m3_soft_reset_halt(): system reset-halted, dcb_dhcsr 0x2030003, nvic_dfsr 0x8
+Debug: 297 11402 cortex_m3.c:441 cortex_m3_poll(): Exit from reset with dcb_dhcsr 0x30003
+Debug: 298 11402 cortex_m3.c:208 cortex_m3_endreset_event(): DCB_DEMCR = 0x01000501
+Debug: 299 11402 target.c:1253 target_write_u32(): address: 0xe0002000, value: 0x00000003
+Debug: 300 11402 target.c:1253 target_write_u32(): address: 0xe0002008, value: 0x00000000
+Debug: 301 11418 target.c:1253 target_write_u32(): address: 0xe000200c, value: 0x00000000
+Debug: 302 11418 target.c:1253 target_write_u32(): address: 0xe0002010, value: 0x00000000
+Debug: 303 11418 target.c:1253 target_write_u32(): address: 0xe0002014, value: 0x00000000
+Debug: 304 11418 target.c:1253 target_write_u32(): address: 0xe0002018, value: 0x00000000
+Debug: 305 11418 target.c:1253 target_write_u32(): address: 0xe000201c, value: 0x00000000
+Debug: 306 11434 target.c:1253 target_write_u32(): address: 0xe0002020, value: 0x00000000
+Debug: 307 11434 target.c:1253 target_write_u32(): address: 0xe0002024, value: 0x00000000
+Debug: 308 11434 target.c:1253 target_write_u32(): address: 0xe0001020, value: 0x00000000
+Debug: 309 11434 target.c:1253 target_write_u32(): address: 0xe0001024, value: 0x00000000
+Debug: 310 11434 target.c:1253 target_write_u32(): address: 0xe0001028, value: 0x00000000
+Debug: 311 11449 target.c:1253 target_write_u32(): address: 0xe0001030, value: 0x00000000
+Debug: 312 11449 target.c:1253 target_write_u32(): address: 0xe0001034, value: 0x00000000
+Debug: 313 11449 target.c:1253 target_write_u32(): address: 0xe0001038, value: 0x00000000
+Debug: 314 11449 target.c:1253 target_write_u32(): address: 0xe0001040, value: 0x00000000
+Debug: 315 11449 target.c:1253 target_write_u32(): address: 0xe0001044, value: 0x00000000
+Debug: 316 11465 target.c:1253 target_write_u32(): address: 0xe0001048, value: 0x00000000
+Debug: 317 11465 target.c:1253 target_write_u32(): address: 0xe0001050, value: 0x00000000
+Debug: 318 11465 target.c:1253 target_write_u32(): address: 0xe0001054, value: 0x00000000
+Debug: 319 11465 target.c:1253 target_write_u32(): address: 0xe0001058, value: 0x00000000
+Debug: 320 11480 cortex_m3.c:338 cortex_m3_debug_entry():  
+Debug: 321 11480 cortex_m3.c:133 cortex_m3_clear_halt():  NVIC_DFSR 0x9
+Debug: 322 11496 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 0  value 0x0
+Debug: 323 11512 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 1  value 0xfffff007
+Debug: 324 11512 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 2  value 0x6c000000
+Debug: 325 11527 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 3  value 0x1
+Debug: 326 11527 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 4  value 0xa5a5a5a5
+Debug: 327 11543 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 5  value 0xa5a5a5a5
+Debug: 328 11543 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 6  value 0xa5a5a5a5
+Debug: 329 11558 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 7  value 0x2000255c
+Debug: 330 11574 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 8  value 0xa5a5a5a5
+Debug: 331 11574 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 9  value 0xa5a5a5a5
+Debug: 332 11590 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 10  value 0xa5a5a5a5
+Debug: 333 11590 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 11  value 0xa5a5a5a5
+Debug: 334 11605 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 12  value 0xa5a5a5a5
+Debug: 335 11605 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 13  value 0x200046a4
+Debug: 336 11621 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 14  value 0xffffffff
+Debug: 337 11636 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 15  value 0x1329c
+Debug: 338 11636 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 16  value 0x1000000
+Debug: 339 11652 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 17  value 0x200046a4
+Debug: 340 11652 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 18  value 0x2000255c
+Debug: 341 11668 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 19 value 0x0
+Debug: 342 11668 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 20 value 0x0
+Debug: 343 11683 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 21 value 0x0
+Debug: 344 11699 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 22 value 0x0
+Debug: 345 11699 cortex_m3.c:400 cortex_m3_debug_entry(): entered debug state in core mode: Thread at PC 0x1329c, target->state: halted
+Debug: 346 11699 target.c:696 target_call_event_callbacks(): target event 4 (early-halted)
+Debug: 347 11699 target.c:3054 target_handle_event(): event: 4 early-halted - no action
+Debug: 348 11699 target.c:3054 target_handle_event(): event: 4 early-halted - no action
+Debug: 349 11699 target.c:696 target_call_event_callbacks(): target event 5 (halted)
+Debug: 350 11699 target.c:3054 target_handle_event(): event: 5 halted - no action
+User : 351 11699 target.c:959 target_arch_state(): target state: halted
+User : 352 11699 armv7m.c:473 armv7m_arch_state(): target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x0001329c
+Debug: 353 11699 target.c:3054 target_handle_event(): event: 5 halted - no action
+Debug: 354 11699 target.c:696 target_call_event_callbacks(): target event 10 (gdb-end)
+Debug: 355 11699 target.c:3054 target_handle_event(): event: 10 gdb-end - no action
+Debug: 356 11699 target.c:3054 target_handle_event(): event: 10 gdb-end - no action
+User : 357 11699 command.c:494 command_run_line(): 
+Debug: 358 11714 gdb_server.c:2050 gdb_input_inner(): received packet: 'qRcmd,736c65657020353030'
+Debug: 360 11730 command.c:91 script_command(): script_command - sleep
+Debug: 361 11730 command.c:108 script_command(): script_command - sleep, argv[0]=ocd_sleep
+Debug: 362 11730 command.c:108 script_command(): script_command - sleep, argv[1]=500
+User : 363 12245 command.c:494 command_run_line(): 
+Debug: 364 12260 gdb_server.c:2050 gdb_input_inner(): received packet: 'Z0,112,2'
+Debug: 365 12260 gdb_server.c:1385 gdb_breakpoint_watchpoint_packet(): -
+Debug: 366 12260 target.c:1253 target_write_u32(): address: 0xe0002008, value: 0x80000111
+Debug: 367 12276 cortex_m3.c:872 cortex_m3_set_breakpoint(): fpc_num 0 fpcr_value 0x80000111
+Debug: 368 12276 breakpoints.c:93 breakpoint_add(): added hardware breakpoint at 0x00000112 of length 0x00000002
+Debug: 369 12276 gdb_server.c:2050 gdb_input_inner(): received packet: 'vCont?'
+Debug: 370 12276 gdb_server.c:2050 gdb_input_inner(): received packet: 'Hc0'
+Debug: 371 12276 gdb_server.c:2050 gdb_input_inner(): received packet: 'c'
+Debug: 372 12276 target.c:696 target_call_event_callbacks(): target event 9 (gdb-start)
+Debug: 373 12276 target.c:3054 target_handle_event(): event: 9 gdb-start - no action
+Debug: 374 12276 target.c:3054 target_handle_event(): event: 9 gdb-start - no action
+Debug: 375 12276 gdb_server.c:1349 gdb_step_continue_packet(): -
+Debug: 376 12276 gdb_server.c:1363 gdb_step_continue_packet(): continue
+Debug: 377 12276 target.c:3054 target_handle_event(): event: 3 old-pre_resume - no action
+Debug: 378 12276 armv7m.c:134 armv7m_restore_context():  
+Debug: 379 12276 target.c:696 target_call_event_callbacks(): target event 6 (resumed)
+Debug: 380 12276 target.c:3054 target_handle_event(): event: 6 resumed - no action
+Debug: 381 12276 target.c:3054 target_handle_event(): event: 6 resumed - no action
+Debug: 382 12276 cortex_m3.c:638 cortex_m3_resume(): target resumed at 0x1329c
+Debug: 383 12354 cortex_m3.c:338 cortex_m3_debug_entry():  
+Debug: 384 12370 cortex_m3.c:133 cortex_m3_clear_halt():  NVIC_DFSR 0x3
+Debug: 385 12370 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 0  value 0x2000000c
+Debug: 386 12385 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 1  value 0x0
+Debug: 387 12385 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 2  value 0x20004700
+Debug: 388 12401 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 3  value 0x20004700
+Debug: 389 12416 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 4  value 0xa5a5a5a5
+Debug: 390 12416 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 5  value 0xa5a5a5a5
+Debug: 391 12432 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 6  value 0xa5a5a5a5
+Debug: 392 12432 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 7  value 0x20004690
+Debug: 393 12448 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 8  value 0xa5a5a5a5
+Debug: 394 12448 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 9  value 0xa5a5a5a5
+Debug: 395 12463 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 10  value 0xa5a5a5a5
+Debug: 396 12479 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 11  value 0xa5a5a5a5
+Debug: 397 12479 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 12  value 0xa5a5a5a5
+Debug: 398 12494 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 13  value 0x20004688
+Debug: 399 12494 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 14  value 0x1331d
+Debug: 400 12510 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 15  value 0x112
+Debug: 401 12510 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 16  value 0x61000000
+Debug: 402 12526 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 17  value 0x20004688
+Debug: 403 12541 cortex_m3.c:1187 cortex_m3_load_core_reg_u32(): load from core reg 18  value 0x2000255c
+Debug: 404 12541 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 19 value 0x0
+Debug: 405 12557 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 20 value 0x0
+Debug: 406 12557 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 21 value 0x0
+Debug: 407 12572 cortex_m3.c:1213 cortex_m3_load_core_reg_u32(): load from special reg 22 value 0x0
+Debug: 408 12572 cortex_m3.c:400 cortex_m3_debug_entry(): entered debug state in core mode: Thread at PC 0x112, target->state: halted
+Debug: 409 12572 target.c:696 target_call_event_callbacks(): target event 4 (early-halted)
+Debug: 410 12572 target.c:3054 target_handle_event(): event: 4 early-halted - no action
+Debug: 411 12572 target.c:3054 target_handle_event(): event: 4 early-halted - no action
+Debug: 412 12572 target.c:696 target_call_event_callbacks(): target event 5 (halted)
+Debug: 413 12572 target.c:3054 target_handle_event(): event: 5 halted - no action
+Debug: 414 12572 target.c:3054 target_handle_event(): event: 5 halted - no action
+Debug: 415 12572 target.c:696 target_call_event_callbacks(): target event 10 (gdb-end)
+Debug: 416 12572 target.c:3054 target_handle_event(): event: 10 gdb-end - no action
+Debug: 417 12572 target.c:3054 target_handle_event(): event: 10 gdb-end - no action
+Debug: 418 12572 gdb_server.c:2050 gdb_input_inner(): received packet: 'g'
+Debug: 419 12572 gdb_server.c:2050 gdb_input_inner(): received packet: 'z0,112,2'
+Debug: 420 12572 gdb_server.c:1385 gdb_breakpoint_watchpoint_packet(): -
+Debug: 421 12572 target.c:1253 target_write_u32(): address: 0xe0002008, value: 0x00000000
+Debug: 422 12572 gdb_server.c:2050 gdb_input_inner(): received packet: 'm112,4'
+Debug: 423 12572 gdb_server.c:1190 gdb_read_memory_packet(): addr: 0x00000112, len: 0x00000004
+Debug: 424 12572 target.c:1050 target_read_buffer(): reading buffer of 4 byte at 0x00000112
+Debug: 425 47498 target.c:696 target_call_event_callbacks(): target event 10 (gdb-end)
+Debug: 426 47498 target.c:3054 target_handle_event(): event: 10 gdb-end - no action
+Debug: 427 47498 target.c:696 target_call_event_callbacks(): target event 27 (gdb-detach)
+Debug: 428 47498 target.c:3054 target_handle_event(): event: 27 gdb-detach - no action
+Info : 429 47498 server.c:452 server_loop(): dropped 'gdb' connection - error -400
