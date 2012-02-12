@@ -3,6 +3,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+/* variables used by tasks */
+volatile int32_t ITM_RxBuffer;
 
 //--------------------------------------------------------------
 

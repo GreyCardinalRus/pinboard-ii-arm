@@ -144,7 +144,7 @@ RTOSDemo.bin : RTOSDemo.axf
 #	$(CC) $(CFLAGS) $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o $(LIBS) $(LINKER_FLAGS)
 
 RTOSDemo.axf : $(OBJS)  Makefile
-	$(CC) $(CFLAGS) $(OBJS)  $(LIBS) $(LINKER_FLAGS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LINKER_FLAGS)
 
 $(OBJS) : %.o : %.c Makefile $(SRC_DIR)/FreeRTOSConfig.h
 	$(CC) -c $(CFLAGS) $< -o $@
