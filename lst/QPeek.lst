@@ -1,0 +1,1238 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"QPeek.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.prvHighestPriorityPeekTask,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  23              	prvHighestPriorityPeekTask:
+  24              	.LFB1:
+  25              		.file 1 "../FreeRTOS/Demo/Common/Minimal/QPeek.c"
+   1:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*
+   2:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     FreeRTOS V7.1.0 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	
+   4:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+   5:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     ***************************************************************************
+   6:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *                                                                       *
+   7:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+   8:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    Complete, revised, and edited pdf reference manuals are also       *
+   9:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    available.                                                         *
+  10:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *                                                                       *
+  11:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  12:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    ensuring you get running as quickly as possible and with an        *
+  13:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  14:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    the FreeRTOS project to continue with its mission of providing     *
+  15:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    professional grade, cross platform, de facto standard solutions    *
+  16:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    for microcontrollers - completely free of charge!                  *
+  17:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *                                                                       *
+  18:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  19:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *                                                                       *
+  20:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  21:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****      *                                                                       *
+  22:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     ***************************************************************************
+  23:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  24:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  25:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     This file is part of the FreeRTOS distribution.
+  26:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  27:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  28:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     the terms of the GNU General Public License (version 2) as published by the
+  29:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  30:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  31:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     distribute a combined work that includes FreeRTOS without being obliged to
+  32:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     provide the source code for proprietary components outside of the FreeRTOS
+  33:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  34:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  35:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  36:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     more details. You should have received a copy of the GNU General Public
+  37:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  38:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  39:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     by writing to Richard Barry, contact details for whom are available on the
+  40:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     FreeRTOS WEB site.
+  41:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  42:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     1 tab == 4 spaces!
+  43:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  44:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  45:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     contact details.
+  46:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  47:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  48:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     critical systems.
+  49:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  50:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  51:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****     licensing and training services.
+  52:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** */
+  53:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  54:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  55:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* 
+  56:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  * Tests the behaviour when data is peeked from a queue when there are
+  57:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  * multiple tasks blocked on the queue.
+  58:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  */
+  59:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  60:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  61:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include <stdlib.h>
+  62:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  63:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* Scheduler include files. */
+  64:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include "FreeRTOS.h"
+  65:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include "task.h"
+  66:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include "queue.h"
+  67:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include "semphr.h"
+  68:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  69:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* Demo program include files. */
+  70:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #include "QPeek.h"
+  71:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  72:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekQUEUE_LENGTH		( 5 )
+  73:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekNO_BLOCK			( 0 )
+  74:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekSHORT_DELAY		( 10 )
+  75:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  76:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekLOW_PRIORITY			( tskIDLE_PRIORITY + 0 )
+  77:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekMEDIUM_PRIORITY		( tskIDLE_PRIORITY + 1 )
+  78:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekHIGH_PRIORITY			( tskIDLE_PRIORITY + 2 )
+  79:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** #define qpeekHIGHEST_PRIORITY		( tskIDLE_PRIORITY + 3 )
+  80:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  81:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+  82:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  83:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*
+  84:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  * The following three tasks are used to demonstrate the peeking behaviour.
+  85:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  * Each task is given a different priority to demonstrate the order in which
+  86:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  * tasks are woken as data is peeked from a queue.
+  87:../FreeRTOS/Demo/Common/Minimal/QPeek.c ****  */
+  88:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvLowPriorityPeekTask( void *pvParameters );
+  89:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvMediumPriorityPeekTask( void *pvParameters );
+  90:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvHighPriorityPeekTask( void *pvParameters );
+  91:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvHighestPriorityPeekTask( void *pvParameters );
+  92:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  93:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+  94:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  95:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* Flag that will be latched to pdTRUE should any unexpected behaviour be
+  96:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** detected in any of the tasks. */
+  97:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static volatile portBASE_TYPE xErrorDetected = pdFALSE;
+  98:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+  99:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* Counter that is incremented on each cycle of a test.  This is used to
+ 100:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** detect a stalled task - a test that is no longer running. */
+ 101:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static volatile unsigned portLONG ulLoopCounter = 0;
+ 102:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 103:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* Handles to the test tasks. */
+ 104:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xTaskHandle xMediumPriorityTask, xHighPriorityTask, xHighestPriorityTask;
+ 105:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 106:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 107:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** void vStartQueuePeekTasks( void )
+ 108:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 109:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xQueueHandle xQueue;
+ 110:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 111:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	/* Create the queue that we are going to use for the test/demo. */
+ 112:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xQueue = xQueueCreate( qpeekQUEUE_LENGTH, sizeof( unsigned portLONG ) );
+ 113:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 114:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	/* vQueueAddToRegistry() adds the queue to the queue registry, if one is
+ 115:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	in use.  The queue registry is provided as a means for kernel aware 
+ 116:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	debuggers to locate queues and has no purpose if a kernel aware debugger
+ 117:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	is not being used.  The call to vQueueAddToRegistry() will be removed
+ 118:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	by the pre-processor if configQUEUE_REGISTRY_SIZE is not defined or is 
+ 119:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	defined to be less than 1. */
+ 120:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	vQueueAddToRegistry( xQueue, ( signed portCHAR * ) "QPeek_Test_Queue" );
+ 121:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 122:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	/* Create the demo tasks and pass it the queue just created.  We are
+ 123:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	passing the queue handle by value so it does not matter that it is declared
+ 124:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	on the stack here. */
+ 125:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvLowPriorityPeekTask, ( signed portCHAR * )"PeekL", configMINIMAL_STACK_SIZE, ( voi
+ 126:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvMediumPriorityPeekTask, ( signed portCHAR * )"PeekM", configMINIMAL_STACK_SIZE, ( 
+ 127:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighPriorityPeekTask, ( signed portCHAR * )"PeekH1", configMINIMAL_STACK_SIZE, ( v
+ 128:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighestPriorityPeekTask, ( signed portCHAR * )"PeekH2", configMINIMAL_STACK_SIZE, 
+ 129:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 130:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 131:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 132:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvHighestPriorityPeekTask( void *pvParameters )
+ 133:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+  26              		.loc 1 133 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 24
+  34              		.cfi_offset 14, -4
+  35              		.cfi_offset 8, -8
+  36              		.cfi_offset 7, -12
+  37              		.cfi_offset 6, -16
+  38              		.cfi_offset 5, -20
+  39              		.cfi_offset 4, -24
+  40 0004 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 134:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xQueueHandle xQueue = ( xQueueHandle ) pvParameters;
+ 135:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** unsigned portLONG ulValue;
+ 136:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 137:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	#ifdef USE_STDIO
+ 138:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 139:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		void vPrintDisplayMessage( const portCHAR * const * ppcMessageToSend );
+ 140:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	
+ 141:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		const portCHAR * const pcTaskStartMsg = "Queue peek test started.\r\n";
+ 142:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 143:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Queue a message for printing to say the task has started. */
+ 144:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vPrintDisplayMessage( &pcTaskStartMsg );
+ 145:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 146:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	#endif
+ 147:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 148:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	for( ;; )
+ 149:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 150:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Try peeking from the queue.  The queue should be empty so we will
+ 151:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		block, allowing the high priority task to execute. */
+ 152:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 153:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 154:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to have received something by the time we unblock. */
+ 155:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 156:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 157:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 158:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* When we reach here the high and medium priority tasks should still
+ 159:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		be blocked on the queue.  We unblocked because the low priority task
+ 160:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		wrote a value to the queue, which we should have peeked.  Peeking the
+ 161:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		data (rather than receiving it) will leave the data on the queue, so
+ 162:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the high priority task should then have also been unblocked, but not
+ 163:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		yet executed. */
+ 164:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x11223344 )
+  41              		.loc 1 164 0
+  42 0008 43F24436 		movw	r6, #13124
+ 165:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 166:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value. */
+ 167:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 168:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 169:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 170:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 1 )
+ 171:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 172:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* The message should have been left on the queue. */
+ 173:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 174:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 175:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 176:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Now we are going to actually receive the data, so when the high
+ 177:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		priority task runs it will find the queue empty and return to the
+ 178:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		blocked state. */
+ 179:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0;
+ 180:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueReceive( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 181:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 182:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to receive the value. */
+ 183:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 184:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 185:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 186:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x11223344 )
+ 187:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 188:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value - which should have been
+ 189:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			the same value as was peeked. */
+ 190:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 191:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 192:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 193:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Now we will block again as the queue is once more empty.  The low 
+ 194:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		priority task can then execute again. */
+ 195:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 196:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 197:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to have received something by the time we unblock. */
+ 198:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 199:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 200:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 201:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* When we get here the low priority task should have again written to the
+ 202:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		queue. */
+ 203:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x01234567 )
+  43              		.loc 1 203 0
+  44 000c 44F26757 		movw	r7, #17767
+ 133:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+  45              		.loc 1 133 0
+  46 0010 82B0     		sub	sp, sp, #8
+  47              	.LCFI1:
+  48              		.cfi_def_cfa_offset 32
+ 133:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+  49              		.loc 1 133 0
+  50 0012 0546     		mov	r5, r0
+  51              	.LVL1:
+  52 0014 C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 164:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x11223344 )
+  53              		.loc 1 164 0
+  54 0018 C1F22216 		movt	r6, 4386
+ 179:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0;
+  55              		.loc 1 179 0
+  56 001c 4FF00008 		mov	r8, #0
+  57              		.loc 1 203 0
+  58 0020 C0F22317 		movt	r7, 291
+  59              	.LVL2:
+  60              	.L12:
+ 152:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+  61              		.loc 1 152 0
+  62 0024 0123     		movs	r3, #1
+  63 0026 2846     		mov	r0, r5
+  64 0028 01A9     		add	r1, sp, #4
+  65 002a 4FF0FF32 		mov	r2, #-1
+  66 002e FFF7FEFF 		bl	xQueueGenericReceive
+  67 0032 0128     		cmp	r0, #1
+  68 0034 01D0     		beq	.L2
+ 155:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+  69              		.loc 1 155 0
+  70 0036 0123     		movs	r3, #1
+  71 0038 2360     		str	r3, [r4, #0]
+  72              	.L2:
+ 164:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x11223344 )
+  73              		.loc 1 164 0
+  74 003a 0198     		ldr	r0, [sp, #4]
+  75 003c B042     		cmp	r0, r6
+  76 003e 01D0     		beq	.L3
+ 167:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+  77              		.loc 1 167 0
+  78 0040 0121     		movs	r1, #1
+  79 0042 2160     		str	r1, [r4, #0]
+  80              	.L3:
+ 170:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 1 )
+  81              		.loc 1 170 0
+  82 0044 2846     		mov	r0, r5
+  83 0046 FFF7FEFF 		bl	uxQueueMessagesWaiting
+  84 004a 0128     		cmp	r0, #1
+  85 004c 01D0     		beq	.L4
+ 173:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+  86              		.loc 1 173 0
+  87 004e 0122     		movs	r2, #1
+  88 0050 2260     		str	r2, [r4, #0]
+  89              	.L4:
+ 180:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueReceive( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+  90              		.loc 1 180 0
+  91 0052 0022     		movs	r2, #0
+  92 0054 2846     		mov	r0, r5
+  93 0056 01A9     		add	r1, sp, #4
+  94 0058 1346     		mov	r3, r2
+ 179:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0;
+  95              		.loc 1 179 0
+  96 005a CDF80480 		str	r8, [sp, #4]
+ 180:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueReceive( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+  97              		.loc 1 180 0
+  98 005e FFF7FEFF 		bl	xQueueGenericReceive
+  99 0062 0128     		cmp	r0, #1
+ 100 0064 01D0     		beq	.L5
+ 183:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 101              		.loc 1 183 0
+ 102 0066 0123     		movs	r3, #1
+ 103 0068 2360     		str	r3, [r4, #0]
+ 104              	.L5:
+ 186:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x11223344 )
+ 105              		.loc 1 186 0
+ 106 006a 0198     		ldr	r0, [sp, #4]
+ 107 006c B042     		cmp	r0, r6
+ 108 006e 01D0     		beq	.L6
+ 190:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 109              		.loc 1 190 0
+ 110 0070 0121     		movs	r1, #1
+ 111 0072 2160     		str	r1, [r4, #0]
+ 112              	.L6:
+ 195:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 113              		.loc 1 195 0
+ 114 0074 0123     		movs	r3, #1
+ 115 0076 2846     		mov	r0, r5
+ 116 0078 01A9     		add	r1, sp, #4
+ 117 007a 4FF0FF32 		mov	r2, #-1
+ 118 007e FFF7FEFF 		bl	xQueueGenericReceive
+ 119 0082 0128     		cmp	r0, #1
+ 120 0084 01D0     		beq	.L7
+ 198:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 121              		.loc 1 198 0
+ 122 0086 0122     		movs	r2, #1
+ 123 0088 2260     		str	r2, [r4, #0]
+ 124              	.L7:
+ 125              		.loc 1 203 0
+ 126 008a 019B     		ldr	r3, [sp, #4]
+ 127 008c BB42     		cmp	r3, r7
+ 128 008e 01D0     		beq	.L8
+ 204:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 205:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value. */
+ 206:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 129              		.loc 1 206 0
+ 130 0090 0120     		movs	r0, #1
+ 131 0092 2060     		str	r0, [r4, #0]
+ 132              	.L8:
+ 207:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 208:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 209:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 1 )
+ 133              		.loc 1 209 0
+ 134 0094 2846     		mov	r0, r5
+ 135 0096 FFF7FEFF 		bl	uxQueueMessagesWaiting
+ 136 009a 0128     		cmp	r0, #1
+ 137 009c 01D0     		beq	.L9
+ 210:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 211:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* The message should have been left on the queue. */
+ 212:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 138              		.loc 1 212 0
+ 139 009e 0121     		movs	r1, #1
+ 140 00a0 2160     		str	r1, [r4, #0]
+ 141              	.L9:
+ 213:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 214:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 215:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* We only peeked the data, so suspending ourselves now should enable
+ 216:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the high priority task to also peek the data.  The high priority task
+ 217:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		will have been unblocked when we peeked the data as we left the data
+ 218:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		in the queue. */
+ 219:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskSuspend( NULL );
+ 142              		.loc 1 219 0
+ 143 00a2 0020     		movs	r0, #0
+ 144 00a4 FFF7FEFF 		bl	vTaskSuspend
+ 220:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 221:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 222:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 223:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* This time we are going to do the same as the above test, but the
+ 224:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		high priority task is going to receive the data, rather than peek it.
+ 225:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		This means that the medium priority task should never peek the value. */
+ 226:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 145              		.loc 1 226 0
+ 146 00a8 0123     		movs	r3, #1
+ 147 00aa 2846     		mov	r0, r5
+ 148 00ac 01A9     		add	r1, sp, #4
+ 149 00ae 4FF0FF32 		mov	r2, #-1
+ 150 00b2 FFF7FEFF 		bl	xQueueGenericReceive
+ 151 00b6 0128     		cmp	r0, #1
+ 152 00b8 01D0     		beq	.L10
+ 227:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 228:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 153              		.loc 1 228 0
+ 154 00ba 0122     		movs	r2, #1
+ 155 00bc 2260     		str	r2, [r4, #0]
+ 156              	.L10:
+ 229:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 230:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 231:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0xaabbaabb )
+ 157              		.loc 1 231 0
+ 158 00be 4AF6BB2C 		movw	ip, #43707
+ 159 00c2 0198     		ldr	r0, [sp, #4]
+ 160 00c4 CAF6BB2C 		movt	ip, 43707
+ 161 00c8 6045     		cmp	r0, ip
+ 162 00ca 01D0     		beq	.L11
+ 232:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 233:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 163              		.loc 1 233 0
+ 164 00cc 0123     		movs	r3, #1
+ 165 00ce 2360     		str	r3, [r4, #0]
+ 166              	.L11:
+ 234:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 235:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 236:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskSuspend( NULL );		
+ 167              		.loc 1 236 0
+ 168 00d0 0020     		movs	r0, #0
+ 169 00d2 FFF7FEFF 		bl	vTaskSuspend
+ 237:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 170              		.loc 1 237 0
+ 171 00d6 A5E7     		b	.L12
+ 172              		.cfi_endproc
+ 173              	.LFE1:
+ 175              		.section	.text.prvHighPriorityPeekTask,"ax",%progbits
+ 176              		.align	2
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	prvHighPriorityPeekTask:
+ 181              	.LFB2:
+ 238:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 239:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 240:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 241:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvHighPriorityPeekTask( void *pvParameters )
+ 242:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 182              		.loc 1 242 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 8
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              	.LVL3:
+ 187 0000 70B5     		push	{r4, r5, r6, lr}
+ 188              	.LCFI2:
+ 189              		.cfi_def_cfa_offset 16
+ 190              		.cfi_offset 14, -4
+ 191              		.cfi_offset 6, -8
+ 192              		.cfi_offset 5, -12
+ 193              		.cfi_offset 4, -16
+ 194 0002 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 243:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xQueueHandle xQueue = ( xQueueHandle ) pvParameters;
+ 244:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** unsigned portLONG ulValue;
+ 245:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 246:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	for( ;; )
+ 247:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 248:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Try peeking from the queue.  The queue should be empty so we will
+ 249:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		block, allowing the medium priority task to execute.  Both the high
+ 250:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		and highest priority tasks will then be blocked on the queue. */
+ 251:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 252:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 253:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to have received something by the time we unblock. */
+ 254:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 255:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 256:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 257:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* When we get here the highest priority task should have peeked the data
+ 258:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		(unblocking this task) then suspended (allowing this task to also peek
+ 259:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the data). */
+ 260:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x01234567 )
+ 195              		.loc 1 260 0
+ 196 0006 44F26756 		movw	r6, #17767
+ 242:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 197              		.loc 1 242 0
+ 198 000a 82B0     		sub	sp, sp, #8
+ 199              	.LCFI3:
+ 200              		.cfi_def_cfa_offset 24
+ 242:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 201              		.loc 1 242 0
+ 202 000c 0546     		mov	r5, r0
+ 203              	.LVL4:
+ 204 000e C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 205              		.loc 1 260 0
+ 206 0012 C0F22316 		movt	r6, 291
+ 207              	.LVL5:
+ 208              	.L20:
+ 251:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 209              		.loc 1 251 0
+ 210 0016 0123     		movs	r3, #1
+ 211 0018 2846     		mov	r0, r5
+ 212 001a 01A9     		add	r1, sp, #4
+ 213 001c 4FF0FF32 		mov	r2, #-1
+ 214 0020 FFF7FEFF 		bl	xQueueGenericReceive
+ 215 0024 0128     		cmp	r0, #1
+ 216 0026 01D0     		beq	.L15
+ 254:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 217              		.loc 1 254 0
+ 218 0028 0123     		movs	r3, #1
+ 219 002a 2360     		str	r3, [r4, #0]
+ 220              	.L15:
+ 221              		.loc 1 260 0
+ 222 002c 0198     		ldr	r0, [sp, #4]
+ 223 002e B042     		cmp	r0, r6
+ 224 0030 01D0     		beq	.L16
+ 261:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 262:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value. */
+ 263:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 225              		.loc 1 263 0
+ 226 0032 0121     		movs	r1, #1
+ 227 0034 2160     		str	r1, [r4, #0]
+ 228              	.L16:
+ 264:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 265:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 266:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 1 )
+ 229              		.loc 1 266 0
+ 230 0036 2846     		mov	r0, r5
+ 231 0038 FFF7FEFF 		bl	uxQueueMessagesWaiting
+ 232 003c 0128     		cmp	r0, #1
+ 233 003e 01D0     		beq	.L17
+ 267:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 268:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* The message should have been left on the queue. */
+ 269:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 234              		.loc 1 269 0
+ 235 0040 0122     		movs	r2, #1
+ 236 0042 2260     		str	r2, [r4, #0]
+ 237              	.L17:
+ 270:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 271:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 272:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* We only peeked the data, so suspending ourselves now should enable
+ 273:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the medium priority task to also peek the data.  The medium priority task
+ 274:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		will have been unblocked when we peeked the data as we left the data
+ 275:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		in the queue. */
+ 276:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskSuspend( NULL );
+ 238              		.loc 1 276 0
+ 239 0044 0020     		movs	r0, #0
+ 240 0046 FFF7FEFF 		bl	vTaskSuspend
+ 277:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 278:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 279:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* This time we are going actually receive the value, so the medium
+ 280:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		priority task will never peek the data - we removed it from the queue. */
+ 281:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueReceive( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 241              		.loc 1 281 0
+ 242 004a 0023     		movs	r3, #0
+ 243 004c 2846     		mov	r0, r5
+ 244 004e 01A9     		add	r1, sp, #4
+ 245 0050 4FF0FF32 		mov	r2, #-1
+ 246 0054 FFF7FEFF 		bl	xQueueGenericReceive
+ 247 0058 0128     		cmp	r0, #1
+ 248 005a 01D0     		beq	.L18
+ 282:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 283:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 249              		.loc 1 283 0
+ 250 005c 0123     		movs	r3, #1
+ 251 005e 2360     		str	r3, [r4, #0]
+ 252              	.L18:
+ 284:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 285:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 286:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0xaabbaabb )
+ 253              		.loc 1 286 0
+ 254 0060 4AF6BB21 		movw	r1, #43707
+ 255 0064 0198     		ldr	r0, [sp, #4]
+ 256 0066 CAF6BB21 		movt	r1, 43707
+ 257 006a 8842     		cmp	r0, r1
+ 258 006c 01D0     		beq	.L19
+ 287:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 288:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 259              		.loc 1 288 0
+ 260 006e 0122     		movs	r2, #1
+ 261 0070 2260     		str	r2, [r4, #0]
+ 262              	.L19:
+ 289:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 290:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 291:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskSuspend( NULL );				
+ 263              		.loc 1 291 0
+ 264 0072 0020     		movs	r0, #0
+ 265 0074 FFF7FEFF 		bl	vTaskSuspend
+ 292:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 266              		.loc 1 292 0
+ 267 0078 CDE7     		b	.L20
+ 268              		.cfi_endproc
+ 269              	.LFE2:
+ 271 007a 00BF     		.section	.text.prvMediumPriorityPeekTask,"ax",%progbits
+ 272              		.align	2
+ 273              		.thumb
+ 274              		.thumb_func
+ 276              	prvMediumPriorityPeekTask:
+ 277              	.LFB3:
+ 293:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 294:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 295:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 296:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvMediumPriorityPeekTask( void *pvParameters )
+ 297:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 278              		.loc 1 297 0
+ 279              		.cfi_startproc
+ 280              		@ args = 0, pretend = 0, frame = 8
+ 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282              	.LVL6:
+ 283 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 284              	.LCFI4:
+ 285              		.cfi_def_cfa_offset 24
+ 286              		.cfi_offset 14, -4
+ 287              		.cfi_offset 8, -8
+ 288              		.cfi_offset 7, -12
+ 289              		.cfi_offset 6, -16
+ 290              		.cfi_offset 5, -20
+ 291              		.cfi_offset 4, -24
+ 292 0004 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 293 0008 40F20006 		movw	r6, #:lower16:.LANCHOR1
+ 298:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xQueueHandle xQueue = ( xQueueHandle ) pvParameters;
+ 299:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** unsigned portLONG ulValue;
+ 300:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 301:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	for( ;; )
+ 302:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 303:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Try peeking from the queue.  The queue should be empty so we will
+ 304:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		block, allowing the low priority task to execute.  The highest, high
+ 305:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		and medium priority tasks will then all be blocked on the queue. */
+ 306:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 307:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 308:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to have received something by the time we unblock. */
+ 309:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 310:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 311:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 312:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* When we get here the high priority task should have peeked the data
+ 313:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		(unblocking this task) then suspended (allowing this task to also peek
+ 314:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the data). */
+ 315:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x01234567 )
+ 294              		.loc 1 315 0
+ 295 000c 44F26758 		movw	r8, #17767
+ 297:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 296              		.loc 1 297 0
+ 297 0010 82B0     		sub	sp, sp, #8
+ 298              	.LCFI5:
+ 299              		.cfi_def_cfa_offset 32
+ 297:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 300              		.loc 1 297 0
+ 301 0012 0746     		mov	r7, r0
+ 302              	.LVL7:
+ 303 0014 C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 304 0018 C0F20006 		movt	r6, #:upper16:.LANCHOR1
+ 306:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 305              		.loc 1 306 0
+ 306 001c 0125     		movs	r5, #1
+ 307              		.loc 1 315 0
+ 308 001e C0F22318 		movt	r8, 291
+ 309              	.LVL8:
+ 310              	.L25:
+ 306:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 311              		.loc 1 306 0
+ 312 0022 01A9     		add	r1, sp, #4
+ 313 0024 0123     		movs	r3, #1
+ 314 0026 4FF0FF32 		mov	r2, #-1
+ 315 002a 3846     		mov	r0, r7
+ 316 002c FFF7FEFF 		bl	xQueueGenericReceive
+ 317              		.loc 1 315 0
+ 318 0030 019A     		ldr	r2, [sp, #4]
+ 306:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, portMAX_DELAY ) != pdPASS )
+ 319              		.loc 1 306 0
+ 320 0032 0128     		cmp	r0, #1
+ 309:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 321              		.loc 1 309 0
+ 322 0034 18BF     		it	ne
+ 323 0036 2560     		strne	r5, [r4, #0]
+ 316:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 317:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value. */
+ 318:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 319:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 320:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 321:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 1 )
+ 324              		.loc 1 321 0
+ 325 0038 3846     		mov	r0, r7
+ 315:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x01234567 )
+ 326              		.loc 1 315 0
+ 327 003a 4245     		cmp	r2, r8
+ 318:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 328              		.loc 1 318 0
+ 329 003c 18BF     		it	ne
+ 330 003e 2560     		strne	r5, [r4, #0]
+ 331              		.loc 1 321 0
+ 332 0040 FFF7FEFF 		bl	uxQueueMessagesWaiting
+ 333 0044 0128     		cmp	r0, #1
+ 322:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 323:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* The message should have been left on the queue. */
+ 324:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 334              		.loc 1 324 0
+ 335 0046 18BF     		it	ne
+ 336 0048 2560     		strne	r5, [r4, #0]
+ 325:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 326:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 327:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Just so we know the test is still running. */
+ 328:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulLoopCounter++;
+ 337              		.loc 1 328 0
+ 338 004a 3168     		ldr	r1, [r6, #0]
+ 329:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 330:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Now we can suspend ourselves so the low priority task can execute
+ 331:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		again. */
+ 332:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskSuspend( NULL );
+ 339              		.loc 1 332 0
+ 340 004c 0020     		movs	r0, #0
+ 328:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulLoopCounter++;
+ 341              		.loc 1 328 0
+ 342 004e 4B1C     		adds	r3, r1, #1
+ 343 0050 3360     		str	r3, [r6, #0]
+ 344              		.loc 1 332 0
+ 345 0052 FFF7FEFF 		bl	vTaskSuspend
+ 333:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 346              		.loc 1 333 0
+ 347 0056 E4E7     		b	.L25
+ 348              		.cfi_endproc
+ 349              	.LFE3:
+ 351              		.section	.text.prvLowPriorityPeekTask,"ax",%progbits
+ 352              		.align	2
+ 353              		.thumb
+ 354              		.thumb_func
+ 356              	prvLowPriorityPeekTask:
+ 357              	.LFB4:
+ 334:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 335:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 336:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 337:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static void prvLowPriorityPeekTask( void *pvParameters )
+ 338:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 358              		.loc 1 338 0
+ 359              		.cfi_startproc
+ 360              		@ args = 0, pretend = 0, frame = 8
+ 361              		@ frame_needed = 0, uses_anonymous_args = 0
+ 362              	.LVL9:
+ 363 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 364              	.LCFI6:
+ 365              		.cfi_def_cfa_offset 36
+ 366              		.cfi_offset 14, -4
+ 367              		.cfi_offset 11, -8
+ 368              		.cfi_offset 10, -12
+ 369              		.cfi_offset 9, -16
+ 370              		.cfi_offset 8, -20
+ 371              		.cfi_offset 7, -24
+ 372              		.cfi_offset 6, -28
+ 373              		.cfi_offset 5, -32
+ 374              		.cfi_offset 4, -36
+ 375 0004 40F20005 		movw	r5, #:lower16:.LANCHOR0
+ 376 0008 40F2000B 		movw	fp, #:lower16:xMediumPriorityTask
+ 377 000c 40F20007 		movw	r7, #:lower16:xHighPriorityTask
+ 378 0010 40F20008 		movw	r8, #:lower16:xHighestPriorityTask
+ 339:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** xQueueHandle xQueue = ( xQueueHandle ) pvParameters;
+ 340:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** unsigned portLONG ulValue;
+ 341:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 342:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	for( ;; )
+ 343:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 344:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Write some data to the queue.  This should unblock the highest 
+ 345:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		priority task that is waiting to peek data from the queue. */
+ 346:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0x11223344;
+ 379              		.loc 1 346 0
+ 380 0014 43F24439 		movw	r9, #13124
+ 347:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToBack( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 348:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 349:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We were expecting the queue to be empty so we should not of
+ 350:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			had a problem writing to the queue. */
+ 351:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 352:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 353:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 354:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* By the time we get here the data should have been removed from
+ 355:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		the queue. */
+ 356:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 0 )
+ 357:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 358:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 359:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 360:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 361:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Write another value to the queue, again waking the highest priority
+ 362:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		task that is blocked on the queue. */
+ 363:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0x01234567;
+ 381              		.loc 1 363 0
+ 382 0018 44F2675A 		movw	sl, #17767
+ 338:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 383              		.loc 1 338 0
+ 384 001c 83B0     		sub	sp, sp, #12
+ 385              	.LCFI7:
+ 386              		.cfi_def_cfa_offset 48
+ 338:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 387              		.loc 1 338 0
+ 388 001e 0446     		mov	r4, r0
+ 389              	.LVL10:
+ 390 0020 C0F20005 		movt	r5, #:upper16:.LANCHOR0
+ 391 0024 C0F2000B 		movt	fp, #:upper16:xMediumPriorityTask
+ 392 0028 C0F20007 		movt	r7, #:upper16:xHighPriorityTask
+ 393 002c C0F20008 		movt	r8, #:upper16:xHighestPriorityTask
+ 346:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0x11223344;
+ 394              		.loc 1 346 0
+ 395 0030 C1F22219 		movt	r9, 4386
+ 351:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 396              		.loc 1 351 0
+ 397 0034 0126     		movs	r6, #1
+ 398              		.loc 1 363 0
+ 399 0036 C0F2231A 		movt	sl, 291
+ 400              	.LVL11:
+ 401              	.L33:
+ 347:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToBack( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 402              		.loc 1 347 0
+ 403 003a 0022     		movs	r2, #0
+ 404 003c 2046     		mov	r0, r4
+ 405 003e 01A9     		add	r1, sp, #4
+ 406 0040 1346     		mov	r3, r2
+ 346:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0x11223344;
+ 407              		.loc 1 346 0
+ 408 0042 CDF80490 		str	r9, [sp, #4]
+ 347:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToBack( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 409              		.loc 1 347 0
+ 410 0046 FFF7FEFF 		bl	xQueueGenericSend
+ 411 004a 0128     		cmp	r0, #1
+ 356:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 0 )
+ 412              		.loc 1 356 0
+ 413 004c 2046     		mov	r0, r4
+ 351:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 414              		.loc 1 351 0
+ 415 004e 18BF     		it	ne
+ 416 0050 2E60     		strne	r6, [r5, #0]
+ 356:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( uxQueueMessagesWaiting( xQueue ) != 0 )
+ 417              		.loc 1 356 0
+ 418 0052 FFF7FEFF 		bl	uxQueueMessagesWaiting
+ 419 0056 00B1     		cbz	r0, .L28
+ 358:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 420              		.loc 1 358 0
+ 421 0058 2E60     		str	r6, [r5, #0]
+ 422              	.L28:
+ 364:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToBack( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 423              		.loc 1 364 0
+ 424 005a 0022     		movs	r2, #0
+ 425 005c 1346     		mov	r3, r2
+ 426 005e 01A9     		add	r1, sp, #4
+ 427 0060 2046     		mov	r0, r4
+ 363:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0x01234567;
+ 428              		.loc 1 363 0
+ 429 0062 CDF804A0 		str	sl, [sp, #4]
+ 430              		.loc 1 364 0
+ 431 0066 FFF7FEFF 		bl	xQueueGenericSend
+ 365:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 366:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We were expecting the queue to be empty so we should not of
+ 367:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			had a problem writing to the queue. */
+ 368:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 369:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 370:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 371:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* All the other tasks should now have successfully peeked the data.
+ 372:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		The data is still in the queue so we should be able to receive it. */
+ 373:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0;
+ 432              		.loc 1 373 0
+ 433 006a 4FF0000C 		mov	ip, #0
+ 374:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueReceive( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 434              		.loc 1 374 0
+ 435 006e 6246     		mov	r2, ip
+ 436 0070 6346     		mov	r3, ip
+ 437 0072 01A9     		add	r1, sp, #4
+ 364:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToBack( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 438              		.loc 1 364 0
+ 439 0074 0128     		cmp	r0, #1
+ 440              		.loc 1 374 0
+ 441 0076 2046     		mov	r0, r4
+ 373:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0;
+ 442              		.loc 1 373 0
+ 443 0078 CDF804C0 		str	ip, [sp, #4]
+ 368:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 444              		.loc 1 368 0
+ 445 007c 18BF     		it	ne
+ 446 007e 2E60     		strne	r6, [r5, #0]
+ 447              		.loc 1 374 0
+ 448 0080 FFF7FEFF 		bl	xQueueGenericReceive
+ 449 0084 0128     		cmp	r0, #1
+ 375:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 376:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to receive the data. */
+ 377:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 450              		.loc 1 377 0
+ 451 0086 18BF     		it	ne
+ 452 0088 2E60     		strne	r6, [r5, #0]
+ 378:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 379:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 380:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( ulValue != 0x01234567 )
+ 381:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 382:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We did not receive the expected value. */
+ 383:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 384:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		
+ 385:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Lets just delay a while as this is an intensive test as we don't
+ 386:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		want to starve other tests of processing time. */
+ 387:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskDelay( qpeekSHORT_DELAY );
+ 453              		.loc 1 387 0
+ 454 008a 0A20     		movs	r0, #10
+ 455 008c FFF7FEFF 		bl	vTaskDelay
+ 388:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 389:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Unsuspend the other tasks so we can repeat the test - this time
+ 390:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		however not all the other tasks will peek the data as the high
+ 391:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		priority task is actually going to remove it from the queue.  Send
+ 392:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		to front is used just to be different.  As the queue is empty it
+ 393:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		makes no difference to the result. */
+ 394:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskResume( xMediumPriorityTask );
+ 456              		.loc 1 394 0
+ 457 0090 DBF80000 		ldr	r0, [fp, #0]
+ 458 0094 FFF7FEFF 		bl	vTaskResume
+ 395:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskResume( xHighPriorityTask );
+ 459              		.loc 1 395 0
+ 460 0098 3868     		ldr	r0, [r7, #0]
+ 461 009a FFF7FEFF 		bl	vTaskResume
+ 396:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskResume( xHighestPriorityTask );
+ 462              		.loc 1 396 0
+ 463 009e D8F80000 		ldr	r0, [r8, #0]
+ 464 00a2 FFF7FEFF 		bl	vTaskResume
+ 397:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 398:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0xaabbaabb;
+ 465              		.loc 1 398 0
+ 466 00a6 4AF6BB2E 		movw	lr, #43707
+ 399:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueueSendToFront( xQueue, &ulValue, qpeekNO_BLOCK ) != pdPASS )
+ 467              		.loc 1 399 0
+ 468 00aa 0022     		movs	r2, #0
+ 469 00ac 0123     		movs	r3, #1
+ 398:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0xaabbaabb;
+ 470              		.loc 1 398 0
+ 471 00ae 6EF31F4E 		bfi	lr, lr, #16, #16
+ 472              		.loc 1 399 0
+ 473 00b2 01A9     		add	r1, sp, #4
+ 474 00b4 2046     		mov	r0, r4
+ 398:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		ulValue = 0xaabbaabb;
+ 475              		.loc 1 398 0
+ 476 00b6 CDF804E0 		str	lr, [sp, #4]
+ 477              		.loc 1 399 0
+ 478 00ba FFF7FEFF 		bl	xQueueGenericSend
+ 479 00be 0128     		cmp	r0, #1
+ 400:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 401:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We were expecting the queue to be empty so we should not of
+ 402:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			had a problem writing to the queue. */
+ 403:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 480              		.loc 1 403 0
+ 481 00c0 18BF     		it	ne
+ 482 00c2 2E60     		strne	r6, [r5, #0]
+ 404:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 405:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 406:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* This time we should find that the queue is empty.  The high priority
+ 407:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		task actually removed the data rather than just peeking it. */
+ 408:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		if( xQueuePeek( xQueue, &ulValue, qpeekNO_BLOCK ) != errQUEUE_EMPTY )
+ 483              		.loc 1 408 0
+ 484 00c4 2046     		mov	r0, r4
+ 485 00c6 01A9     		add	r1, sp, #4
+ 486 00c8 0022     		movs	r2, #0
+ 487 00ca 0123     		movs	r3, #1
+ 488 00cc FFF7FEFF 		bl	xQueueGenericReceive
+ 489 00d0 00B1     		cbz	r0, .L32
+ 409:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		{
+ 410:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			/* We expected to receive the data. */
+ 411:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 			xErrorDetected = pdTRUE;
+ 490              		.loc 1 411 0
+ 491 00d2 2E60     		str	r6, [r5, #0]
+ 492              	.L32:
+ 412:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		}
+ 413:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 414:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Unsuspend the highest and high priority tasks so we can go back
+ 415:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		and repeat the whole thing.  The medium priority task should not be
+ 416:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		suspended as it was not able to peek the data in this last case. */
+ 417:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskResume( xHighPriorityTask );
+ 493              		.loc 1 417 0
+ 494 00d4 3868     		ldr	r0, [r7, #0]
+ 495 00d6 FFF7FEFF 		bl	vTaskResume
+ 418:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskResume( xHighestPriorityTask );		
+ 496              		.loc 1 418 0
+ 497 00da D8F80000 		ldr	r0, [r8, #0]
+ 498 00de FFF7FEFF 		bl	vTaskResume
+ 419:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 420:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		/* Lets just delay a while as this is an intensive test as we don't
+ 421:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		want to starve other tests of processing time. */
+ 422:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		vTaskDelay( qpeekSHORT_DELAY );
+ 499              		.loc 1 422 0
+ 500 00e2 0A20     		movs	r0, #10
+ 501 00e4 FFF7FEFF 		bl	vTaskDelay
+ 423:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 502              		.loc 1 423 0
+ 503 00e8 A7E7     		b	.L33
+ 504              		.cfi_endproc
+ 505              	.LFE4:
+ 507 00ea 00BF     		.section	.text.vStartQueuePeekTasks,"ax",%progbits
+ 508              		.align	2
+ 509              		.global	vStartQueuePeekTasks
+ 510              		.thumb
+ 511              		.thumb_func
+ 513              	vStartQueuePeekTasks:
+ 514              	.LFB0:
+ 108:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 515              		.loc 1 108 0
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 0
+ 518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 519 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 520              	.LCFI8:
+ 521              		.cfi_def_cfa_offset 20
+ 522              		.cfi_offset 14, -4
+ 523              		.cfi_offset 7, -8
+ 524              		.cfi_offset 6, -12
+ 525              		.cfi_offset 5, -16
+ 526              		.cfi_offset 4, -20
+ 112:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xQueue = xQueueCreate( qpeekQUEUE_LENGTH, sizeof( unsigned portLONG ) );
+ 527              		.loc 1 112 0
+ 528 0002 0421     		movs	r1, #4
+ 108:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 529              		.loc 1 108 0
+ 530 0004 85B0     		sub	sp, sp, #20
+ 531              	.LCFI9:
+ 532              		.cfi_def_cfa_offset 40
+ 112:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xQueue = xQueueCreate( qpeekQUEUE_LENGTH, sizeof( unsigned portLONG ) );
+ 533              		.loc 1 112 0
+ 534 0006 0022     		movs	r2, #0
+ 535 0008 0520     		movs	r0, #5
+ 536 000a FFF7FEFF 		bl	xQueueGenericCreate
+ 125:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvLowPriorityPeekTask, ( signed portCHAR * )"PeekL", configMINIMAL_STACK_SIZE, ( voi
+ 537              		.loc 1 125 0
+ 538 000e 40F20001 		movw	r1, #:lower16:.LC0
+ 112:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xQueue = xQueueCreate( qpeekQUEUE_LENGTH, sizeof( unsigned portLONG ) );
+ 539              		.loc 1 112 0
+ 540 0012 0546     		mov	r5, r0
+ 541              	.LVL12:
+ 125:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvLowPriorityPeekTask, ( signed portCHAR * )"PeekL", configMINIMAL_STACK_SIZE, ( voi
+ 542              		.loc 1 125 0
+ 543 0014 40F20000 		movw	r0, #:lower16:prvLowPriorityPeekTask
+ 544              	.LVL13:
+ 545 0018 0024     		movs	r4, #0
+ 546 001a 7822     		movs	r2, #120
+ 547 001c 2B46     		mov	r3, r5
+ 548 001e C0F20001 		movt	r1, #:upper16:.LC0
+ 549 0022 C0F20000 		movt	r0, #:upper16:prvLowPriorityPeekTask
+ 550 0026 0094     		str	r4, [sp, #0]
+ 551 0028 0194     		str	r4, [sp, #4]
+ 552 002a 0294     		str	r4, [sp, #8]
+ 553 002c 0394     		str	r4, [sp, #12]
+ 126:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvMediumPriorityPeekTask, ( signed portCHAR * )"PeekM", configMINIMAL_STACK_SIZE, ( 
+ 554              		.loc 1 126 0
+ 555 002e 40F20006 		movw	r6, #:lower16:xMediumPriorityTask
+ 125:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvLowPriorityPeekTask, ( signed portCHAR * )"PeekL", configMINIMAL_STACK_SIZE, ( voi
+ 556              		.loc 1 125 0
+ 557 0032 FFF7FEFF 		bl	xTaskGenericCreate
+ 126:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvMediumPriorityPeekTask, ( signed portCHAR * )"PeekM", configMINIMAL_STACK_SIZE, ( 
+ 558              		.loc 1 126 0
+ 559 0036 40F20000 		movw	r0, #:lower16:prvMediumPriorityPeekTask
+ 560 003a 40F20001 		movw	r1, #:lower16:.LC1
+ 561 003e 7822     		movs	r2, #120
+ 562 0040 2B46     		mov	r3, r5
+ 563 0042 0127     		movs	r7, #1
+ 564 0044 C0F20006 		movt	r6, #:upper16:xMediumPriorityTask
+ 565 0048 C0F20001 		movt	r1, #:upper16:.LC1
+ 566 004c C0F20000 		movt	r0, #:upper16:prvMediumPriorityPeekTask
+ 567 0050 0097     		str	r7, [sp, #0]
+ 568 0052 0196     		str	r6, [sp, #4]
+ 569 0054 0294     		str	r4, [sp, #8]
+ 570 0056 0394     		str	r4, [sp, #12]
+ 127:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighPriorityPeekTask, ( signed portCHAR * )"PeekH1", configMINIMAL_STACK_SIZE, ( v
+ 571              		.loc 1 127 0
+ 572 0058 40F20006 		movw	r6, #:lower16:xHighPriorityTask
+ 126:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvMediumPriorityPeekTask, ( signed portCHAR * )"PeekM", configMINIMAL_STACK_SIZE, ( 
+ 573              		.loc 1 126 0
+ 574 005c FFF7FEFF 		bl	xTaskGenericCreate
+ 127:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighPriorityPeekTask, ( signed portCHAR * )"PeekH1", configMINIMAL_STACK_SIZE, ( v
+ 575              		.loc 1 127 0
+ 576 0060 40F20000 		movw	r0, #:lower16:prvHighPriorityPeekTask
+ 577 0064 40F20001 		movw	r1, #:lower16:.LC2
+ 578 0068 7822     		movs	r2, #120
+ 579 006a 2B46     		mov	r3, r5
+ 580 006c C0F20006 		movt	r6, #:upper16:xHighPriorityTask
+ 581 0070 C0F20001 		movt	r1, #:upper16:.LC2
+ 582 0074 0227     		movs	r7, #2
+ 583 0076 C0F20000 		movt	r0, #:upper16:prvHighPriorityPeekTask
+ 584 007a 0196     		str	r6, [sp, #4]
+ 585 007c 0097     		str	r7, [sp, #0]
+ 586 007e 0294     		str	r4, [sp, #8]
+ 587 0080 0394     		str	r4, [sp, #12]
+ 128:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighestPriorityPeekTask, ( signed portCHAR * )"PeekH2", configMINIMAL_STACK_SIZE, 
+ 588              		.loc 1 128 0
+ 589 0082 40F20006 		movw	r6, #:lower16:xHighestPriorityTask
+ 127:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighPriorityPeekTask, ( signed portCHAR * )"PeekH1", configMINIMAL_STACK_SIZE, ( v
+ 590              		.loc 1 127 0
+ 591 0086 FFF7FEFF 		bl	xTaskGenericCreate
+ 128:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	xTaskCreate( prvHighestPriorityPeekTask, ( signed portCHAR * )"PeekH2", configMINIMAL_STACK_SIZE, 
+ 592              		.loc 1 128 0
+ 593 008a 40F20000 		movw	r0, #:lower16:prvHighestPriorityPeekTask
+ 594 008e 40F20001 		movw	r1, #:lower16:.LC3
+ 595 0092 C0F20006 		movt	r6, #:upper16:xHighestPriorityTask
+ 596 0096 2B46     		mov	r3, r5
+ 597 0098 C0F20001 		movt	r1, #:upper16:.LC3
+ 598 009c 0325     		movs	r5, #3
+ 599              	.LVL14:
+ 600 009e 7822     		movs	r2, #120
+ 601 00a0 C0F20000 		movt	r0, #:upper16:prvHighestPriorityPeekTask
+ 602 00a4 8DE86000 		stmia	sp, {r5, r6}
+ 603 00a8 0294     		str	r4, [sp, #8]
+ 604 00aa 0394     		str	r4, [sp, #12]
+ 605 00ac FFF7FEFF 		bl	xTaskGenericCreate
+ 606              	.LVL15:
+ 129:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 607              		.loc 1 129 0
+ 608 00b0 05B0     		add	sp, sp, #20
+ 609 00b2 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 610              		.cfi_endproc
+ 611              	.LFE0:
+ 613              		.section	.text.xAreQueuePeekTasksStillRunning,"ax",%progbits
+ 614              		.align	2
+ 615              		.global	xAreQueuePeekTasksStillRunning
+ 616              		.thumb
+ 617              		.thumb_func
+ 619              	xAreQueuePeekTasksStillRunning:
+ 620              	.LFB5:
+ 424:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 425:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /*-----------------------------------------------------------*/
+ 426:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 427:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** /* This is called to check that all the created tasks are still running. */
+ 428:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** portBASE_TYPE xAreQueuePeekTasksStillRunning( void )
+ 429:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** {
+ 621              		.loc 1 429 0
+ 622              		.cfi_startproc
+ 623              		@ args = 0, pretend = 0, frame = 0
+ 624              		@ frame_needed = 0, uses_anonymous_args = 0
+ 625              		@ link register save eliminated.
+ 430:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** static unsigned portLONG ulLastLoopCounter = 0;
+ 431:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 432:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	/* If the demo task is still running then we expect the loopcounter to
+ 433:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	have incremented since this function was last called. */
+ 434:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	if( ulLastLoopCounter == ulLoopCounter )
+ 626              		.loc 1 434 0
+ 627 0000 40F20002 		movw	r2, #:lower16:.LANCHOR1
+ 628 0004 40F20003 		movw	r3, #:lower16:.LANCHOR2
+ 629 0008 C0F20002 		movt	r2, #:upper16:.LANCHOR1
+ 630 000c C0F20003 		movt	r3, #:upper16:.LANCHOR2
+ 631 0010 1168     		ldr	r1, [r2, #0]
+ 632 0012 1868     		ldr	r0, [r3, #0]
+ 633 0014 8842     		cmp	r0, r1
+ 435:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	{
+ 436:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 		xErrorDetected = pdTRUE;
+ 634              		.loc 1 436 0
+ 635 0016 40F20001 		movw	r1, #:lower16:.LANCHOR0
+ 636 001a C0F20001 		movt	r1, #:upper16:.LANCHOR0
+ 434:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	if( ulLastLoopCounter == ulLoopCounter )
+ 637              		.loc 1 434 0
+ 638 001e 01D1     		bne	.L36
+ 639              		.loc 1 436 0
+ 640 0020 0120     		movs	r0, #1
+ 641 0022 0860     		str	r0, [r1, #0]
+ 642              	.L36:
+ 437:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	}
+ 438:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 439:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	ulLastLoopCounter = ulLoopCounter;
+ 643              		.loc 1 439 0
+ 644 0024 1268     		ldr	r2, [r2, #0]
+ 440:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 441:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	/* Errors detected in the task itself will have latched xErrorDetected
+ 442:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	to true. */
+ 443:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 
+ 444:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	return !xErrorDetected;
+ 645              		.loc 1 444 0
+ 646 0026 0968     		ldr	r1, [r1, #0]
+ 439:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** 	ulLastLoopCounter = ulLoopCounter;
+ 647              		.loc 1 439 0
+ 648 0028 1A60     		str	r2, [r3, #0]
+ 445:../FreeRTOS/Demo/Common/Minimal/QPeek.c **** }
+ 649              		.loc 1 445 0
+ 650 002a D1F10100 		rsbs	r0, r1, #1
+ 651 002e 38BF     		it	cc
+ 652 0030 0020     		movcc	r0, #0
+ 653 0032 7047     		bx	lr
+ 654              		.cfi_endproc
+ 655              	.LFE5:
+ 657              		.comm	xHighestPriorityTask,4,4
+ 658              		.comm	xHighPriorityTask,4,4
+ 659              		.comm	xMediumPriorityTask,4,4
+ 660              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 661              		.align	2
+ 662              	.LC0:
+ 663 0000 5065656B 		.ascii	"PeekL\000"
+ 663      4C00
+ 664 0006 0000     		.space	2
+ 665              	.LC1:
+ 666 0008 5065656B 		.ascii	"PeekM\000"
+ 666      4D00
+ 667 000e 0000     		.space	2
+ 668              	.LC2:
+ 669 0010 5065656B 		.ascii	"PeekH1\000"
+ 669      483100
+ 670 0017 00       		.space	1
+ 671              	.LC3:
+ 672 0018 5065656B 		.ascii	"PeekH2\000"
+ 672      483200
+ 673 001f 00       		.section	.bss.ulLastLoopCounter.4806,"aw",%nobits
+ 674              		.align	2
+ 675              		.set	.LANCHOR2,. + 0
+ 678              	ulLastLoopCounter.4806:
+ 679 0000 00000000 		.space	4
+ 680              		.section	.bss.xErrorDetected,"aw",%nobits
+ 681              		.align	2
+ 682              		.set	.LANCHOR0,. + 0
+ 685              	xErrorDetected:
+ 686 0000 00000000 		.space	4
+ 687              		.section	.bss.ulLoopCounter,"aw",%nobits
+ 688              		.align	2
+ 689              		.set	.LANCHOR1,. + 0
+ 692              	ulLoopCounter:
+ 693 0000 00000000 		.space	4
+ 694              		.text
+ 695              	.Letext0:
+ 696              		.file 2 "../FreeRTOS/Source/include/../../Source/portable/GCC/ARM_CM3/portmacro.h"
+ 697              		.file 3 "../FreeRTOS/Source/include/task.h"
+ 698              		.file 4 "../FreeRTOS/Source/include/queue.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 QPeek.c
+     /tmp/ccYpjobc.s:19     .text.prvHighestPriorityPeekTask:00000000 $t
+     /tmp/ccYpjobc.s:23     .text.prvHighestPriorityPeekTask:00000000 prvHighestPriorityPeekTask
+     /tmp/ccYpjobc.s:682    .bss.xErrorDetected:00000000 .LANCHOR0
+     /tmp/ccYpjobc.s:176    .text.prvHighPriorityPeekTask:00000000 $t
+     /tmp/ccYpjobc.s:180    .text.prvHighPriorityPeekTask:00000000 prvHighPriorityPeekTask
+     /tmp/ccYpjobc.s:272    .text.prvMediumPriorityPeekTask:00000000 $t
+     /tmp/ccYpjobc.s:276    .text.prvMediumPriorityPeekTask:00000000 prvMediumPriorityPeekTask
+     /tmp/ccYpjobc.s:689    .bss.ulLoopCounter:00000000 .LANCHOR1
+     /tmp/ccYpjobc.s:352    .text.prvLowPriorityPeekTask:00000000 $t
+     /tmp/ccYpjobc.s:356    .text.prvLowPriorityPeekTask:00000000 prvLowPriorityPeekTask
+                            *COM*:00000004 xMediumPriorityTask
+                            *COM*:00000004 xHighPriorityTask
+                            *COM*:00000004 xHighestPriorityTask
+     /tmp/ccYpjobc.s:508    .text.vStartQueuePeekTasks:00000000 $t
+     /tmp/ccYpjobc.s:513    .text.vStartQueuePeekTasks:00000000 vStartQueuePeekTasks
+     /tmp/ccYpjobc.s:662    .rodata.str1.4:00000000 .LC0
+     /tmp/ccYpjobc.s:665    .rodata.str1.4:00000008 .LC1
+     /tmp/ccYpjobc.s:668    .rodata.str1.4:00000010 .LC2
+     /tmp/ccYpjobc.s:671    .rodata.str1.4:00000018 .LC3
+     /tmp/ccYpjobc.s:614    .text.xAreQueuePeekTasksStillRunning:00000000 $t
+     /tmp/ccYpjobc.s:619    .text.xAreQueuePeekTasksStillRunning:00000000 xAreQueuePeekTasksStillRunning
+     /tmp/ccYpjobc.s:675    .bss.ulLastLoopCounter.4806:00000000 .LANCHOR2
+     /tmp/ccYpjobc.s:661    .rodata.str1.4:00000000 $d
+     /tmp/ccYpjobc.s:674    .bss.ulLastLoopCounter.4806:00000000 $d
+     /tmp/ccYpjobc.s:678    .bss.ulLastLoopCounter.4806:00000000 ulLastLoopCounter.4806
+     /tmp/ccYpjobc.s:681    .bss.xErrorDetected:00000000 $d
+     /tmp/ccYpjobc.s:685    .bss.xErrorDetected:00000000 xErrorDetected
+     /tmp/ccYpjobc.s:688    .bss.ulLoopCounter:00000000 $d
+     /tmp/ccYpjobc.s:692    .bss.ulLoopCounter:00000000 ulLoopCounter
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+xQueueGenericReceive
+uxQueueMessagesWaiting
+vTaskSuspend
+xQueueGenericSend
+vTaskDelay
+vTaskResume
+xQueueGenericCreate
+xTaskGenericCreate

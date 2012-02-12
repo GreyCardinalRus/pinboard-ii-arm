@@ -1,0 +1,1075 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"crhook.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.prvHookCoRoutine,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  23              	prvHookCoRoutine:
+  24              	.LFB2:
+  25              		.file 1 "../FreeRTOS/Demo/Common/Minimal/crhook.c"
+   1:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*
+   2:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     FreeRTOS V7.1.0 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	
+   4:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+   5:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     ***************************************************************************
+   6:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *                                                                       *
+   7:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+   8:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    Complete, revised, and edited pdf reference manuals are also       *
+   9:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    available.                                                         *
+  10:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *                                                                       *
+  11:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  12:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    ensuring you get running as quickly as possible and with an        *
+  13:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  14:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    the FreeRTOS project to continue with its mission of providing     *
+  15:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    professional grade, cross platform, de facto standard solutions    *
+  16:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    for microcontrollers - completely free of charge!                  *
+  17:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *                                                                       *
+  18:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  19:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *                                                                       *
+  20:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  21:../FreeRTOS/Demo/Common/Minimal/crhook.c ****      *                                                                       *
+  22:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     ***************************************************************************
+  23:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  24:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  25:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     This file is part of the FreeRTOS distribution.
+  26:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  27:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  28:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     the terms of the GNU General Public License (version 2) as published by the
+  29:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  30:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  31:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     distribute a combined work that includes FreeRTOS without being obliged to
+  32:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     provide the source code for proprietary components outside of the FreeRTOS
+  33:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  34:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  35:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  36:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     more details. You should have received a copy of the GNU General Public
+  37:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  38:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  39:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     by writing to Richard Barry, contact details for whom are available on the
+  40:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     FreeRTOS WEB site.
+  41:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  42:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     1 tab == 4 spaces!
+  43:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  44:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  45:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     contact details.
+  46:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  47:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  48:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     critical systems.
+  49:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  50:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  51:../FreeRTOS/Demo/Common/Minimal/crhook.c ****     licensing and training services.
+  52:../FreeRTOS/Demo/Common/Minimal/crhook.c **** */
+  53:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  54:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*
+  55:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * This demo file demonstrates how to send data between an ISR and a 
+  56:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * co-routine.  A tick hook function is used to periodically pass data between
+  57:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * the RTOS tick and a set of 'hook' co-routines.
+  58:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  *
+  59:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * hookNUM_HOOK_CO_ROUTINES co-routines are created.  Each co-routine blocks
+  60:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * to wait for a character to be received on a queue from the tick ISR, checks
+  61:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * to ensure the character received was that expected, then sends the number
+  62:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * back to the tick ISR on a different queue.
+  63:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * 
+  64:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * The tick ISR checks the numbers received back from the 'hook' co-routines 
+  65:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * matches the number previously sent.
+  66:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  *
+  67:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * If at any time a queue function returns unexpectedly, or an incorrect value
+  68:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * is received either by the tick hook or a co-routine then an error is 
+  69:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * latched.
+  70:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  *
+  71:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * This demo relies on each 'hook' co-routine to execute between each 
+  72:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * hookTICK_CALLS_BEFORE_POST tick interrupts.  This and the heavy use of 
+  73:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * queues from within an interrupt may result in an error being detected on 
+  74:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * slower targets simply due to timing.
+  75:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  */
+  76:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  77:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Scheduler includes. */
+  78:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #include "FreeRTOS.h"
+  79:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #include "croutine.h"
+  80:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #include "queue.h"
+  81:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  82:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Demo application includes. */
+  83:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #include "crhook.h"
+  84:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  85:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* The number of 'hook' co-routines that are to be created. */
+  86:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #define hookNUM_HOOK_CO_ROUTINES        ( 4 )
+  87:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  88:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* The number of times the tick hook should be called before a character is 
+  89:../FreeRTOS/Demo/Common/Minimal/crhook.c **** posted to the 'hook' co-routines. */
+  90:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #define hookTICK_CALLS_BEFORE_POST      ( 500 )
+  91:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  92:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* There should never be more than one item in any queue at any time. */
+  93:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #define hookHOOK_QUEUE_LENGTH           ( 1 )
+  94:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  95:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Don't block when initially posting to the queue. */
+  96:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #define hookNO_BLOCK_TIME               ( 0 )
+  97:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+  98:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* The priority relative to other co-routines (rather than tasks) that the
+  99:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 'hook' co-routines should take. */
+ 100:../FreeRTOS/Demo/Common/Minimal/crhook.c **** #define mainHOOK_CR_PRIORITY			( 1 )
+ 101:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 102:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 103:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*
+ 104:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * The co-routine function itself.
+ 105:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  */
+ 106:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static void prvHookCoRoutine( xCoRoutineHandle xHandle, unsigned portBASE_TYPE uxIndex );
+ 107:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 108:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 109:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*
+ 110:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * The tick hook function.  This receives a number from each 'hook' co-routine
+ 111:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * then sends a number to each co-routine.  An error is flagged if a send or 
+ 112:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  * receive fails, or an unexpected number is received.
+ 113:../FreeRTOS/Demo/Common/Minimal/crhook.c ****  */
+ 114:../FreeRTOS/Demo/Common/Minimal/crhook.c **** void vApplicationTickHook( void );
+ 115:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 116:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 117:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 118:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Queues used to send data FROM a co-routine TO the tick hook function.
+ 119:../FreeRTOS/Demo/Common/Minimal/crhook.c **** The hook functions received (Rx's) on these queues.  One queue per
+ 120:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 'hook' co-routine. */
+ 121:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static xQueueHandle xHookRxQueues[ hookNUM_HOOK_CO_ROUTINES ];
+ 122:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 123:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Queues used to send data FROM the tick hook TO a co-routine function.
+ 124:../FreeRTOS/Demo/Common/Minimal/crhook.c **** The hood function transmits (Tx's) on these queues.  One queue per
+ 125:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 'hook' co-routine. */
+ 126:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static xQueueHandle xHookTxQueues[ hookNUM_HOOK_CO_ROUTINES ];
+ 127:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 128:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /* Set to true if an error is detected at any time. */
+ 129:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static portBASE_TYPE xCoRoutineErrorDetected = pdFALSE;
+ 130:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 131:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 132:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 133:../FreeRTOS/Demo/Common/Minimal/crhook.c **** void vStartHookCoRoutines( void )
+ 134:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 135:../FreeRTOS/Demo/Common/Minimal/crhook.c **** unsigned portBASE_TYPE uxIndex, uxValueToPost = 0;
+ 136:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 137:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	for( uxIndex = 0; uxIndex < hookNUM_HOOK_CO_ROUTINES; uxIndex++ )
+ 138:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	{
+ 139:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* Create a queue to transmit to and receive from each 'hook' 
+ 140:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		co-routine. */
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 143:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 144:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* To start things off the tick hook function expects the queue it 
+ 145:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uses to receive data to contain a value.  */
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 147:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 148:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* Create the 'hook' co-routine itself. */
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 150:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	}
+ 151:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 152:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 153:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 154:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static unsigned portBASE_TYPE uxCallCounter = 0, uxNumberToPost = 0;
+ 155:../FreeRTOS/Demo/Common/Minimal/crhook.c **** void vApplicationTickHook( void )
+ 156:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 157:../FreeRTOS/Demo/Common/Minimal/crhook.c **** unsigned portBASE_TYPE uxReceivedNumber;
+ 158:../FreeRTOS/Demo/Common/Minimal/crhook.c **** signed portBASE_TYPE xIndex, xCoRoutineWoken;
+ 159:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 160:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	/* Is it time to talk to the 'hook' co-routines again? */
+ 161:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	uxCallCounter++;
+ 162:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	if( uxCallCounter >= hookTICK_CALLS_BEFORE_POST )
+ 163:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	{
+ 164:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxCallCounter = 0;
+ 165:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 166:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		for( xIndex = 0; xIndex < hookNUM_HOOK_CO_ROUTINES; xIndex++ )
+ 167:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		{
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 170:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			{
+ 171:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				/* There is no reason why we would not expect the queue to 
+ 172:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				contain a value. */
+ 173:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 174:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			}
+ 175:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			else
+ 176:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			{
+ 177:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				/* Each queue used to receive data from the 'hook' co-routines 
+ 178:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				should contain the number we last posted to the same co-routine. */
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 180:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				{
+ 181:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 182:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				}
+ 183:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 184:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				/* Nothing should be blocked waiting to post to the queue. */
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 186:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				{
+ 187:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 188:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				}
+ 189:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			}
+ 190:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		}
+ 191:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 192:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* Start the next cycle by posting the next number onto each Tx queue. */
+ 193:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxNumberToPost++;
+ 194:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 195:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		for( xIndex = 0; xIndex < hookNUM_HOOK_CO_ROUTINES; xIndex++ )
+ 196:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		{
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 198:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			{
+ 199:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				/* Posting to the queue should have woken the co-routine that 
+ 200:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				was blocked on the queue. */
+ 201:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 202:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			}
+ 203:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		}
+ 204:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	}
+ 205:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 206:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 207:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 208:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static void prvHookCoRoutine( xCoRoutineHandle xHandle, unsigned portBASE_TYPE uxIndex )
+ 209:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+  26              		.loc 1 209 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 24
+  34              		.cfi_offset 14, -4
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 6, -12
+  37              		.cfi_offset 5, -16
+  38              		.cfi_offset 4, -20
+  39              		.cfi_offset 3, -24
+ 210:../FreeRTOS/Demo/Common/Minimal/crhook.c **** static unsigned portBASE_TYPE uxReceivedValue[ hookNUM_HOOK_CO_ROUTINES ];
+ 211:../FreeRTOS/Demo/Common/Minimal/crhook.c **** portBASE_TYPE xResult;
+ 212:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 213:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	/* Each co-routine MUST start with a call to crSTART(); */
+ 214:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	crSTART( xHandle );
+  40              		.loc 1 214 0
+  41 0002 838E     		ldrh	r3, [r0, #52]
+  42 0004 40F2B912 		movw	r2, #441
+  43 0008 9342     		cmp	r3, r2
+ 209:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+  44              		.loc 1 209 0
+  45 000a 0646     		mov	r6, r0
+  46 000c 0D46     		mov	r5, r1
+  47              		.loc 1 214 0
+  48 000e 3FD0     		beq	.L19
+  49 0010 07D9     		bls	.L20
+  50 0012 B3F5E77F 		cmp	r3, #462
+  51 0016 54D0     		beq	.L6
+  52 0018 40F2CF10 		movw	r0, #463
+  53              	.LVL1:
+  54 001c 8342     		cmp	r3, r0
+  55 001e 02D0     		beq	.L17
+  56              	.L1:
+  57 0020 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  58              	.L20:
+  59 0022 002B     		cmp	r3, #0
+  60 0024 3AD1     		bne	.L16
+  61              	.L17:
+  62 0026 40F20004 		movw	r4, #:lower16:.LANCHOR1
+  63 002a C0F20004 		movt	r4, #:upper16:.LANCHOR1
+  64 002e 8F00     		lsls	r7, r1, #2
+  65              	.LVL2:
+  66              	.L3:
+ 215:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 216:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	for( ;; )
+ 217:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	{
+ 218:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* Wait to receive a value from the tick hook. */
+ 219:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xResult = pdFAIL;
+ 220:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_RECEIVE( xHandle, xHookTxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), portMAX_DELA
+  67              		.loc 1 220 0
+  68 0030 40F20003 		movw	r3, #:lower16:.LANCHOR0
+  69 0034 C0F20003 		movt	r3, #:upper16:.LANCHOR0
+  70 0038 53F82500 		ldr	r0, [r3, r5, lsl #2]
+  71 003c E119     		adds	r1, r4, r7
+  72 003e 4FF0FF32 		mov	r2, #-1
+  73 0042 FFF7FEFF 		bl	xQueueCRReceive
+  74              	.LVL3:
+  75 0046 031D     		adds	r3, r0, #4
+  76 0048 57D0     		beq	.L21
+  77              	.L8:
+  78              		.loc 1 220 0 is_stmt 0 discriminator 2
+  79 004a 411D     		adds	r1, r0, #5
+  80 004c 51D0     		beq	.L22
+ 221:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 222:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* There is no reason why we should not have received something on
+ 223:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		the queue. */
+ 224:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		if( xResult != pdPASS )
+  81              		.loc 1 224 0 is_stmt 1
+  82 004e 0128     		cmp	r0, #1
+  83 0050 06D0     		beq	.L5
+ 225:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		{
+ 226:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineErrorDetected = pdTRUE;
+  84              		.loc 1 226 0
+  85 0052 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+  86 0056 C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+  87 005a 0120     		movs	r0, #1
+  88              	.LVL4:
+  89 005c CEF80000 		str	r0, [lr, #0]
+  90              	.LVL5:
+  91              	.L5:
+ 227:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		}
+ 228:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 229:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		/* Send the same number back to the idle hook so it can verify it. */
+ 230:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xResult = pdFAIL;
+ 231:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_SEND( xHandle, xHookRxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), hookNO_BLOCK_TI
+  92              		.loc 1 231 0
+  93 0060 40F20003 		movw	r3, #:lower16:.LANCHOR3
+  94 0064 C0F20003 		movt	r3, #:upper16:.LANCHOR3
+  95 0068 0022     		movs	r2, #0
+  96 006a 53F82500 		ldr	r0, [r3, r5, lsl #2]
+  97 006e E119     		adds	r1, r4, r7
+  98 0070 FFF7FEFF 		bl	xQueueCRSend
+  99              	.LVL6:
+ 100 0074 021D     		adds	r2, r0, #4
+ 101 0076 38D0     		beq	.L23
+ 102              	.L10:
+ 103              		.loc 1 231 0 is_stmt 0 discriminator 2
+ 104 0078 431D     		adds	r3, r0, #5
+ 105 007a 32D0     		beq	.L24
+ 232:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		if( xResult != pdPASS )
+ 106              		.loc 1 232 0 is_stmt 1
+ 107 007c 0128     		cmp	r0, #1
+ 108 007e D7D0     		beq	.L3
+ 233:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		{
+ 234:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			/* There is no reason why we should not have been able to post to 
+ 235:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			the queue. */
+ 236:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineErrorDetected = pdTRUE;
+ 109              		.loc 1 236 0
+ 110 0080 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+ 111 0084 C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+ 112 0088 0120     		movs	r0, #1
+ 113              	.LVL7:
+ 114 008a CEF80000 		str	r0, [lr, #0]
+ 115 008e CFE7     		b	.L3
+ 116              	.LVL8:
+ 117              	.L19:
+ 118 0090 40F20004 		movw	r4, #:lower16:.LANCHOR1
+ 119 0094 C0F20004 		movt	r4, #:upper16:.LANCHOR1
+ 120 0098 8F00     		lsls	r7, r1, #2
+ 121 009a E1E7     		b	.L5
+ 122              	.L16:
+ 214:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	crSTART( xHandle );
+ 123              		.loc 1 214 0
+ 124 009c B3F5DC7F 		cmp	r3, #440
+ 125 00a0 BED1     		bne	.L1
+ 220:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_RECEIVE( xHandle, xHookTxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), portMAX_DELA
+ 126              		.loc 1 220 0
+ 127 00a2 40F2000C 		movw	ip, #:lower16:.LANCHOR0
+ 128 00a6 40F20004 		movw	r4, #:lower16:.LANCHOR1
+ 129 00aa C0F2000C 		movt	ip, #:upper16:.LANCHOR0
+ 130 00ae C0F20004 		movt	r4, #:upper16:.LANCHOR1
+ 131 00b2 8F00     		lsls	r7, r1, #2
+ 132 00b4 5CF82100 		ldr	r0, [ip, r1, lsl #2]
+ 133 00b8 0022     		movs	r2, #0
+ 134 00ba E119     		adds	r1, r4, r7
+ 135 00bc FFF7FEFF 		bl	xQueueCRReceive
+ 136              	.LVL9:
+ 137 00c0 C3E7     		b	.L8
+ 138              	.LVL10:
+ 139              	.L6:
+ 231:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_SEND( xHandle, xHookRxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), hookNO_BLOCK_TI
+ 140              		.loc 1 231 0
+ 141 00c2 40F2000C 		movw	ip, #:lower16:.LANCHOR3
+ 142 00c6 40F20004 		movw	r4, #:lower16:.LANCHOR1
+ 143 00ca C0F2000C 		movt	ip, #:upper16:.LANCHOR3
+ 144 00ce C0F20004 		movt	r4, #:upper16:.LANCHOR1
+ 145 00d2 8F00     		lsls	r7, r1, #2
+ 146 00d4 5CF82100 		ldr	r0, [ip, r1, lsl #2]
+ 147 00d8 0022     		movs	r2, #0
+ 148 00da E119     		adds	r1, r4, r7
+ 149 00dc FFF7FEFF 		bl	xQueueCRSend
+ 150              	.LVL11:
+ 151 00e0 CAE7     		b	.L10
+ 152              	.L24:
+ 231:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_SEND( xHandle, xHookRxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), hookNO_BLOCK_TI
+ 153              		.loc 1 231 0 is_stmt 0 discriminator 3
+ 154 00e2 40F2CF12 		movw	r2, 463	@ movhi
+ 155 00e6 B286     		strh	r2, [r6, #52]	@ movhi
+ 156 00e8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 157              	.L23:
+ 231:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_SEND( xHandle, xHookRxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), hookNO_BLOCK_TI
+ 158              		.loc 1 231 0 discriminator 1
+ 159 00ea 4FF4E771 		mov	r1, #462	@ movhi
+ 160 00ee B186     		strh	r1, [r6, #52]	@ movhi
+ 161 00f0 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 162              	.L22:
+ 220:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_RECEIVE( xHandle, xHookTxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), portMAX_DELA
+ 163              		.loc 1 220 0 is_stmt 1 discriminator 3
+ 164 00f2 40F2B912 		movw	r2, 441	@ movhi
+ 165 00f6 B286     		strh	r2, [r6, #52]	@ movhi
+ 166 00f8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 167              	.L21:
+ 220:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		crQUEUE_RECEIVE( xHandle, xHookTxQueues[ uxIndex ], &( uxReceivedValue[ uxIndex ] ), portMAX_DELA
+ 168              		.loc 1 220 0 is_stmt 0 discriminator 1
+ 169 00fa 4FF4DC71 		mov	r1, #440	@ movhi
+ 170 00fe B186     		strh	r1, [r6, #52]	@ movhi
+ 171 0100 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 172              		.cfi_endproc
+ 173              	.LFE2:
+ 175 0102 00BF     		.section	.text.vStartHookCoRoutines,"ax",%progbits
+ 176              		.align	2
+ 177              		.global	vStartHookCoRoutines
+ 178              		.thumb
+ 179              		.thumb_func
+ 181              	vStartHookCoRoutines:
+ 182              	.LFB0:
+ 134:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 183              		.loc 1 134 0 is_stmt 1
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 8
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 188              	.LCFI1:
+ 189              		.cfi_def_cfa_offset 24
+ 190              		.cfi_offset 14, -4
+ 191              		.cfi_offset 8, -8
+ 192              		.cfi_offset 7, -12
+ 193              		.cfi_offset 6, -16
+ 194              		.cfi_offset 5, -20
+ 195              		.cfi_offset 4, -24
+ 135:../FreeRTOS/Demo/Common/Minimal/crhook.c **** unsigned portBASE_TYPE uxIndex, uxValueToPost = 0;
+ 196              		.loc 1 135 0
+ 197 0004 4FF00008 		mov	r8, #0
+ 134:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 198              		.loc 1 134 0
+ 199 0008 82B0     		sub	sp, sp, #8
+ 200              	.LCFI2:
+ 201              		.cfi_def_cfa_offset 32
+ 135:../FreeRTOS/Demo/Common/Minimal/crhook.c **** unsigned portBASE_TYPE uxIndex, uxValueToPost = 0;
+ 202              		.loc 1 135 0
+ 203 000a 02AE     		add	r6, sp, #8
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 204              		.loc 1 141 0
+ 205 000c 0421     		movs	r1, #4
+ 206 000e 4246     		mov	r2, r8
+ 207 0010 0120     		movs	r0, #1
+ 135:../FreeRTOS/Demo/Common/Minimal/crhook.c **** unsigned portBASE_TYPE uxIndex, uxValueToPost = 0;
+ 208              		.loc 1 135 0
+ 209 0012 46F8048D 		str	r8, [r6, #-4]!
+ 210              	.LVL12:
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 211              		.loc 1 141 0
+ 212 0016 FFF7FEFF 		bl	xQueueGenericCreate
+ 213 001a 40F20004 		movw	r4, #:lower16:.LANCHOR3
+ 214 001e C0F20004 		movt	r4, #:upper16:.LANCHOR3
+ 215 0022 2060     		str	r0, [r4, #0]
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 216              		.loc 1 142 0
+ 217 0024 0421     		movs	r1, #4
+ 218 0026 4246     		mov	r2, r8
+ 219 0028 0120     		movs	r0, #1
+ 220 002a FFF7FEFF 		bl	xQueueGenericCreate
+ 221 002e 40F20007 		movw	r7, #:lower16:.LANCHOR0
+ 222 0032 C0F20007 		movt	r7, #:upper16:.LANCHOR0
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 223              		.loc 1 149 0
+ 224 0036 40F20005 		movw	r5, #:lower16:prvHookCoRoutine
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 225              		.loc 1 146 0
+ 226 003a 4346     		mov	r3, r8
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 227              		.loc 1 149 0
+ 228 003c C0F20005 		movt	r5, #:upper16:prvHookCoRoutine
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 229              		.loc 1 142 0
+ 230 0040 3860     		str	r0, [r7, #0]
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 231              		.loc 1 146 0
+ 232 0042 3146     		mov	r1, r6
+ 233 0044 4246     		mov	r2, r8
+ 234 0046 2068     		ldr	r0, [r4, #0]
+ 235 0048 FFF7FEFF 		bl	xQueueGenericSend
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 236              		.loc 1 149 0
+ 237 004c 0121     		movs	r1, #1
+ 238 004e 4246     		mov	r2, r8
+ 239 0050 2846     		mov	r0, r5
+ 240 0052 FFF7FEFF 		bl	xCoRoutineCreate
+ 241              	.LVL13:
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 242              		.loc 1 141 0
+ 243 0056 0421     		movs	r1, #4
+ 244 0058 4246     		mov	r2, r8
+ 245 005a 0120     		movs	r0, #1
+ 246 005c FFF7FEFF 		bl	xQueueGenericCreate
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 247              		.loc 1 142 0
+ 248 0060 0421     		movs	r1, #4
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 249              		.loc 1 141 0
+ 250 0062 6060     		str	r0, [r4, #4]
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 251              		.loc 1 142 0
+ 252 0064 4246     		mov	r2, r8
+ 253 0066 0120     		movs	r0, #1
+ 254 0068 FFF7FEFF 		bl	xQueueGenericCreate
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 255              		.loc 1 146 0
+ 256 006c 4346     		mov	r3, r8
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 257              		.loc 1 142 0
+ 258 006e 7860     		str	r0, [r7, #4]
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 259              		.loc 1 146 0
+ 260 0070 3146     		mov	r1, r6
+ 261 0072 4246     		mov	r2, r8
+ 262 0074 6068     		ldr	r0, [r4, #4]
+ 263 0076 FFF7FEFF 		bl	xQueueGenericSend
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 264              		.loc 1 149 0
+ 265 007a 0121     		movs	r1, #1
+ 266 007c 0A46     		mov	r2, r1
+ 267 007e 2846     		mov	r0, r5
+ 268 0080 FFF7FEFF 		bl	xCoRoutineCreate
+ 269              	.LVL14:
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 270              		.loc 1 141 0
+ 271 0084 0421     		movs	r1, #4
+ 272 0086 4246     		mov	r2, r8
+ 273 0088 0120     		movs	r0, #1
+ 274 008a FFF7FEFF 		bl	xQueueGenericCreate
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 275              		.loc 1 142 0
+ 276 008e 0421     		movs	r1, #4
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 277              		.loc 1 141 0
+ 278 0090 A060     		str	r0, [r4, #8]
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 279              		.loc 1 142 0
+ 280 0092 4246     		mov	r2, r8
+ 281 0094 0120     		movs	r0, #1
+ 282 0096 FFF7FEFF 		bl	xQueueGenericCreate
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 283              		.loc 1 146 0
+ 284 009a 4346     		mov	r3, r8
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 285              		.loc 1 142 0
+ 286 009c B860     		str	r0, [r7, #8]
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 287              		.loc 1 146 0
+ 288 009e 3146     		mov	r1, r6
+ 289 00a0 4246     		mov	r2, r8
+ 290 00a2 A068     		ldr	r0, [r4, #8]
+ 291 00a4 FFF7FEFF 		bl	xQueueGenericSend
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 292              		.loc 1 149 0
+ 293 00a8 0121     		movs	r1, #1
+ 294 00aa 0222     		movs	r2, #2
+ 295 00ac 2846     		mov	r0, r5
+ 296 00ae FFF7FEFF 		bl	xCoRoutineCreate
+ 297              	.LVL15:
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 298              		.loc 1 141 0
+ 299 00b2 0421     		movs	r1, #4
+ 300 00b4 4246     		mov	r2, r8
+ 301 00b6 0120     		movs	r0, #1
+ 302 00b8 FFF7FEFF 		bl	xQueueGenericCreate
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 303              		.loc 1 142 0
+ 304 00bc 4246     		mov	r2, r8
+ 141:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookRxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 305              		.loc 1 141 0
+ 306 00be E060     		str	r0, [r4, #12]
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 307              		.loc 1 142 0
+ 308 00c0 0421     		movs	r1, #4
+ 309 00c2 0120     		movs	r0, #1
+ 310 00c4 FFF7FEFF 		bl	xQueueGenericCreate
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 311              		.loc 1 146 0
+ 312 00c8 4246     		mov	r2, r8
+ 142:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xHookTxQueues[ uxIndex ] = xQueueCreate( hookHOOK_QUEUE_LENGTH, sizeof( unsigned portBASE_TYPE ) 
+ 313              		.loc 1 142 0
+ 314 00ca F860     		str	r0, [r7, #12]
+ 146:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xQueueSend( xHookRxQueues[ uxIndex ], &uxValueToPost, hookNO_BLOCK_TIME );
+ 315              		.loc 1 146 0
+ 316 00cc 3146     		mov	r1, r6
+ 317 00ce 4346     		mov	r3, r8
+ 318 00d0 E068     		ldr	r0, [r4, #12]
+ 319 00d2 FFF7FEFF 		bl	xQueueGenericSend
+ 149:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		xCoRoutineCreate( prvHookCoRoutine, mainHOOK_CR_PRIORITY, uxIndex );
+ 320              		.loc 1 149 0
+ 321 00d6 2846     		mov	r0, r5
+ 322 00d8 0121     		movs	r1, #1
+ 323 00da 0322     		movs	r2, #3
+ 324 00dc FFF7FEFF 		bl	xCoRoutineCreate
+ 325              	.LVL16:
+ 151:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 326              		.loc 1 151 0
+ 327 00e0 02B0     		add	sp, sp, #8
+ 328 00e2 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 329              		.cfi_endproc
+ 330              	.LFE0:
+ 332 00e6 00BF     		.section	.text.vApplicationTickHook,"ax",%progbits
+ 333              		.align	2
+ 334              		.global	vApplicationTickHook
+ 335              		.thumb
+ 336              		.thumb_func
+ 338              	vApplicationTickHook:
+ 339              	.LFB1:
+ 156:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 340              		.loc 1 156 0
+ 341              		.cfi_startproc
+ 342              		@ args = 0, pretend = 0, frame = 8
+ 343              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	uxCallCounter++;
+ 344              		.loc 1 161 0
+ 345 0000 40F20003 		movw	r3, #:lower16:.LANCHOR4
+ 156:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 346              		.loc 1 156 0
+ 347 0004 30B5     		push	{r4, r5, lr}
+ 348              	.LCFI3:
+ 349              		.cfi_def_cfa_offset 12
+ 350              		.cfi_offset 14, -4
+ 351              		.cfi_offset 5, -8
+ 352              		.cfi_offset 4, -12
+ 161:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	uxCallCounter++;
+ 353              		.loc 1 161 0
+ 354 0006 C0F20003 		movt	r3, #:upper16:.LANCHOR4
+ 355 000a 1868     		ldr	r0, [r3, #0]
+ 156:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 356              		.loc 1 156 0
+ 357 000c 83B0     		sub	sp, sp, #12
+ 358              	.LCFI4:
+ 359              		.cfi_def_cfa_offset 24
+ 161:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	uxCallCounter++;
+ 360              		.loc 1 161 0
+ 361 000e 421C     		adds	r2, r0, #1
+ 162:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	if( uxCallCounter >= hookTICK_CALLS_BEFORE_POST )
+ 362              		.loc 1 162 0
+ 363 0010 B2F5FA7F 		cmp	r2, #500
+ 161:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	uxCallCounter++;
+ 364              		.loc 1 161 0
+ 365 0014 1A60     		str	r2, [r3, #0]
+ 162:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	if( uxCallCounter >= hookTICK_CALLS_BEFORE_POST )
+ 366              		.loc 1 162 0
+ 367 0016 C0F09680 		bcc	.L26
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 368              		.loc 1 169 0
+ 369 001a 40F20004 		movw	r4, #:lower16:.LANCHOR3
+ 164:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxCallCounter = 0;
+ 370              		.loc 1 164 0
+ 371 001e 0025     		movs	r5, #0
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 372              		.loc 1 169 0
+ 373 0020 C0F20004 		movt	r4, #:upper16:.LANCHOR3
+ 374 0024 2068     		ldr	r0, [r4, #0]
+ 375 0026 6946     		mov	r1, sp
+ 376 0028 01AA     		add	r2, sp, #4
+ 164:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxCallCounter = 0;
+ 377              		.loc 1 164 0
+ 378 002a 1D60     		str	r5, [r3, #0]
+ 379              	.LVL17:
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 380              		.loc 1 168 0
+ 381 002c 0195     		str	r5, [sp, #4]
+ 382              	.LVL18:
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 383              		.loc 1 169 0
+ 384 002e FFF7FEFF 		bl	xQueueCRReceiveFromISR
+ 385 0032 0128     		cmp	r0, #1
+ 386 0034 00F08980 		beq	.L47
+ 173:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 387              		.loc 1 173 0
+ 388 0038 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+ 389 003c C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+ 390 0040 40F20005 		movw	r5, #:lower16:.LANCHOR5
+ 391 0044 0121     		movs	r1, #1
+ 392 0046 CEF80010 		str	r1, [lr, #0]
+ 393 004a C0F20005 		movt	r5, #:upper16:.LANCHOR5
+ 394              	.LVL19:
+ 395              	.L30:
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 396              		.loc 1 168 0
+ 397 004e 0023     		movs	r3, #0
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 398              		.loc 1 169 0
+ 399 0050 6068     		ldr	r0, [r4, #4]
+ 400 0052 6946     		mov	r1, sp
+ 401              	.LVL20:
+ 402 0054 01AA     		add	r2, sp, #4
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 403              		.loc 1 168 0
+ 404 0056 0193     		str	r3, [sp, #4]
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 405              		.loc 1 169 0
+ 406 0058 FFF7FEFF 		bl	xQueueCRReceiveFromISR
+ 407 005c 0128     		cmp	r0, #1
+ 408 005e 00F0A880 		beq	.L48
+ 409              	.L32:
+ 173:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 410              		.loc 1 173 0
+ 411 0062 40F2000C 		movw	ip, #:lower16:.LANCHOR2
+ 412 0066 C0F2000C 		movt	ip, #:upper16:.LANCHOR2
+ 413 006a 0121     		movs	r1, #1
+ 414 006c CCF80010 		str	r1, [ip, #0]
+ 415              	.L34:
+ 416              	.LVL21:
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 417              		.loc 1 168 0
+ 418 0070 0023     		movs	r3, #0
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 419              		.loc 1 169 0
+ 420 0072 A068     		ldr	r0, [r4, #8]
+ 421 0074 6946     		mov	r1, sp
+ 422 0076 01AA     		add	r2, sp, #4
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 423              		.loc 1 168 0
+ 424 0078 0193     		str	r3, [sp, #4]
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 425              		.loc 1 169 0
+ 426 007a FFF7FEFF 		bl	xQueueCRReceiveFromISR
+ 427 007e 0128     		cmp	r0, #1
+ 428 0080 00F08980 		beq	.L49
+ 429              	.L36:
+ 173:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 430              		.loc 1 173 0
+ 431 0084 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+ 432 0088 C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+ 433 008c 0121     		movs	r1, #1
+ 434 008e CEF80010 		str	r1, [lr, #0]
+ 435              	.L38:
+ 436              	.LVL22:
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 437              		.loc 1 169 0
+ 438 0092 E068     		ldr	r0, [r4, #12]
+ 439 0094 6946     		mov	r1, sp
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 440              		.loc 1 168 0
+ 441 0096 0024     		movs	r4, #0
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 442              		.loc 1 169 0
+ 443 0098 01AA     		add	r2, sp, #4
+ 168:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			xCoRoutineWoken = pdFALSE;
+ 444              		.loc 1 168 0
+ 445 009a 0194     		str	r4, [sp, #4]
+ 169:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_RECEIVE_FROM_ISR( xHookRxQueues[ xIndex ], &uxReceivedNumber, &xCoRoutineWoken ) != 
+ 446              		.loc 1 169 0
+ 447 009c FFF7FEFF 		bl	xQueueCRReceiveFromISR
+ 448 00a0 0128     		cmp	r0, #1
+ 449 00a2 6BD0     		beq	.L40
+ 450              	.L46:
+ 187:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 451              		.loc 1 187 0
+ 452 00a4 40F2000C 		movw	ip, #:lower16:.LANCHOR2
+ 453 00a8 C0F2000C 		movt	ip, #:upper16:.LANCHOR2
+ 454 00ac 0120     		movs	r0, #1
+ 455 00ae CCF80000 		str	r0, [ip, #0]
+ 456              	.L41:
+ 457              	.LVL23:
+ 193:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxNumberToPost++;
+ 458              		.loc 1 193 0
+ 459 00b2 2A68     		ldr	r2, [r5, #0]
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 460              		.loc 1 197 0
+ 461 00b4 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 193:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxNumberToPost++;
+ 462              		.loc 1 193 0
+ 463 00b8 531C     		adds	r3, r2, #1
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 464              		.loc 1 197 0
+ 465 00ba C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 466 00be 40F20001 		movw	r1, #:lower16:.LANCHOR5
+ 467 00c2 0022     		movs	r2, #0
+ 468 00c4 2068     		ldr	r0, [r4, #0]
+ 469 00c6 C0F20001 		movt	r1, #:upper16:.LANCHOR5
+ 193:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		uxNumberToPost++;
+ 470              		.loc 1 193 0
+ 471 00ca 2B60     		str	r3, [r5, #0]
+ 472              	.LVL24:
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 473              		.loc 1 197 0
+ 474 00cc FFF7FEFF 		bl	xQueueCRSendFromISR
+ 475 00d0 0128     		cmp	r0, #1
+ 476 00d2 06D0     		beq	.L43
+ 201:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 477              		.loc 1 201 0
+ 478 00d4 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+ 479 00d8 C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+ 480 00dc 0121     		movs	r1, #1
+ 481 00de CEF80010 		str	r1, [lr, #0]
+ 482              	.L43:
+ 483              	.LVL25:
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 484              		.loc 1 197 0
+ 485 00e2 40F20001 		movw	r1, #:lower16:.LANCHOR5
+ 486 00e6 0022     		movs	r2, #0
+ 487 00e8 6068     		ldr	r0, [r4, #4]
+ 488 00ea C0F20001 		movt	r1, #:upper16:.LANCHOR5
+ 489 00ee FFF7FEFF 		bl	xQueueCRSendFromISR
+ 490 00f2 0128     		cmp	r0, #1
+ 491 00f4 06D0     		beq	.L44
+ 201:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 492              		.loc 1 201 0
+ 493 00f6 40F2000C 		movw	ip, #:lower16:.LANCHOR2
+ 494 00fa C0F2000C 		movt	ip, #:upper16:.LANCHOR2
+ 495 00fe 0120     		movs	r0, #1
+ 496 0100 CCF80000 		str	r0, [ip, #0]
+ 497              	.L44:
+ 498              	.LVL26:
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 499              		.loc 1 197 0
+ 500 0104 40F20001 		movw	r1, #:lower16:.LANCHOR5
+ 501 0108 0022     		movs	r2, #0
+ 502 010a A068     		ldr	r0, [r4, #8]
+ 503 010c C0F20001 		movt	r1, #:upper16:.LANCHOR5
+ 504 0110 FFF7FEFF 		bl	xQueueCRSendFromISR
+ 505 0114 0128     		cmp	r0, #1
+ 506 0116 05D0     		beq	.L45
+ 201:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 507              		.loc 1 201 0
+ 508 0118 40F20003 		movw	r3, #:lower16:.LANCHOR2
+ 509 011c C0F20003 		movt	r3, #:upper16:.LANCHOR2
+ 510 0120 0122     		movs	r2, #1
+ 511 0122 1A60     		str	r2, [r3, #0]
+ 512              	.L45:
+ 513              	.LVL27:
+ 197:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 			if( crQUEUE_SEND_FROM_ISR( xHookTxQueues[ xIndex ], &uxNumberToPost, pdFALSE ) != pdTRUE )
+ 514              		.loc 1 197 0
+ 515 0124 40F20001 		movw	r1, #:lower16:.LANCHOR5
+ 516 0128 0022     		movs	r2, #0
+ 517 012a E068     		ldr	r0, [r4, #12]
+ 518 012c C0F20001 		movt	r1, #:upper16:.LANCHOR5
+ 519 0130 FFF7FEFF 		bl	xQueueCRSendFromISR
+ 520 0134 0128     		cmp	r0, #1
+ 521 0136 06D0     		beq	.L26
+ 201:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				xCoRoutineErrorDetected = pdTRUE;
+ 522              		.loc 1 201 0
+ 523 0138 40F2000E 		movw	lr, #:lower16:.LANCHOR2
+ 524 013c C0F2000E 		movt	lr, #:upper16:.LANCHOR2
+ 525 0140 0121     		movs	r1, #1
+ 526 0142 CEF80010 		str	r1, [lr, #0]
+ 527              	.LVL28:
+ 528              	.L26:
+ 205:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 529              		.loc 1 205 0
+ 530 0146 03B0     		add	sp, sp, #12
+ 531 0148 30BD     		pop	{r4, r5, pc}
+ 532              	.LVL29:
+ 533              	.L47:
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 534              		.loc 1 179 0
+ 535 014a 40F20005 		movw	r5, #:lower16:.LANCHOR5
+ 536 014e C0F20005 		movt	r5, #:upper16:.LANCHOR5
+ 537 0152 2B68     		ldr	r3, [r5, #0]
+ 538              	.LVL30:
+ 539 0154 0099     		ldr	r1, [sp, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 540              		.loc 1 185 0
+ 541 0156 019A     		ldr	r2, [sp, #4]
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 542              		.loc 1 179 0
+ 543 0158 9942     		cmp	r1, r3
+ 181:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 544              		.loc 1 181 0
+ 545 015a 1EBF     		ittt	ne
+ 546 015c 40F20003 		movwne	r3, #:lower16:.LANCHOR2
+ 547 0160 C0F20003 		movtne	r3, #:upper16:.LANCHOR2
+ 548 0164 1860     		strne	r0, [r3, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 549              		.loc 1 185 0
+ 550 0166 002A     		cmp	r2, #0
+ 551 0168 3FF471AF 		beq	.L30
+ 187:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 552              		.loc 1 187 0
+ 553 016c 40F2000C 		movw	ip, #:lower16:.LANCHOR2
+ 554 0170 C0F2000C 		movt	ip, #:upper16:.LANCHOR2
+ 555 0174 0120     		movs	r0, #1
+ 556 0176 CCF80000 		str	r0, [ip, #0]
+ 557 017a 68E7     		b	.L30
+ 558              	.LVL31:
+ 559              	.L40:
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 560              		.loc 1 179 0
+ 561 017c 2968     		ldr	r1, [r5, #0]
+ 562 017e 009A     		ldr	r2, [sp, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 563              		.loc 1 185 0
+ 564 0180 019B     		ldr	r3, [sp, #4]
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 565              		.loc 1 179 0
+ 566 0182 8A42     		cmp	r2, r1
+ 181:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 567              		.loc 1 181 0
+ 568 0184 1EBF     		ittt	ne
+ 569 0186 40F20001 		movwne	r1, #:lower16:.LANCHOR2
+ 570 018a C0F20001 		movtne	r1, #:upper16:.LANCHOR2
+ 571 018e 0860     		strne	r0, [r1, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 572              		.loc 1 185 0
+ 573 0190 002B     		cmp	r3, #0
+ 574 0192 8ED0     		beq	.L41
+ 575 0194 86E7     		b	.L46
+ 576              	.LVL32:
+ 577              	.L49:
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 578              		.loc 1 179 0
+ 579 0196 2968     		ldr	r1, [r5, #0]
+ 580 0198 009A     		ldr	r2, [sp, #0]
+ 581 019a 8A42     		cmp	r2, r1
+ 181:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 582              		.loc 1 181 0
+ 583 019c 1EBF     		ittt	ne
+ 584 019e 40F20001 		movwne	r1, #:lower16:.LANCHOR2
+ 585 01a2 C0F20001 		movtne	r1, #:upper16:.LANCHOR2
+ 586 01a6 0860     		strne	r0, [r1, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 587              		.loc 1 185 0
+ 588 01a8 0198     		ldr	r0, [sp, #4]
+ 589 01aa 0028     		cmp	r0, #0
+ 590 01ac 3FF471AF 		beq	.L38
+ 591 01b0 68E7     		b	.L36
+ 592              	.LVL33:
+ 593              	.L48:
+ 179:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( uxReceivedNumber != uxNumberToPost )
+ 594              		.loc 1 179 0
+ 595 01b2 2968     		ldr	r1, [r5, #0]
+ 596 01b4 009A     		ldr	r2, [sp, #0]
+ 597 01b6 8A42     		cmp	r2, r1
+ 181:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 					xCoRoutineErrorDetected = pdTRUE;
+ 598              		.loc 1 181 0
+ 599 01b8 1EBF     		ittt	ne
+ 600 01ba 40F20001 		movwne	r1, #:lower16:.LANCHOR2
+ 601 01be C0F20001 		movtne	r1, #:upper16:.LANCHOR2
+ 602 01c2 0860     		strne	r0, [r1, #0]
+ 185:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 				if( xCoRoutineWoken != pdFALSE )
+ 603              		.loc 1 185 0
+ 604 01c4 0198     		ldr	r0, [sp, #4]
+ 605 01c6 0028     		cmp	r0, #0
+ 606 01c8 3FF452AF 		beq	.L34
+ 607 01cc 49E7     		b	.L32
+ 608              		.cfi_endproc
+ 609              	.LFE1:
+ 611 01ce 00BF     		.section	.text.xAreHookCoRoutinesStillRunning,"ax",%progbits
+ 612              		.align	2
+ 613              		.global	xAreHookCoRoutinesStillRunning
+ 614              		.thumb
+ 615              		.thumb_func
+ 617              	xAreHookCoRoutinesStillRunning:
+ 618              	.LFB3:
+ 237:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		}
+ 238:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	}
+ 239:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 240:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	/* Each co-routine MUST end with a call to crEND(). */
+ 241:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	crEND();
+ 242:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 243:../FreeRTOS/Demo/Common/Minimal/crhook.c **** /*-----------------------------------------------------------*/
+ 244:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 
+ 245:../FreeRTOS/Demo/Common/Minimal/crhook.c **** portBASE_TYPE xAreHookCoRoutinesStillRunning( void )
+ 246:../FreeRTOS/Demo/Common/Minimal/crhook.c **** {
+ 619              		.loc 1 246 0
+ 620              		.cfi_startproc
+ 621              		@ args = 0, pretend = 0, frame = 0
+ 622              		@ frame_needed = 0, uses_anonymous_args = 0
+ 623              		@ link register save eliminated.
+ 247:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	if( xCoRoutineErrorDetected )
+ 248:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	{
+ 249:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		return pdFALSE;
+ 624              		.loc 1 249 0
+ 625 0000 40F20003 		movw	r3, #:lower16:.LANCHOR2
+ 626 0004 C0F20003 		movt	r3, #:upper16:.LANCHOR2
+ 627 0008 1868     		ldr	r0, [r3, #0]
+ 250:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	}
+ 251:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	else
+ 252:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	{
+ 253:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 		return pdTRUE;
+ 254:../FreeRTOS/Demo/Common/Minimal/crhook.c **** 	}
+ 255:../FreeRTOS/Demo/Common/Minimal/crhook.c **** }
+ 628              		.loc 1 255 0
+ 629 000a D0F10100 		rsbs	r0, r0, #1
+ 630 000e 38BF     		it	cc
+ 631 0010 0020     		movcc	r0, #0
+ 632 0012 7047     		bx	lr
+ 633              		.cfi_endproc
+ 634              	.LFE3:
+ 636              		.section	.bss.xHookRxQueues,"aw",%nobits
+ 637              		.align	2
+ 638              		.set	.LANCHOR3,. + 0
+ 641              	xHookRxQueues:
+ 642 0000 00000000 		.space	16
+ 642      00000000 
+ 642      00000000 
+ 642      00000000 
+ 643              		.section	.bss.xCoRoutineErrorDetected,"aw",%nobits
+ 644              		.align	2
+ 645              		.set	.LANCHOR2,. + 0
+ 648              	xCoRoutineErrorDetected:
+ 649 0000 00000000 		.space	4
+ 650              		.section	.bss.uxReceivedValue.4124,"aw",%nobits
+ 651              		.align	2
+ 652              		.set	.LANCHOR1,. + 0
+ 655              	uxReceivedValue.4124:
+ 656 0000 00000000 		.space	16
+ 656      00000000 
+ 656      00000000 
+ 656      00000000 
+ 657              		.section	.bss.xHookTxQueues,"aw",%nobits
+ 658              		.align	2
+ 659              		.set	.LANCHOR0,. + 0
+ 662              	xHookTxQueues:
+ 663 0000 00000000 		.space	16
+ 663      00000000 
+ 663      00000000 
+ 663      00000000 
+ 664              		.section	.bss.uxNumberToPost,"aw",%nobits
+ 665              		.align	2
+ 666              		.set	.LANCHOR5,. + 0
+ 669              	uxNumberToPost:
+ 670 0000 00000000 		.space	4
+ 671              		.section	.bss.uxCallCounter,"aw",%nobits
+ 672              		.align	2
+ 673              		.set	.LANCHOR4,. + 0
+ 676              	uxCallCounter:
+ 677 0000 00000000 		.space	4
+ 678              		.text
+ 679              	.Letext0:
+ 680              		.file 2 "../FreeRTOS/Source/include/list.h"
+ 681              		.file 3 "../FreeRTOS/Source/include/../../Source/portable/GCC/ARM_CM3/portmacro.h"
+ 682              		.file 4 "../FreeRTOS/Source/include/croutine.h"
+ 683              		.file 5 "../FreeRTOS/Source/include/queue.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 crhook.c
+     /tmp/ccCZct2g.s:19     .text.prvHookCoRoutine:00000000 $t
+     /tmp/ccCZct2g.s:23     .text.prvHookCoRoutine:00000000 prvHookCoRoutine
+     /tmp/ccCZct2g.s:652    .bss.uxReceivedValue.4124:00000000 .LANCHOR1
+     /tmp/ccCZct2g.s:659    .bss.xHookTxQueues:00000000 .LANCHOR0
+     /tmp/ccCZct2g.s:645    .bss.xCoRoutineErrorDetected:00000000 .LANCHOR2
+     /tmp/ccCZct2g.s:638    .bss.xHookRxQueues:00000000 .LANCHOR3
+     /tmp/ccCZct2g.s:176    .text.vStartHookCoRoutines:00000000 $t
+     /tmp/ccCZct2g.s:181    .text.vStartHookCoRoutines:00000000 vStartHookCoRoutines
+     /tmp/ccCZct2g.s:333    .text.vApplicationTickHook:00000000 $t
+     /tmp/ccCZct2g.s:338    .text.vApplicationTickHook:00000000 vApplicationTickHook
+     /tmp/ccCZct2g.s:673    .bss.uxCallCounter:00000000 .LANCHOR4
+     /tmp/ccCZct2g.s:666    .bss.uxNumberToPost:00000000 .LANCHOR5
+     /tmp/ccCZct2g.s:612    .text.xAreHookCoRoutinesStillRunning:00000000 $t
+     /tmp/ccCZct2g.s:617    .text.xAreHookCoRoutinesStillRunning:00000000 xAreHookCoRoutinesStillRunning
+     /tmp/ccCZct2g.s:637    .bss.xHookRxQueues:00000000 $d
+     /tmp/ccCZct2g.s:641    .bss.xHookRxQueues:00000000 xHookRxQueues
+     /tmp/ccCZct2g.s:644    .bss.xCoRoutineErrorDetected:00000000 $d
+     /tmp/ccCZct2g.s:648    .bss.xCoRoutineErrorDetected:00000000 xCoRoutineErrorDetected
+     /tmp/ccCZct2g.s:651    .bss.uxReceivedValue.4124:00000000 $d
+     /tmp/ccCZct2g.s:655    .bss.uxReceivedValue.4124:00000000 uxReceivedValue.4124
+     /tmp/ccCZct2g.s:658    .bss.xHookTxQueues:00000000 $d
+     /tmp/ccCZct2g.s:662    .bss.xHookTxQueues:00000000 xHookTxQueues
+     /tmp/ccCZct2g.s:665    .bss.uxNumberToPost:00000000 $d
+     /tmp/ccCZct2g.s:669    .bss.uxNumberToPost:00000000 uxNumberToPost
+     /tmp/ccCZct2g.s:672    .bss.uxCallCounter:00000000 $d
+     /tmp/ccCZct2g.s:676    .bss.uxCallCounter:00000000 uxCallCounter
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+xQueueCRReceive
+xQueueCRSend
+xQueueGenericCreate
+xQueueGenericSend
+xCoRoutineCreate
+xQueueCRReceiveFromISR
+xQueueCRSendFromISR

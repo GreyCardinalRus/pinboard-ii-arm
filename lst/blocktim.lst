@@ -1,0 +1,1503 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"blocktim.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.vSecondaryBlockTimeTestTask,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  23              	vSecondaryBlockTimeTestTask:
+  24              	.LFB2:
+  25              		.file 1 "../FreeRTOS/Demo/Common/Minimal/blocktim.c"
+   1:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*
+   2:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     FreeRTOS V7.1.0 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	
+   4:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+   5:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     ***************************************************************************
+   6:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *                                                                       *
+   7:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+   8:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    Complete, revised, and edited pdf reference manuals are also       *
+   9:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    available.                                                         *
+  10:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *                                                                       *
+  11:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  12:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    ensuring you get running as quickly as possible and with an        *
+  13:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  14:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    the FreeRTOS project to continue with its mission of providing     *
+  15:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    professional grade, cross platform, de facto standard solutions    *
+  16:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    for microcontrollers - completely free of charge!                  *
+  17:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *                                                                       *
+  18:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  19:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *                                                                       *
+  20:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  21:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****      *                                                                       *
+  22:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     ***************************************************************************
+  23:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  24:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  25:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     This file is part of the FreeRTOS distribution.
+  26:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  27:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  28:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     the terms of the GNU General Public License (version 2) as published by the
+  29:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  30:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  31:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     distribute a combined work that includes FreeRTOS without being obliged to
+  32:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     provide the source code for proprietary components outside of the FreeRTOS
+  33:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  34:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  35:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  36:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     more details. You should have received a copy of the GNU General Public
+  37:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  38:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  39:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     by writing to Richard Barry, contact details for whom are available on the
+  40:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     FreeRTOS WEB site.
+  41:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  42:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     1 tab == 4 spaces!
+  43:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  44:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  45:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     contact details.
+  46:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  47:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  48:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     critical systems.
+  49:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  50:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  51:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     licensing and training services.
+  52:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** */
+  53:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  54:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*
+  55:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****  * This file contains some test scenarios that ensure tasks do not exit queue
+  56:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****  * send or receive functions prematurely.  A description of the tests is
+  57:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****  * included within the code.
+  58:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****  */
+  59:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  60:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Kernel includes. */
+  61:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #include "FreeRTOS.h"
+  62:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #include "task.h"
+  63:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #include "queue.h"
+  64:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  65:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Demo includes. */
+  66:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #include "blocktim.h"
+  67:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  68:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Task priorities.  Allow these to be overridden. */
+  69:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #ifndef bktPRIMARY_PRIORITY
+  70:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	#define bktPRIMARY_PRIORITY		( configMAX_PRIORITIES - 3 )
+  71:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #endif
+  72:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  73:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #ifndef bktSECONDARY_PRIORITY
+  74:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	#define bktSECONDARY_PRIORITY	( configMAX_PRIORITIES - 4 )
+  75:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #endif
+  76:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  77:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Task behaviour. */
+  78:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktQUEUE_LENGTH				( 5 )
+  79:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktSHORT_WAIT				( ( ( portTickType ) 20 ) / portTICK_RATE_MS )
+  80:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktPRIMARY_BLOCK_TIME		( 10 )
+  81:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktALLOWABLE_MARGIN			( 15 )
+  82:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktTIME_TO_BLOCK			( 175 )
+  83:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktDONT_BLOCK				( ( portTickType ) 0 )
+  84:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** #define bktRUN_INDICATOR			( ( unsigned portBASE_TYPE ) 0x55 )
+  85:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  86:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* The queue on which the tasks block. */
+  87:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static xQueueHandle xTestQueue;
+  88:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  89:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Handle to the secondary task is required by the primary task for calls
+  90:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** to vTaskSuspend/Resume(). */
+  91:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static xTaskHandle xSecondary;
+  92:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  93:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Used to ensure that tasks are still executing without error. */
+  94:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static volatile portBASE_TYPE xPrimaryCycles = 0, xSecondaryCycles = 0;
+  95:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static volatile portBASE_TYPE xErrorOccurred = pdFALSE;
+  96:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+  97:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* Provides a simple mechanism for the primary task to know when the
+  98:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** secondary task has executed. */
+  99:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static volatile unsigned portBASE_TYPE xRunIndicator;
+ 100:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 101:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /* The two test tasks.  Their behaviour is commented within the files. */
+ 102:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static void vPrimaryBlockTimeTestTask( void *pvParameters );
+ 103:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static void vSecondaryBlockTimeTestTask( void *pvParameters );
+ 104:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 105:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*-----------------------------------------------------------*/
+ 106:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 107:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** void vCreateBlockTimeTasks( void )
+ 108:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 109:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	/* Create the queue on which the two tasks block. */
+ 110:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     xTestQueue = xQueueCreate( bktQUEUE_LENGTH, sizeof( portBASE_TYPE ) );
+ 111:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 112:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	/* vQueueAddToRegistry() adds the queue to the queue registry, if one is
+ 113:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	in use.  The queue registry is provided as a means for kernel aware
+ 114:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	debuggers to locate queues and has no purpose if a kernel aware debugger
+ 115:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	is not being used.  The call to vQueueAddToRegistry() will be removed
+ 116:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	by the pre-processor if configQUEUE_REGISTRY_SIZE is not defined or is
+ 117:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	defined to be less than 1. */
+ 118:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	vQueueAddToRegistry( xTestQueue, ( signed char * ) "Block_Time_Queue" );
+ 119:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 120:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	/* Create the two test tasks. */
+ 121:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vPrimaryBlockTimeTestTask, ( signed char * )"BTest1", configMINIMAL_STACK_SIZE, NULL,
+ 122:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vSecondaryBlockTimeTestTask, ( signed char * )"BTest2", configMINIMAL_STACK_SIZE, NUL
+ 123:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** }
+ 124:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*-----------------------------------------------------------*/
+ 125:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 126:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static void vPrimaryBlockTimeTestTask( void *pvParameters )
+ 127:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 128:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portBASE_TYPE xItem, xData;
+ 129:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portTickType xTimeWhenBlocking;
+ 130:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portTickType xTimeToBlock, xBlockedTime;
+ 131:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 132:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	( void ) pvParameters;
+ 133:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 134:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	for( ;; )
+ 135:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	{
+ 136:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 137:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 1
+ 138:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 139:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Simple block time wakeup test on queue receives. */
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 141:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 142:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* The queue is empty. Attempt to read from the queue using a block
+ 143:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			time.  When we wake, ensure the delta in time is as expected. */
+ 144:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 145:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 146:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 147:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 148:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* We should unblock after xTimeToBlock having not received
+ 149:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			anything on the queue. */
+ 150:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, xTimeToBlock ) != errQUEUE_EMPTY )
+ 151:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 152:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 153:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 154:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 155:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* How long were we blocked for? */
+ 156:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 157:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 158:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime < xTimeToBlock )
+ 159:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 160:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* Should not have blocked for less than we requested. */
+ 161:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 162:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 163:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 164:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 165:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 166:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* Should not have blocked for longer than we requested,
+ 167:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				although we would not necessarily run as soon as we were
+ 168:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				unblocked so a margin is allowed. */
+ 169:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 170:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 171:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 172:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 173:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 174:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 2
+ 175:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 176:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Simple block time wakeup test on queue sends.
+ 177:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 178:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		First fill the queue.  It should be empty so all sends should pass. */
+ 179:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 180:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 181:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 182:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 183:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 184:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 185:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 186:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			#if configUSE_PREEMPTION == 0
+ 187:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				taskYIELD();
+ 188:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			#endif
+ 189:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 190:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 192:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 193:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* The queue is full. Attempt to write to the queue using a block
+ 194:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			time.  When we wake, ensure the delta in time is as expected. */
+ 195:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 196:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 197:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 198:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 199:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* We should unblock after xTimeToBlock having not received
+ 200:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			anything on the queue. */
+ 201:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, xTimeToBlock ) != errQUEUE_FULL )
+ 202:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 203:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 204:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 205:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 206:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* How long were we blocked for? */
+ 207:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 208:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 209:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime < xTimeToBlock )
+ 210:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 211:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* Should not have blocked for less than we requested. */
+ 212:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 213:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 214:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 215:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 216:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 217:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* Should not have blocked for longer than we requested,
+ 218:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				although we would not necessarily run as soon as we were
+ 219:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				unblocked so a margin is allowed. */
+ 220:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 221:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 222:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 223:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 224:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 225:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 3
+ 226:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 227:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		Wake the other task, it will block attempting to post to the queue.
+ 228:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		When we read from the queue the other task will wake, but before it
+ 229:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		can run we will post to the queue again.  When the other task runs it
+ 230:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		will find the queue still full, even though it was woken.  It should
+ 231:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		recognise that its block time has not expired and return to block for
+ 232:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		the remains of its block time.
+ 233:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 234:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		Wake the other task so it blocks attempting to post to the already
+ 235:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		full queue. */
+ 236:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 237:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskResume( xSecondary );
+ 238:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 239:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We need to wait a little to ensure the other task executes. */
+ 240:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 241:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 242:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* The other task has not yet executed. */
+ 243:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 244:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 245:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* Make sure the other task is blocked on the queue. */
+ 246:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 247:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 248:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 249:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 250:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 251:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Now when we make space on the queue the other task should wake
+ 252:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			but not execute as this task has higher priority. */
+ 253:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 254:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 255:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 256:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 257:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 258:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Now fill the queue again before the other task gets a chance to
+ 259:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			execute.  If the other task had executed we would find the queue
+ 260:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			full ourselves, and the other task have set xRunIndicator. */
+ 261:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 262:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 263:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 264:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 265:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 266:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 267:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 268:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* The other task should not have executed. */
+ 269:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 270:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 271:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 272:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Raise the priority of the other task so it executes and blocks
+ 273:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			on the queue again. */
+ 274:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 275:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 276:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* The other task should now have re-blocked without exiting the
+ 277:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			queue function. */
+ 278:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 279:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 280:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* The other task should not have executed outside of the
+ 281:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				queue function. */
+ 282:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 283:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 284:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 285:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Set the priority back down. */
+ 286:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 287:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 288:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 289:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* Let the other task timeout.  When it unblockes it will check that it
+ 290:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		unblocked at the correct time, then suspend itself. */
+ 291:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 292:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 293:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 294:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 295:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 296:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 297:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 298:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 299:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 300:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 4
+ 301:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 302:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		As per test 3 - but with the send and receive the other way around.
+ 303:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		The other task blocks attempting to read from the queue.
+ 304:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 305:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		Empty the queue.  We should find that it is full. */
+ 306:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 307:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 308:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 309:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 310:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 311:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 312:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 313:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 314:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* Wake the other task so it blocks attempting to read from  the
+ 315:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		already	empty queue. */
+ 316:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskResume( xSecondary );
+ 317:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 318:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We need to wait a little to ensure the other task executes. */
+ 319:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 320:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 321:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 322:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 323:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 324:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 325:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 326:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 327:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 328:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Now when we place an item on the queue the other task should
+ 329:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			wake but not execute as this task has higher priority. */
+ 330:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 331:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 332:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 333:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 334:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 335:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Now empty the queue again before the other task gets a chance to
+ 336:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			execute.  If the other task had executed we would find the queue
+ 337:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			empty ourselves, and the other task would be suspended. */
+ 338:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 339:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 340:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 341:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 342:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 343:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 344:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 345:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* The other task should not have executed. */
+ 346:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 347:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 348:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 349:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* Raise the priority of the other task so it executes and blocks
+ 350:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			on the queue again. */
+ 351:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 352:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 353:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			/* The other task should now have re-blocked without exiting the
+ 354:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			queue function. */
+ 355:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 356:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			{
+ 357:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				/* The other task should not have executed outside of the
+ 358:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				queue function. */
+ 359:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 360:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			}
+ 361:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 362:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 363:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 364:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* Let the other task timeout.  When it unblockes it will check that it
+ 365:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		unblocked at the correct time, then suspend itself. */
+ 366:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 367:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 368:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 369:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 370:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 371:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 372:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xPrimaryCycles++;
+ 373:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 374:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** }
+ 375:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*-----------------------------------------------------------*/
+ 376:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 377:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static void vSecondaryBlockTimeTestTask( void *pvParameters )
+ 378:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+  26              		.loc 1 378 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 8
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 36
+  34              		.cfi_offset 14, -4
+  35              		.cfi_offset 11, -8
+  36              		.cfi_offset 10, -12
+  37              		.cfi_offset 9, -16
+  38              		.cfi_offset 8, -20
+  39              		.cfi_offset 7, -24
+  40              		.cfi_offset 6, -28
+  41              		.cfi_offset 5, -32
+  42              		.cfi_offset 4, -36
+  43 0004 40F20004 		movw	r4, #:lower16:.LANCHOR0
+  44 0008 40F20009 		movw	r9, #:lower16:.LANCHOR1
+  45 000c 40F20006 		movw	r6, #:lower16:.LANCHOR2
+  46 0010 40F2000A 		movw	sl, #:lower16:.LANCHOR3
+  47 0014 83B0     		sub	sp, sp, #12
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_offset 48
+  50 0016 C0F20004 		movt	r4, #:upper16:.LANCHOR0
+  51 001a C0F20009 		movt	r9, #:upper16:.LANCHOR1
+  52 001e C0F20006 		movt	r6, #:upper16:.LANCHOR2
+  53 0022 C0F2000A 		movt	sl, #:upper16:.LANCHOR3
+ 379:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portTickType xTimeWhenBlocking, xBlockedTime;
+ 380:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portBASE_TYPE xData;
+ 381:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 382:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	( void ) pvParameters;
+ 383:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 384:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	for( ;; )
+ 385:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	{
+ 386:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 387:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 1 and 2
+ 388:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 389:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		This task does does not participate in these tests. */
+ 390:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskSuspend( NULL );
+  54              		.loc 1 390 0
+  55 0026 4FF0000B 		mov	fp, #0
+ 391:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 392:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 393:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 3
+ 394:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 395:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		The first thing we do is attempt to read from the queue.  It should be
+ 396:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		full so we block.  Note the time before we block so we can check the
+ 397:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		wake time is as per that expected. */
+ 398:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xTimeWhenBlocking = xTaskGetTickCount();
+ 399:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 400:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should unblock after bktTIME_TO_BLOCK having not sent
+ 401:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		anything to the queue. */
+ 402:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xData = 0;
+ 403:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+  56              		.loc 1 403 0
+  57 002a 5525     		movs	r5, #85
+ 404:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xQueueSend( xTestQueue, &xData, bktTIME_TO_BLOCK ) != errQUEUE_FULL )
+ 405:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 406:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+  58              		.loc 1 406 0
+  59 002c 4FF00108 		mov	r8, #1
+  60              	.LVL1:
+  61              	.L8:
+ 390:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskSuspend( NULL );
+  62              		.loc 1 390 0
+  63 0030 0020     		movs	r0, #0
+  64 0032 FFF7FEFF 		bl	vTaskSuspend
+ 398:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xTimeWhenBlocking = xTaskGetTickCount();
+  65              		.loc 1 398 0
+  66 0036 FFF7FEFF 		bl	xTaskGetTickCount
+ 404:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xQueueSend( xTestQueue, &xData, bktTIME_TO_BLOCK ) != errQUEUE_FULL )
+  67              		.loc 1 404 0
+  68 003a 01A9     		add	r1, sp, #4
+ 398:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xTimeWhenBlocking = xTaskGetTickCount();
+  69              		.loc 1 398 0
+  70 003c 0746     		mov	r7, r0
+  71              	.LVL2:
+ 404:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xQueueSend( xTestQueue, &xData, bktTIME_TO_BLOCK ) != errQUEUE_FULL )
+  72              		.loc 1 404 0
+  73 003e AF22     		movs	r2, #175
+  74 0040 D9F80000 		ldr	r0, [r9, #0]
+  75              	.LVL3:
+  76 0044 0023     		movs	r3, #0
+ 402:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xData = 0;
+  77              		.loc 1 402 0
+  78 0046 CDF804B0 		str	fp, [sp, #4]
+ 403:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+  79              		.loc 1 403 0
+  80 004a 2560     		str	r5, [r4, #0]
+ 404:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xQueueSend( xTestQueue, &xData, bktTIME_TO_BLOCK ) != errQUEUE_FULL )
+  81              		.loc 1 404 0
+  82 004c FFF7FEFF 		bl	xQueueGenericSend
+  83 0050 08B1     		cbz	r0, .L2
+  84              		.loc 1 406 0
+  85 0052 C6F80080 		str	r8, [r6, #0]
+  86              	.L2:
+ 407:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 408:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 409:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* How long were we inside the send function? */
+ 410:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+  87              		.loc 1 410 0
+  88 0056 FFF7FEFF 		bl	xTaskGetTickCount
+  89 005a C01B     		subs	r0, r0, r7
+  90              	.LVL4:
+ 411:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 412:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should not have blocked for less time than bktTIME_TO_BLOCK. */
+ 413:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xBlockedTime < bktTIME_TO_BLOCK )
+  91              		.loc 1 413 0
+  92 005c AE28     		cmp	r0, #174
+  93 005e 01D9     		bls	.L9
+ 414:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 415:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+ 416:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 417:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 418:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should of not blocked for much longer than bktALLOWABLE_MARGIN
+ 419:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		either.  A margin is permitted as we would not necessarily run as
+ 420:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		soon as we unblocked. */
+ 421:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xBlockedTime > ( bktTIME_TO_BLOCK + bktALLOWABLE_MARGIN ) )
+  94              		.loc 1 421 0
+  95 0060 BE28     		cmp	r0, #190
+  96 0062 01D9     		bls	.L4
+  97              	.L9:
+ 422:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 423:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+  98              		.loc 1 423 0
+  99 0064 C6F80080 		str	r8, [r6, #0]
+ 100              	.L4:
+ 424:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 425:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 426:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* Suspend ready for test 3. */
+ 427:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+ 428:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskSuspend( NULL );
+ 101              		.loc 1 428 0
+ 102 0068 0020     		movs	r0, #0
+ 103              	.LVL5:
+ 427:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+ 104              		.loc 1 427 0
+ 105 006a 2560     		str	r5, [r4, #0]
+ 106              		.loc 1 428 0
+ 107 006c FFF7FEFF 		bl	vTaskSuspend
+ 429:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 430:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/*********************************************************************
+ 431:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****         Test 4
+ 432:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 433:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		As per test three, but with the send and receive reversed. */
+ 434:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xTimeWhenBlocking = xTaskGetTickCount();
+ 108              		.loc 1 434 0
+ 109 0070 FFF7FEFF 		bl	xTaskGetTickCount
+ 435:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 436:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should unblock after bktTIME_TO_BLOCK having not received
+ 437:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		anything on the queue. */
+ 438:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+ 439:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xQueueReceive( xTestQueue, &xData, bktTIME_TO_BLOCK ) != errQUEUE_EMPTY )
+ 110              		.loc 1 439 0
+ 111 0074 01A9     		add	r1, sp, #4
+ 434:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xTimeWhenBlocking = xTaskGetTickCount();
+ 112              		.loc 1 434 0
+ 113 0076 0746     		mov	r7, r0
+ 114              	.LVL6:
+ 115              		.loc 1 439 0
+ 116 0078 AF22     		movs	r2, #175
+ 117 007a D9F80000 		ldr	r0, [r9, #0]
+ 118              	.LVL7:
+ 119 007e 0023     		movs	r3, #0
+ 438:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+ 120              		.loc 1 438 0
+ 121 0080 2560     		str	r5, [r4, #0]
+ 122              		.loc 1 439 0
+ 123 0082 FFF7FEFF 		bl	xQueueGenericReceive
+ 124 0086 08B1     		cbz	r0, .L5
+ 440:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 441:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+ 125              		.loc 1 441 0
+ 126 0088 C6F80080 		str	r8, [r6, #0]
+ 127              	.L5:
+ 442:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 443:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 444:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 128              		.loc 1 444 0
+ 129 008c FFF7FEFF 		bl	xTaskGetTickCount
+ 130 0090 C01B     		subs	r0, r0, r7
+ 131              	.LVL8:
+ 445:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 446:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should not have blocked for less time than bktTIME_TO_BLOCK. */
+ 447:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xBlockedTime < bktTIME_TO_BLOCK )
+ 132              		.loc 1 447 0
+ 133 0092 AE28     		cmp	r0, #174
+ 134 0094 01D9     		bls	.L10
+ 448:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 449:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+ 450:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 451:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 452:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		/* We should of not blocked for much longer than bktALLOWABLE_MARGIN
+ 453:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		either.  A margin is permitted as we would not necessarily run as soon
+ 454:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		as we unblocked. */
+ 455:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		if( xBlockedTime > ( bktTIME_TO_BLOCK + bktALLOWABLE_MARGIN ) )
+ 135              		.loc 1 455 0
+ 136 0096 BE28     		cmp	r0, #190
+ 137 0098 01D9     		bls	.L7
+ 138              	.L10:
+ 456:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		{
+ 457:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xErrorOccurred = pdTRUE;
+ 139              		.loc 1 457 0
+ 140 009a C6F80080 		str	r8, [r6, #0]
+ 141              	.L7:
+ 458:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		}
+ 459:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 460:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = bktRUN_INDICATOR;
+ 142              		.loc 1 460 0
+ 143 009e 2560     		str	r5, [r4, #0]
+ 461:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 462:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xSecondaryCycles++;
+ 144              		.loc 1 462 0
+ 145 00a0 DAF80000 		ldr	r0, [sl, #0]
+ 146              	.LVL9:
+ 147 00a4 431C     		adds	r3, r0, #1
+ 148 00a6 CAF80030 		str	r3, [sl, #0]
+ 463:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 149              		.loc 1 463 0
+ 150 00aa C1E7     		b	.L8
+ 151              		.cfi_endproc
+ 152              	.LFE2:
+ 154              		.section	.text.vPrimaryBlockTimeTestTask,"ax",%progbits
+ 155              		.align	2
+ 156              		.thumb
+ 157              		.thumb_func
+ 159              	vPrimaryBlockTimeTestTask:
+ 160              	.LFB1:
+ 127:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 161              		.loc 1 127 0
+ 162              		.cfi_startproc
+ 163              		@ args = 0, pretend = 0, frame = 16
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165              	.LVL10:
+ 166 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 167              	.LCFI2:
+ 168              		.cfi_def_cfa_offset 36
+ 169              		.cfi_offset 14, -4
+ 170              		.cfi_offset 11, -8
+ 171              		.cfi_offset 10, -12
+ 172              		.cfi_offset 9, -16
+ 173              		.cfi_offset 8, -20
+ 174              		.cfi_offset 7, -24
+ 175              		.cfi_offset 6, -28
+ 176              		.cfi_offset 5, -32
+ 177              		.cfi_offset 4, -36
+ 178 0004 40F20002 		movw	r2, #:lower16:.LANCHOR5
+ 179 0008 85B0     		sub	sp, sp, #20
+ 180              	.LCFI3:
+ 181              		.cfi_def_cfa_offset 56
+ 182 000a 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 183 000e 40F20006 		movw	r6, #:lower16:.LANCHOR1
+ 184 0012 40F20005 		movw	r5, #:lower16:.LANCHOR2
+ 185 0016 40F20009 		movw	r9, #:lower16:.LANCHOR4
+ 186 001a C0F20002 		movt	r2, #:upper16:.LANCHOR5
+ 187 001e C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 188 0022 C0F20006 		movt	r6, #:upper16:.LANCHOR1
+ 189 0026 C0F20005 		movt	r5, #:upper16:.LANCHOR2
+ 190 002a C0F20009 		movt	r9, #:upper16:.LANCHOR4
+ 191 002e 0192     		str	r2, [sp, #4]
+ 192              	.LVL11:
+ 193              	.L46:
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 194              		.loc 1 140 0
+ 195 0030 0023     		movs	r3, #0
+ 152:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 196              		.loc 1 152 0
+ 197 0032 3746     		mov	r7, r6
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 198              		.loc 1 140 0
+ 199 0034 0293     		str	r3, [sp, #8]
+ 144:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 200              		.loc 1 144 0
+ 201 0036 4FF00A0B 		mov	fp, #10
+ 152:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 202              		.loc 1 152 0
+ 203 003a 4FF0010A 		mov	sl, #1
+ 204 003e A046     		mov	r8, r4
+ 205 0040 2E46     		mov	r6, r5
+ 206              	.L16:
+ 144:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 207              		.loc 1 144 0
+ 208 0042 0BFA03F4 		lsl	r4, fp, r3
+ 209              	.LVL12:
+ 146:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 210              		.loc 1 146 0
+ 211 0046 FFF7FEFF 		bl	xTaskGetTickCount
+ 150:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, xTimeToBlock ) != errQUEUE_EMPTY )
+ 212              		.loc 1 150 0
+ 213 004a 03A9     		add	r1, sp, #12
+ 146:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 214              		.loc 1 146 0
+ 215 004c 0546     		mov	r5, r0
+ 216              	.LVL13:
+ 150:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, xTimeToBlock ) != errQUEUE_EMPTY )
+ 217              		.loc 1 150 0
+ 218 004e 2246     		mov	r2, r4
+ 219 0050 0023     		movs	r3, #0
+ 220 0052 3868     		ldr	r0, [r7, #0]
+ 221              	.LVL14:
+ 222 0054 FFF7FEFF 		bl	xQueueGenericReceive
+ 223 0058 08B1     		cbz	r0, .L13
+ 152:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 224              		.loc 1 152 0
+ 225 005a C6F800A0 		str	sl, [r6, #0]
+ 226              	.L13:
+ 156:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 227              		.loc 1 156 0
+ 228 005e FFF7FEFF 		bl	xTaskGetTickCount
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 229              		.loc 1 140 0
+ 230 0062 029B     		ldr	r3, [sp, #8]
+ 156:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 231              		.loc 1 156 0
+ 232 0064 401B     		subs	r0, r0, r5
+ 233              	.LVL15:
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 234              		.loc 1 140 0
+ 235 0066 0133     		adds	r3, r3, #1
+ 164:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 236              		.loc 1 164 0
+ 237 0068 04F10F01 		add	r1, r4, #15
+ 158:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime < xTimeToBlock )
+ 238              		.loc 1 158 0
+ 239 006c 8442     		cmp	r4, r0
+ 161:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 240              		.loc 1 161 0
+ 241 006e 88BF     		it	hi
+ 242 0070 C6F800A0 		strhi	sl, [r6, #0]
+ 164:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 243              		.loc 1 164 0
+ 244 0074 8842     		cmp	r0, r1
+ 169:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 245              		.loc 1 169 0
+ 246 0076 88BF     		it	hi
+ 247 0078 C6F800A0 		strhi	sl, [r6, #0]
+ 140:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 248              		.loc 1 140 0
+ 249 007c 042B     		cmp	r3, #4
+ 250 007e 0293     		str	r3, [sp, #8]
+ 251 0080 DFDD     		ble	.L16
+ 252 0082 3546     		mov	r5, r6
+ 253              	.LVL16:
+ 254 0084 3E46     		mov	r6, r7
+ 179:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 255              		.loc 1 179 0
+ 256 0086 0027     		movs	r7, #0
+ 257 0088 0297     		str	r7, [sp, #8]
+ 258 008a 4446     		mov	r4, r8
+ 259              	.LVL17:
+ 183:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 260              		.loc 1 183 0
+ 261 008c 0127     		movs	r7, #1
+ 262              	.LVL18:
+ 263              	.L18:
+ 181:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 264              		.loc 1 181 0
+ 265 008e 0022     		movs	r2, #0
+ 266 0090 1346     		mov	r3, r2
+ 267 0092 3068     		ldr	r0, [r6, #0]
+ 268 0094 02A9     		add	r1, sp, #8
+ 269 0096 FFF7FEFF 		bl	xQueueGenericSend
+ 270 009a 0128     		cmp	r0, #1
+ 179:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 271              		.loc 1 179 0
+ 272 009c 0298     		ldr	r0, [sp, #8]
+ 183:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 273              		.loc 1 183 0
+ 274 009e 18BF     		it	ne
+ 275 00a0 2F60     		strne	r7, [r5, #0]
+ 179:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 276              		.loc 1 179 0
+ 277 00a2 00F10102 		add	r2, r0, #1
+ 278 00a6 042A     		cmp	r2, #4
+ 279 00a8 0292     		str	r2, [sp, #8]
+ 280 00aa F0DD     		ble	.L18
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 281              		.loc 1 191 0
+ 282 00ac 0023     		movs	r3, #0
+ 203:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 283              		.loc 1 203 0
+ 284 00ae 3746     		mov	r7, r6
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 285              		.loc 1 191 0
+ 286 00b0 0293     		str	r3, [sp, #8]
+ 195:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 287              		.loc 1 195 0
+ 288 00b2 4FF00A0B 		mov	fp, #10
+ 203:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 289              		.loc 1 203 0
+ 290 00b6 4FF0010A 		mov	sl, #1
+ 291 00ba A046     		mov	r8, r4
+ 292 00bc 2E46     		mov	r6, r5
+ 293              	.L22:
+ 195:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeToBlock = bktPRIMARY_BLOCK_TIME << xItem;
+ 294              		.loc 1 195 0
+ 295 00be 0BFA03F4 		lsl	r4, fp, r3
+ 296              	.LVL19:
+ 197:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 297              		.loc 1 197 0
+ 298 00c2 FFF7FEFF 		bl	xTaskGetTickCount
+ 201:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, xTimeToBlock ) != errQUEUE_FULL )
+ 299              		.loc 1 201 0
+ 300 00c6 02A9     		add	r1, sp, #8
+ 197:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xTimeWhenBlocking = xTaskGetTickCount();
+ 301              		.loc 1 197 0
+ 302 00c8 0546     		mov	r5, r0
+ 303              	.LVL20:
+ 201:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, xTimeToBlock ) != errQUEUE_FULL )
+ 304              		.loc 1 201 0
+ 305 00ca 2246     		mov	r2, r4
+ 306 00cc 0023     		movs	r3, #0
+ 307 00ce 3868     		ldr	r0, [r7, #0]
+ 308              	.LVL21:
+ 309 00d0 FFF7FEFF 		bl	xQueueGenericSend
+ 310 00d4 08B1     		cbz	r0, .L19
+ 203:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 311              		.loc 1 203 0
+ 312 00d6 C6F800A0 		str	sl, [r6, #0]
+ 313              	.L19:
+ 207:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 314              		.loc 1 207 0
+ 315 00da FFF7FEFF 		bl	xTaskGetTickCount
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 316              		.loc 1 191 0
+ 317 00de 029B     		ldr	r3, [sp, #8]
+ 207:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			xBlockedTime = xTaskGetTickCount() - xTimeWhenBlocking;
+ 318              		.loc 1 207 0
+ 319 00e0 451B     		subs	r5, r0, r5
+ 320              	.LVL22:
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 321              		.loc 1 191 0
+ 322 00e2 0133     		adds	r3, r3, #1
+ 215:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 323              		.loc 1 215 0
+ 324 00e4 04F10F01 		add	r1, r4, #15
+ 209:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime < xTimeToBlock )
+ 325              		.loc 1 209 0
+ 326 00e8 AC42     		cmp	r4, r5
+ 212:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 327              		.loc 1 212 0
+ 328 00ea 88BF     		it	hi
+ 329 00ec C6F800A0 		strhi	sl, [r6, #0]
+ 215:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xBlockedTime > ( xTimeToBlock + bktALLOWABLE_MARGIN ) )
+ 330              		.loc 1 215 0
+ 331 00f0 8D42     		cmp	r5, r1
+ 220:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 332              		.loc 1 220 0
+ 333 00f2 88BF     		it	hi
+ 334 00f4 C6F800A0 		strhi	sl, [r6, #0]
+ 191:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 335              		.loc 1 191 0
+ 336 00f8 042B     		cmp	r3, #4
+ 337 00fa 0293     		str	r3, [sp, #8]
+ 338 00fc DFDD     		ble	.L22
+ 236:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 339              		.loc 1 236 0
+ 340 00fe 0022     		movs	r2, #0
+ 237:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskResume( xSecondary );
+ 341              		.loc 1 237 0
+ 342 0100 D9F80000 		ldr	r0, [r9, #0]
+ 236:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 343              		.loc 1 236 0
+ 344 0104 C8F80020 		str	r2, [r8, #0]
+ 237:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskResume( xSecondary );
+ 345              		.loc 1 237 0
+ 346 0108 FFF7FEFF 		bl	vTaskResume
+ 347 010c 3546     		mov	r5, r6
+ 348              	.LVL23:
+ 349 010e 3E46     		mov	r6, r7
+ 240:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 350              		.loc 1 240 0
+ 351 0110 D8F80070 		ldr	r7, [r8, #0]
+ 352 0114 4446     		mov	r4, r8
+ 353              	.LVL24:
+ 354 0116 552F     		cmp	r7, #85
+ 355 0118 05D0     		beq	.L64
+ 356              	.L53:
+ 243:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 357              		.loc 1 243 0
+ 358 011a 1420     		movs	r0, #20
+ 359 011c FFF7FEFF 		bl	vTaskDelay
+ 240:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 360              		.loc 1 240 0
+ 361 0120 2068     		ldr	r0, [r4, #0]
+ 362 0122 5528     		cmp	r0, #85
+ 363 0124 F9D1     		bne	.L53
+ 364              	.L64:
+ 246:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 365              		.loc 1 246 0
+ 366 0126 1420     		movs	r0, #20
+ 247:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 367              		.loc 1 247 0
+ 368 0128 40F20008 		movw	r8, #:lower16:.LANCHOR0
+ 246:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 369              		.loc 1 246 0
+ 370 012c FFF7FEFF 		bl	vTaskDelay
+ 247:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 371              		.loc 1 247 0
+ 372 0130 C0F20008 		movt	r8, #:upper16:.LANCHOR0
+ 373 0134 0021     		movs	r1, #0
+ 374 0136 C8F80010 		str	r1, [r8, #0]
+ 249:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 375              		.loc 1 249 0
+ 376 013a 0291     		str	r1, [sp, #8]
+ 255:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 377              		.loc 1 255 0
+ 378 013c 0127     		movs	r7, #1
+ 379              	.L52:
+ 253:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 380              		.loc 1 253 0
+ 381 013e 0022     		movs	r2, #0
+ 382 0140 1346     		mov	r3, r2
+ 383 0142 03A9     		add	r1, sp, #12
+ 384 0144 3068     		ldr	r0, [r6, #0]
+ 385 0146 FFF7FEFF 		bl	xQueueGenericReceive
+ 261:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 386              		.loc 1 261 0
+ 387 014a 0022     		movs	r2, #0
+ 253:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 388              		.loc 1 253 0
+ 389 014c 0128     		cmp	r0, #1
+ 261:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 390              		.loc 1 261 0
+ 391 014e 1346     		mov	r3, r2
+ 255:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 392              		.loc 1 255 0
+ 393 0150 18BF     		it	ne
+ 394 0152 2F60     		strne	r7, [r5, #0]
+ 261:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 395              		.loc 1 261 0
+ 396 0154 02A9     		add	r1, sp, #8
+ 397 0156 3068     		ldr	r0, [r6, #0]
+ 398 0158 FFF7FEFF 		bl	xQueueGenericSend
+ 274:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 399              		.loc 1 274 0
+ 400 015c 0421     		movs	r1, #4
+ 261:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 401              		.loc 1 261 0
+ 402 015e 0128     		cmp	r0, #1
+ 263:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 403              		.loc 1 263 0
+ 404 0160 18BF     		it	ne
+ 405 0162 2F60     		strne	r7, [r5, #0]
+ 266:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 406              		.loc 1 266 0
+ 407 0164 2368     		ldr	r3, [r4, #0]
+ 274:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 408              		.loc 1 274 0
+ 409 0166 D9F80000 		ldr	r0, [r9, #0]
+ 266:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 410              		.loc 1 266 0
+ 411 016a 552B     		cmp	r3, #85
+ 269:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 412              		.loc 1 269 0
+ 413 016c 08BF     		it	eq
+ 414 016e 2F60     		streq	r7, [r5, #0]
+ 274:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 415              		.loc 1 274 0
+ 416 0170 FFF7FEFF 		bl	vTaskPrioritySet
+ 278:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 417              		.loc 1 278 0
+ 418 0174 2068     		ldr	r0, [r4, #0]
+ 286:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 419              		.loc 1 286 0
+ 420 0176 0121     		movs	r1, #1
+ 278:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 421              		.loc 1 278 0
+ 422 0178 5528     		cmp	r0, #85
+ 282:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 423              		.loc 1 282 0
+ 424 017a 08BF     		it	eq
+ 425 017c 2F60     		streq	r7, [r5, #0]
+ 286:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 426              		.loc 1 286 0
+ 427 017e D9F80000 		ldr	r0, [r9, #0]
+ 428 0182 FFF7FEFF 		bl	vTaskPrioritySet
+ 249:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 429              		.loc 1 249 0
+ 430 0186 029A     		ldr	r2, [sp, #8]
+ 431 0188 531C     		adds	r3, r2, #1
+ 432 018a 042B     		cmp	r3, #4
+ 433 018c 0293     		str	r3, [sp, #8]
+ 434 018e D6DD     		ble	.L52
+ 291:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 435              		.loc 1 291 0
+ 436 0190 2768     		ldr	r7, [r4, #0]
+ 293:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 437              		.loc 1 293 0
+ 438 0192 1420     		movs	r0, #20
+ 291:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 439              		.loc 1 291 0
+ 440 0194 552F     		cmp	r7, #85
+ 441 0196 05D0     		beq	.L69
+ 442              	.L51:
+ 293:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 443              		.loc 1 293 0
+ 444 0198 FFF7FEFF 		bl	vTaskDelay
+ 291:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 445              		.loc 1 291 0
+ 446 019c 2768     		ldr	r7, [r4, #0]
+ 293:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 447              		.loc 1 293 0
+ 448 019e 1420     		movs	r0, #20
+ 291:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 449              		.loc 1 291 0
+ 450 01a0 552F     		cmp	r7, #85
+ 451 01a2 F9D1     		bne	.L51
+ 452              	.L69:
+ 296:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 453              		.loc 1 296 0
+ 454 01a4 40F2000A 		movw	sl, #:lower16:.LANCHOR0
+ 295:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 455              		.loc 1 295 0
+ 456 01a8 FFF7FEFF 		bl	vTaskDelay
+ 296:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 457              		.loc 1 296 0
+ 458 01ac C0F2000A 		movt	sl, #:upper16:.LANCHOR0
+ 459 01b0 0021     		movs	r1, #0
+ 460 01b2 CAF80010 		str	r1, [sl, #0]
+ 306:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 461              		.loc 1 306 0
+ 462 01b6 0291     		str	r1, [sp, #8]
+ 310:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 463              		.loc 1 310 0
+ 464 01b8 0127     		movs	r7, #1
+ 465              	.L50:
+ 308:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 466              		.loc 1 308 0
+ 467 01ba 0022     		movs	r2, #0
+ 468 01bc 1346     		mov	r3, r2
+ 469 01be 3068     		ldr	r0, [r6, #0]
+ 470 01c0 03A9     		add	r1, sp, #12
+ 471 01c2 FFF7FEFF 		bl	xQueueGenericReceive
+ 472 01c6 0128     		cmp	r0, #1
+ 306:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 473              		.loc 1 306 0
+ 474 01c8 0298     		ldr	r0, [sp, #8]
+ 310:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 475              		.loc 1 310 0
+ 476 01ca 18BF     		it	ne
+ 477 01cc 2F60     		strne	r7, [r5, #0]
+ 306:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 478              		.loc 1 306 0
+ 479 01ce 00F10102 		add	r2, r0, #1
+ 480 01d2 042A     		cmp	r2, #4
+ 481 01d4 0292     		str	r2, [sp, #8]
+ 482 01d6 F0DD     		ble	.L50
+ 316:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskResume( xSecondary );
+ 483              		.loc 1 316 0
+ 484 01d8 D9F80000 		ldr	r0, [r9, #0]
+ 485 01dc FFF7FEFF 		bl	vTaskResume
+ 319:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 486              		.loc 1 319 0
+ 487 01e0 2368     		ldr	r3, [r4, #0]
+ 488 01e2 552B     		cmp	r3, #85
+ 489 01e4 05D0     		beq	.L66
+ 490              	.L49:
+ 321:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 491              		.loc 1 321 0
+ 492 01e6 1420     		movs	r0, #20
+ 493 01e8 FFF7FEFF 		bl	vTaskDelay
+ 319:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 494              		.loc 1 319 0
+ 495 01ec 2768     		ldr	r7, [r4, #0]
+ 496 01ee 552F     		cmp	r7, #85
+ 497 01f0 F9D1     		bne	.L49
+ 498              	.L66:
+ 323:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 499              		.loc 1 323 0
+ 500 01f2 1420     		movs	r0, #20
+ 324:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 501              		.loc 1 324 0
+ 502 01f4 40F2000B 		movw	fp, #:lower16:.LANCHOR0
+ 323:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 503              		.loc 1 323 0
+ 504 01f8 FFF7FEFF 		bl	vTaskDelay
+ 324:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xRunIndicator = 0;
+ 505              		.loc 1 324 0
+ 506 01fc C0F2000B 		movt	fp, #:upper16:.LANCHOR0
+ 507 0200 0021     		movs	r1, #0
+ 508 0202 CBF80010 		str	r1, [fp, #0]
+ 326:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 509              		.loc 1 326 0
+ 510 0206 0291     		str	r1, [sp, #8]
+ 332:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 511              		.loc 1 332 0
+ 512 0208 0127     		movs	r7, #1
+ 513              	.L48:
+ 330:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 514              		.loc 1 330 0
+ 515 020a 0022     		movs	r2, #0
+ 516 020c 1346     		mov	r3, r2
+ 517 020e 02A9     		add	r1, sp, #8
+ 518 0210 3068     		ldr	r0, [r6, #0]
+ 519 0212 FFF7FEFF 		bl	xQueueGenericSend
+ 338:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 520              		.loc 1 338 0
+ 521 0216 0022     		movs	r2, #0
+ 330:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueSend( xTestQueue, &xItem, bktDONT_BLOCK ) != pdPASS )
+ 522              		.loc 1 330 0
+ 523 0218 0128     		cmp	r0, #1
+ 338:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 524              		.loc 1 338 0
+ 525 021a 1346     		mov	r3, r2
+ 332:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 526              		.loc 1 332 0
+ 527 021c 18BF     		it	ne
+ 528 021e 2F60     		strne	r7, [r5, #0]
+ 338:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 529              		.loc 1 338 0
+ 530 0220 03A9     		add	r1, sp, #12
+ 531 0222 3068     		ldr	r0, [r6, #0]
+ 532 0224 FFF7FEFF 		bl	xQueueGenericReceive
+ 351:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 533              		.loc 1 351 0
+ 534 0228 0421     		movs	r1, #4
+ 338:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xQueueReceive( xTestQueue, &xData, bktDONT_BLOCK ) != pdPASS )
+ 535              		.loc 1 338 0
+ 536 022a 0128     		cmp	r0, #1
+ 340:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 537              		.loc 1 340 0
+ 538 022c 18BF     		it	ne
+ 539 022e 2F60     		strne	r7, [r5, #0]
+ 343:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 540              		.loc 1 343 0
+ 541 0230 2268     		ldr	r2, [r4, #0]
+ 351:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 542              		.loc 1 351 0
+ 543 0232 D9F80000 		ldr	r0, [r9, #0]
+ 343:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 544              		.loc 1 343 0
+ 545 0236 552A     		cmp	r2, #85
+ 346:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 546              		.loc 1 346 0
+ 547 0238 08BF     		it	eq
+ 548 023a 2F60     		streq	r7, [r5, #0]
+ 351:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktPRIMARY_PRIORITY + 2 );
+ 549              		.loc 1 351 0
+ 550 023c FFF7FEFF 		bl	vTaskPrioritySet
+ 355:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 551              		.loc 1 355 0
+ 552 0240 2368     		ldr	r3, [r4, #0]
+ 361:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 553              		.loc 1 361 0
+ 554 0242 0121     		movs	r1, #1
+ 355:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			if( xRunIndicator == bktRUN_INDICATOR )
+ 555              		.loc 1 355 0
+ 556 0244 552B     		cmp	r3, #85
+ 359:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 				xErrorOccurred = pdTRUE;
+ 557              		.loc 1 359 0
+ 558 0246 08BF     		it	eq
+ 559 0248 2F60     		streq	r7, [r5, #0]
+ 361:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskPrioritySet( xSecondary, bktSECONDARY_PRIORITY );
+ 560              		.loc 1 361 0
+ 561 024a D9F80000 		ldr	r0, [r9, #0]
+ 562 024e FFF7FEFF 		bl	vTaskPrioritySet
+ 326:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		for( xItem = 0; xItem < bktQUEUE_LENGTH; xItem++ )
+ 563              		.loc 1 326 0
+ 564 0252 0298     		ldr	r0, [sp, #8]
+ 565 0254 421C     		adds	r2, r0, #1
+ 566 0256 042A     		cmp	r2, #4
+ 567 0258 0292     		str	r2, [sp, #8]
+ 568 025a D6DD     		ble	.L48
+ 366:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 569              		.loc 1 366 0
+ 570 025c 2768     		ldr	r7, [r4, #0]
+ 368:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 571              		.loc 1 368 0
+ 572 025e 1420     		movs	r0, #20
+ 366:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 573              		.loc 1 366 0
+ 574 0260 552F     		cmp	r7, #85
+ 575 0262 05D0     		beq	.L70
+ 576              	.L47:
+ 368:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 577              		.loc 1 368 0
+ 578 0264 FFF7FEFF 		bl	vTaskDelay
+ 366:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 579              		.loc 1 366 0
+ 580 0268 2768     		ldr	r7, [r4, #0]
+ 368:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 			vTaskDelay( bktSHORT_WAIT );
+ 581              		.loc 1 368 0
+ 582 026a 1420     		movs	r0, #20
+ 366:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		while( xRunIndicator != bktRUN_INDICATOR )
+ 583              		.loc 1 366 0
+ 584 026c 552F     		cmp	r7, #85
+ 585 026e F9D1     		bne	.L47
+ 586              	.L70:
+ 370:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		vTaskDelay( bktSHORT_WAIT );
+ 587              		.loc 1 370 0
+ 588 0270 FFF7FEFF 		bl	vTaskDelay
+ 372:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xPrimaryCycles++;
+ 589              		.loc 1 372 0
+ 590 0274 0199     		ldr	r1, [sp, #4]
+ 591 0276 0B68     		ldr	r3, [r1, #0]
+ 592 0278 581C     		adds	r0, r3, #1
+ 593 027a 0860     		str	r0, [r1, #0]
+ 373:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 594              		.loc 1 373 0
+ 595 027c D8E6     		b	.L46
+ 596              		.cfi_endproc
+ 597              	.LFE1:
+ 599 027e 00BF     		.section	.text.vCreateBlockTimeTasks,"ax",%progbits
+ 600              		.align	2
+ 601              		.global	vCreateBlockTimeTasks
+ 602              		.thumb
+ 603              		.thumb_func
+ 605              	vCreateBlockTimeTasks:
+ 606              	.LFB0:
+ 108:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 607              		.loc 1 108 0
+ 608              		.cfi_startproc
+ 609              		@ args = 0, pretend = 0, frame = 0
+ 610              		@ frame_needed = 0, uses_anonymous_args = 0
+ 611 0000 70B5     		push	{r4, r5, r6, lr}
+ 612              	.LCFI4:
+ 613              		.cfi_def_cfa_offset 16
+ 614              		.cfi_offset 14, -4
+ 615              		.cfi_offset 6, -8
+ 616              		.cfi_offset 5, -12
+ 617              		.cfi_offset 4, -16
+ 110:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     xTestQueue = xQueueCreate( bktQUEUE_LENGTH, sizeof( portBASE_TYPE ) );
+ 618              		.loc 1 110 0
+ 619 0002 0421     		movs	r1, #4
+ 108:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 620              		.loc 1 108 0
+ 621 0004 84B0     		sub	sp, sp, #16
+ 622              	.LCFI5:
+ 623              		.cfi_def_cfa_offset 32
+ 110:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     xTestQueue = xQueueCreate( bktQUEUE_LENGTH, sizeof( portBASE_TYPE ) );
+ 624              		.loc 1 110 0
+ 625 0006 0022     		movs	r2, #0
+ 626 0008 0520     		movs	r0, #5
+ 627 000a FFF7FEFF 		bl	xQueueGenericCreate
+ 628 000e 40F20003 		movw	r3, #:lower16:.LANCHOR1
+ 629 0012 C0F20003 		movt	r3, #:upper16:.LANCHOR1
+ 121:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vPrimaryBlockTimeTestTask, ( signed char * )"BTest1", configMINIMAL_STACK_SIZE, NULL,
+ 630              		.loc 1 121 0
+ 631 0016 0024     		movs	r4, #0
+ 110:../FreeRTOS/Demo/Common/Minimal/blocktim.c ****     xTestQueue = xQueueCreate( bktQUEUE_LENGTH, sizeof( portBASE_TYPE ) );
+ 632              		.loc 1 110 0
+ 633 0018 1860     		str	r0, [r3, #0]
+ 121:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vPrimaryBlockTimeTestTask, ( signed char * )"BTest1", configMINIMAL_STACK_SIZE, NULL,
+ 634              		.loc 1 121 0
+ 635 001a 40F20001 		movw	r1, #:lower16:.LC0
+ 636 001e 40F20000 		movw	r0, #:lower16:vPrimaryBlockTimeTestTask
+ 637 0022 7822     		movs	r2, #120
+ 638 0024 2346     		mov	r3, r4
+ 639 0026 0225     		movs	r5, #2
+ 640 0028 C0F20001 		movt	r1, #:upper16:.LC0
+ 641 002c C0F20000 		movt	r0, #:upper16:vPrimaryBlockTimeTestTask
+ 642 0030 0095     		str	r5, [sp, #0]
+ 643 0032 0194     		str	r4, [sp, #4]
+ 644 0034 0294     		str	r4, [sp, #8]
+ 645 0036 0394     		str	r4, [sp, #12]
+ 122:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vSecondaryBlockTimeTestTask, ( signed char * )"BTest2", configMINIMAL_STACK_SIZE, NUL
+ 646              		.loc 1 122 0
+ 647 0038 40F20005 		movw	r5, #:lower16:.LANCHOR4
+ 121:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vPrimaryBlockTimeTestTask, ( signed char * )"BTest1", configMINIMAL_STACK_SIZE, NULL,
+ 648              		.loc 1 121 0
+ 649 003c FFF7FEFF 		bl	xTaskGenericCreate
+ 122:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xTaskCreate( vSecondaryBlockTimeTestTask, ( signed char * )"BTest2", configMINIMAL_STACK_SIZE, NUL
+ 650              		.loc 1 122 0
+ 651 0040 40F20000 		movw	r0, #:lower16:vSecondaryBlockTimeTestTask
+ 652 0044 40F20001 		movw	r1, #:lower16:.LC1
+ 653 0048 C0F20005 		movt	r5, #:upper16:.LANCHOR4
+ 654 004c 0126     		movs	r6, #1
+ 655 004e C0F20001 		movt	r1, #:upper16:.LC1
+ 656 0052 7822     		movs	r2, #120
+ 657 0054 2346     		mov	r3, r4
+ 658 0056 C0F20000 		movt	r0, #:upper16:vSecondaryBlockTimeTestTask
+ 659 005a 0096     		str	r6, [sp, #0]
+ 660 005c 0195     		str	r5, [sp, #4]
+ 661 005e 0294     		str	r4, [sp, #8]
+ 662 0060 0394     		str	r4, [sp, #12]
+ 663 0062 FFF7FEFF 		bl	xTaskGenericCreate
+ 123:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** }
+ 664              		.loc 1 123 0
+ 665 0066 04B0     		add	sp, sp, #16
+ 666 0068 70BD     		pop	{r4, r5, r6, pc}
+ 667              		.cfi_endproc
+ 668              	.LFE0:
+ 670 006a 00BF     		.section	.text.xAreBlockTimeTestTasksStillRunning,"ax",%progbits
+ 671              		.align	2
+ 672              		.global	xAreBlockTimeTestTasksStillRunning
+ 673              		.thumb
+ 674              		.thumb_func
+ 676              	xAreBlockTimeTestTasksStillRunning:
+ 677              	.LFB3:
+ 464:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** }
+ 465:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** /*-----------------------------------------------------------*/
+ 466:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 467:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portBASE_TYPE xAreBlockTimeTestTasksStillRunning( void )
+ 468:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** {
+ 678              		.loc 1 468 0
+ 679              		.cfi_startproc
+ 680              		@ args = 0, pretend = 0, frame = 0
+ 681              		@ frame_needed = 0, uses_anonymous_args = 0
+ 682              		@ link register save eliminated.
+ 683              	.LVL25:
+ 684 0000 F0B4     		push	{r4, r5, r6, r7}
+ 685              	.LCFI6:
+ 686              		.cfi_def_cfa_offset 16
+ 687              		.cfi_offset 7, -4
+ 688              		.cfi_offset 6, -8
+ 689              		.cfi_offset 5, -12
+ 690              		.cfi_offset 4, -16
+ 469:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** static portBASE_TYPE xLastPrimaryCycleCount = 0, xLastSecondaryCycleCount = 0;
+ 470:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portBASE_TYPE xReturn = pdPASS;
+ 471:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 472:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	/* Have both tasks performed at least one cycle since this function was
+ 473:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	last called? */
+ 474:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xPrimaryCycles == xLastPrimaryCycleCount )
+ 691              		.loc 1 474 0
+ 692 0002 40F20001 		movw	r1, #:lower16:.LANCHOR5
+ 475:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	{
+ 476:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xReturn = pdFAIL;
+ 477:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 478:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 479:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xSecondaryCycles == xLastSecondaryCycleCount )
+ 693              		.loc 1 479 0
+ 694 0006 40F20004 		movw	r4, #:lower16:.LANCHOR3
+ 695 000a 40F20002 		movw	r2, #:lower16:.LANCHOR7
+ 474:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xPrimaryCycles == xLastPrimaryCycleCount )
+ 696              		.loc 1 474 0
+ 697 000e C0F20001 		movt	r1, #:upper16:.LANCHOR5
+ 698              		.loc 1 479 0
+ 699 0012 C0F20004 		movt	r4, #:upper16:.LANCHOR3
+ 700 0016 C0F20002 		movt	r2, #:upper16:.LANCHOR7
+ 474:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xPrimaryCycles == xLastPrimaryCycleCount )
+ 701              		.loc 1 474 0
+ 702 001a 0F68     		ldr	r7, [r1, #0]
+ 703              		.loc 1 479 0
+ 704 001c 1568     		ldr	r5, [r2, #0]
+ 705 001e 2668     		ldr	r6, [r4, #0]
+ 474:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xPrimaryCycles == xLastPrimaryCycleCount )
+ 706              		.loc 1 474 0
+ 707 0020 40F20003 		movw	r3, #:lower16:.LANCHOR6
+ 708 0024 C0F20003 		movt	r3, #:upper16:.LANCHOR6
+ 709              		.loc 1 479 0
+ 710 0028 AE42     		cmp	r6, r5
+ 474:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xPrimaryCycles == xLastPrimaryCycleCount )
+ 711              		.loc 1 474 0
+ 712 002a 1868     		ldr	r0, [r3, #0]
+ 713              	.LVL26:
+ 714              		.loc 1 479 0
+ 715 002c 11D0     		beq	.L75
+ 470:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** portBASE_TYPE xReturn = pdPASS;
+ 716              		.loc 1 470 0
+ 717 002e 381A     		subs	r0, r7, r0
+ 718 0030 18BF     		it	ne
+ 719 0032 0120     		movne	r0, #1
+ 720              	.L73:
+ 721              	.LVL27:
+ 480:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	{
+ 481:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xReturn = pdFAIL;
+ 482:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 483:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 484:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	if( xErrorOccurred == pdTRUE )
+ 722              		.loc 1 484 0
+ 723 0034 40F2000C 		movw	ip, #:lower16:.LANCHOR2
+ 724 0038 C0F2000C 		movt	ip, #:upper16:.LANCHOR2
+ 725 003c DCF80050 		ldr	r5, [ip, #0]
+ 485:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	{
+ 486:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xReturn = pdFAIL;
+ 487:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	}
+ 488:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 489:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xLastSecondaryCycleCount = xSecondaryCycles;
+ 726              		.loc 1 489 0
+ 727 0040 2468     		ldr	r4, [r4, #0]
+ 490:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xLastPrimaryCycleCount = xPrimaryCycles;
+ 728              		.loc 1 490 0
+ 729 0042 0968     		ldr	r1, [r1, #0]
+ 489:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	xLastSecondaryCycleCount = xSecondaryCycles;
+ 730              		.loc 1 489 0
+ 731 0044 1460     		str	r4, [r2, #0]
+ 732              		.loc 1 490 0
+ 733 0046 1960     		str	r1, [r3, #0]
+ 491:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 
+ 492:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 	return xReturn;
+ 493:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** }
+ 734              		.loc 1 493 0
+ 735 0048 012D     		cmp	r5, #1
+ 736 004a 08BF     		it	eq
+ 737 004c 0020     		moveq	r0, #0
+ 738              	.LVL28:
+ 739 004e F0BC     		pop	{r4, r5, r6, r7}
+ 740 0050 7047     		bx	lr
+ 741              	.LVL29:
+ 742              	.L75:
+ 481:../FreeRTOS/Demo/Common/Minimal/blocktim.c **** 		xReturn = pdFAIL;
+ 743              		.loc 1 481 0
+ 744 0052 0020     		movs	r0, #0
+ 745 0054 EEE7     		b	.L73
+ 746              		.cfi_endproc
+ 747              	.LFE3:
+ 749 0056 00BF     		.section	.bss.xLastSecondaryCycleCount.4245,"aw",%nobits
+ 750              		.align	2
+ 751              		.set	.LANCHOR7,. + 0
+ 754              	xLastSecondaryCycleCount.4245:
+ 755 0000 00000000 		.space	4
+ 756              		.section	.bss.xPrimaryCycles,"aw",%nobits
+ 757              		.align	2
+ 758              		.set	.LANCHOR5,. + 0
+ 761              	xPrimaryCycles:
+ 762 0000 00000000 		.space	4
+ 763              		.section	.bss.xRunIndicator,"aw",%nobits
+ 764              		.align	2
+ 765              		.set	.LANCHOR0,. + 0
+ 768              	xRunIndicator:
+ 769 0000 00000000 		.space	4
+ 770              		.section	.bss.xSecondary,"aw",%nobits
+ 771              		.align	2
+ 772              		.set	.LANCHOR4,. + 0
+ 775              	xSecondary:
+ 776 0000 00000000 		.space	4
+ 777              		.section	.bss.xTestQueue,"aw",%nobits
+ 778              		.align	2
+ 779              		.set	.LANCHOR1,. + 0
+ 782              	xTestQueue:
+ 783 0000 00000000 		.space	4
+ 784              		.section	.bss.xErrorOccurred,"aw",%nobits
+ 785              		.align	2
+ 786              		.set	.LANCHOR2,. + 0
+ 789              	xErrorOccurred:
+ 790 0000 00000000 		.space	4
+ 791              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 792              		.align	2
+ 793              	.LC0:
+ 794 0000 42546573 		.ascii	"BTest1\000"
+ 794      743100
+ 795 0007 00       		.space	1
+ 796              	.LC1:
+ 797 0008 42546573 		.ascii	"BTest2\000"
+ 797      743200
+ 798 000f 00       		.section	.bss.xSecondaryCycles,"aw",%nobits
+ 799              		.align	2
+ 800              		.set	.LANCHOR3,. + 0
+ 803              	xSecondaryCycles:
+ 804 0000 00000000 		.space	4
+ 805              		.section	.bss.xLastPrimaryCycleCount.4244,"aw",%nobits
+ 806              		.align	2
+ 807              		.set	.LANCHOR6,. + 0
+ 810              	xLastPrimaryCycleCount.4244:
+ 811 0000 00000000 		.space	4
+ 812              		.text
+ 813              	.Letext0:
+ 814              		.file 2 "../FreeRTOS/Source/include/../../Source/portable/GCC/ARM_CM3/portmacro.h"
+ 815              		.file 3 "../FreeRTOS/Source/include/task.h"
+ 816              		.file 4 "../FreeRTOS/Source/include/queue.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 blocktim.c
+     /tmp/ccjKhxoh.s:19     .text.vSecondaryBlockTimeTestTask:00000000 $t
+     /tmp/ccjKhxoh.s:23     .text.vSecondaryBlockTimeTestTask:00000000 vSecondaryBlockTimeTestTask
+     /tmp/ccjKhxoh.s:765    .bss.xRunIndicator:00000000 .LANCHOR0
+     /tmp/ccjKhxoh.s:779    .bss.xTestQueue:00000000 .LANCHOR1
+     /tmp/ccjKhxoh.s:786    .bss.xErrorOccurred:00000000 .LANCHOR2
+     /tmp/ccjKhxoh.s:800    .bss.xSecondaryCycles:00000000 .LANCHOR3
+     /tmp/ccjKhxoh.s:155    .text.vPrimaryBlockTimeTestTask:00000000 $t
+     /tmp/ccjKhxoh.s:159    .text.vPrimaryBlockTimeTestTask:00000000 vPrimaryBlockTimeTestTask
+     /tmp/ccjKhxoh.s:758    .bss.xPrimaryCycles:00000000 .LANCHOR5
+     /tmp/ccjKhxoh.s:772    .bss.xSecondary:00000000 .LANCHOR4
+     /tmp/ccjKhxoh.s:600    .text.vCreateBlockTimeTasks:00000000 $t
+     /tmp/ccjKhxoh.s:605    .text.vCreateBlockTimeTasks:00000000 vCreateBlockTimeTasks
+     /tmp/ccjKhxoh.s:793    .rodata.str1.4:00000000 .LC0
+     /tmp/ccjKhxoh.s:796    .rodata.str1.4:00000008 .LC1
+     /tmp/ccjKhxoh.s:671    .text.xAreBlockTimeTestTasksStillRunning:00000000 $t
+     /tmp/ccjKhxoh.s:676    .text.xAreBlockTimeTestTasksStillRunning:00000000 xAreBlockTimeTestTasksStillRunning
+     /tmp/ccjKhxoh.s:751    .bss.xLastSecondaryCycleCount.4245:00000000 .LANCHOR7
+     /tmp/ccjKhxoh.s:807    .bss.xLastPrimaryCycleCount.4244:00000000 .LANCHOR6
+     /tmp/ccjKhxoh.s:750    .bss.xLastSecondaryCycleCount.4245:00000000 $d
+     /tmp/ccjKhxoh.s:754    .bss.xLastSecondaryCycleCount.4245:00000000 xLastSecondaryCycleCount.4245
+     /tmp/ccjKhxoh.s:757    .bss.xPrimaryCycles:00000000 $d
+     /tmp/ccjKhxoh.s:761    .bss.xPrimaryCycles:00000000 xPrimaryCycles
+     /tmp/ccjKhxoh.s:764    .bss.xRunIndicator:00000000 $d
+     /tmp/ccjKhxoh.s:768    .bss.xRunIndicator:00000000 xRunIndicator
+     /tmp/ccjKhxoh.s:771    .bss.xSecondary:00000000 $d
+     /tmp/ccjKhxoh.s:775    .bss.xSecondary:00000000 xSecondary
+     /tmp/ccjKhxoh.s:778    .bss.xTestQueue:00000000 $d
+     /tmp/ccjKhxoh.s:782    .bss.xTestQueue:00000000 xTestQueue
+     /tmp/ccjKhxoh.s:785    .bss.xErrorOccurred:00000000 $d
+     /tmp/ccjKhxoh.s:789    .bss.xErrorOccurred:00000000 xErrorOccurred
+     /tmp/ccjKhxoh.s:792    .rodata.str1.4:00000000 $d
+     /tmp/ccjKhxoh.s:799    .bss.xSecondaryCycles:00000000 $d
+     /tmp/ccjKhxoh.s:803    .bss.xSecondaryCycles:00000000 xSecondaryCycles
+     /tmp/ccjKhxoh.s:806    .bss.xLastPrimaryCycleCount.4244:00000000 $d
+     /tmp/ccjKhxoh.s:810    .bss.xLastPrimaryCycleCount.4244:00000000 xLastPrimaryCycleCount.4244
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+vTaskSuspend
+xTaskGetTickCount
+xQueueGenericSend
+xQueueGenericReceive
+vTaskResume
+vTaskDelay
+vTaskPrioritySet
+xQueueGenericCreate
+xTaskGenericCreate

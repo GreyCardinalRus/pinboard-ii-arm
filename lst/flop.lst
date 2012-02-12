@@ -1,0 +1,1621 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"flop.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	__aeabi_dadd
+  19              		.global	__aeabi_dmul
+  20              		.global	__aeabi_dsub
+  21              		.global	__aeabi_dcmpgt
+  22              		.section	.text.vCompetingMathTask1,"ax",%progbits
+  23              		.align	2
+  24              		.thumb
+  25              		.thumb_func
+  27              	vCompetingMathTask1:
+  28              	.LFB1:
+  29              		.file 1 "../FreeRTOS/Demo/Common/Minimal/flop.c"
+   1:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*
+   2:../FreeRTOS/Demo/Common/Minimal/flop.c ****     FreeRTOS V7.1.0 - Copyright (C) 2011 Real Time Engineers Ltd.
+   3:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	
+   4:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+   5:../FreeRTOS/Demo/Common/Minimal/flop.c ****     ***************************************************************************
+   6:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *                                                                       *
+   7:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    FreeRTOS tutorial books are available in pdf and paperback.        *
+   8:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    Complete, revised, and edited pdf reference manuals are also       *
+   9:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    available.                                                         *
+  10:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *                                                                       *
+  11:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    Purchasing FreeRTOS documentation will not only help you, by       *
+  12:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    ensuring you get running as quickly as possible and with an        *
+  13:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    in-depth knowledge of how to use FreeRTOS, it will also help       *
+  14:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    the FreeRTOS project to continue with its mission of providing     *
+  15:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    professional grade, cross platform, de facto standard solutions    *
+  16:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    for microcontrollers - completely free of charge!                  *
+  17:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *                                                                       *
+  18:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    >>> See http://www.FreeRTOS.org/Documentation for details. <<<     *
+  19:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *                                                                       *
+  20:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *    Thank you for using FreeRTOS, and thank you for your support!      *
+  21:../FreeRTOS/Demo/Common/Minimal/flop.c ****      *                                                                       *
+  22:../FreeRTOS/Demo/Common/Minimal/flop.c ****     ***************************************************************************
+  23:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  24:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  25:../FreeRTOS/Demo/Common/Minimal/flop.c ****     This file is part of the FreeRTOS distribution.
+  26:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  27:../FreeRTOS/Demo/Common/Minimal/flop.c ****     FreeRTOS is free software; you can redistribute it and/or modify it under
+  28:../FreeRTOS/Demo/Common/Minimal/flop.c ****     the terms of the GNU General Public License (version 2) as published by the
+  29:../FreeRTOS/Demo/Common/Minimal/flop.c ****     Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+  30:../FreeRTOS/Demo/Common/Minimal/flop.c ****     >>>NOTE<<< The modification to the GPL is included to allow you to
+  31:../FreeRTOS/Demo/Common/Minimal/flop.c ****     distribute a combined work that includes FreeRTOS without being obliged to
+  32:../FreeRTOS/Demo/Common/Minimal/flop.c ****     provide the source code for proprietary components outside of the FreeRTOS
+  33:../FreeRTOS/Demo/Common/Minimal/flop.c ****     kernel.  FreeRTOS is distributed in the hope that it will be useful, but
+  34:../FreeRTOS/Demo/Common/Minimal/flop.c ****     WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  35:../FreeRTOS/Demo/Common/Minimal/flop.c ****     or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+  36:../FreeRTOS/Demo/Common/Minimal/flop.c ****     more details. You should have received a copy of the GNU General Public
+  37:../FreeRTOS/Demo/Common/Minimal/flop.c ****     License and the FreeRTOS license exception along with FreeRTOS; if not it
+  38:../FreeRTOS/Demo/Common/Minimal/flop.c ****     can be viewed here: http://www.freertos.org/a00114.html and also obtained
+  39:../FreeRTOS/Demo/Common/Minimal/flop.c ****     by writing to Richard Barry, contact details for whom are available on the
+  40:../FreeRTOS/Demo/Common/Minimal/flop.c ****     FreeRTOS WEB site.
+  41:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  42:../FreeRTOS/Demo/Common/Minimal/flop.c ****     1 tab == 4 spaces!
+  43:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  44:../FreeRTOS/Demo/Common/Minimal/flop.c ****     http://www.FreeRTOS.org - Documentation, latest information, license and
+  45:../FreeRTOS/Demo/Common/Minimal/flop.c ****     contact details.
+  46:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  47:../FreeRTOS/Demo/Common/Minimal/flop.c ****     http://www.SafeRTOS.com - A version that is certified for use in safety
+  48:../FreeRTOS/Demo/Common/Minimal/flop.c ****     critical systems.
+  49:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  50:../FreeRTOS/Demo/Common/Minimal/flop.c ****     http://www.OpenRTOS.com - Commercial support, development, porting,
+  51:../FreeRTOS/Demo/Common/Minimal/flop.c ****     licensing and training services.
+  52:../FreeRTOS/Demo/Common/Minimal/flop.c **** */
+  53:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  54:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*
+  55:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * Creates eight tasks, each of which loops continuously performing an (emulated) 
+  56:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * floating point calculation.
+  57:../FreeRTOS/Demo/Common/Minimal/flop.c ****  *
+  58:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * All the tasks run at the idle priority and never block or yield.  This causes 
+  59:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * all eight tasks to time slice with the idle task.  Running at the idle priority 
+  60:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * means that these tasks will get pre-empted any time another task is ready to run
+  61:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * or a time slice occurs.  More often than not the pre-emption will occur mid 
+  62:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * calculation, creating a good test of the schedulers context switch mechanism - a 
+  63:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * calculation producing an unexpected result could be a symptom of a corruption in 
+  64:../FreeRTOS/Demo/Common/Minimal/flop.c ****  * the context of a task.
+  65:../FreeRTOS/Demo/Common/Minimal/flop.c ****  */
+  66:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  67:../FreeRTOS/Demo/Common/Minimal/flop.c **** #include <stdlib.h>
+  68:../FreeRTOS/Demo/Common/Minimal/flop.c **** #include <math.h>
+  69:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  70:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* Scheduler include files. */
+  71:../FreeRTOS/Demo/Common/Minimal/flop.c **** #include "FreeRTOS.h"
+  72:../FreeRTOS/Demo/Common/Minimal/flop.c **** #include "task.h"
+  73:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  74:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* Demo program include files. */
+  75:../FreeRTOS/Demo/Common/Minimal/flop.c **** #include "flop.h"
+  76:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  77:../FreeRTOS/Demo/Common/Minimal/flop.c **** #define mathSTACK_SIZE		configMINIMAL_STACK_SIZE
+  78:../FreeRTOS/Demo/Common/Minimal/flop.c **** #define mathNUMBER_OF_TASKS  ( 8 )
+  79:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  80:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* Four tasks, each of which performs a different floating point calculation.  
+  81:../FreeRTOS/Demo/Common/Minimal/flop.c **** Each of the four is created twice. */
+  82:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION_PROTO( vCompetingMathTask1, pvParameters );
+  83:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION_PROTO( vCompetingMathTask2, pvParameters );
+  84:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION_PROTO( vCompetingMathTask3, pvParameters );
+  85:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION_PROTO( vCompetingMathTask4, pvParameters );
+  86:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  87:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* These variables are used to check that all the tasks are still running.  If a 
+  88:../FreeRTOS/Demo/Common/Minimal/flop.c **** task gets a calculation wrong it will
+  89:../FreeRTOS/Demo/Common/Minimal/flop.c **** stop incrementing its check variable. */
+  90:../FreeRTOS/Demo/Common/Minimal/flop.c **** static volatile unsigned short usTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned short ) 0 };
+  91:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  92:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+  93:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+  94:../FreeRTOS/Demo/Common/Minimal/flop.c **** void vStartMathTasks( unsigned portBASE_TYPE uxPriority )
+  95:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+  96:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskC
+  97:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskC
+  98:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskC
+  99:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math4", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 100:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math5", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 101:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math6", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 102:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math7", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 103:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math8", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 104:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 105:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+ 106:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 107:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION( vCompetingMathTask1, pvParameters )
+ 108:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+  30              		.loc 1 108 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 48
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              	.LVL0:
+  35 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 36
+  38              		.cfi_offset 14, -4
+  39              		.cfi_offset 11, -8
+  40              		.cfi_offset 10, -12
+  41              		.cfi_offset 9, -16
+  42              		.cfi_offset 8, -20
+  43              		.cfi_offset 7, -24
+  44              		.cfi_offset 6, -28
+  45              		.cfi_offset 5, -32
+  46              		.cfi_offset 4, -36
+ 109:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE d1, d2, d3, d4;
+ 110:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile unsigned short *pusTaskCheckVariable;
+ 111:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE dAnswer;
+ 112:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 113:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 114:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d1 = 123.4567;
+  47              		.loc 1 114 0
+  48 0004 28A5     		adr	r5, .L8
+  49 0006 D5E90045 		ldrd	r4, [r5]
+ 115:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d2 = 2345.6789;
+  50              		.loc 1 115 0
+  51 000a 0FF2A40B 		adr	fp, .L8+8
+  52 000e DBE900AB 		ldrd	sl, [fp]
+ 116:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d3 = -918.222;
+  53              		.loc 1 116 0
+  54 0012 0FF2A409 		adr	r9, .L8+16
+  55 0016 D9E90089 		ldrd	r8, [r9]
+ 108:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+  56              		.loc 1 108 0
+  57 001a 8DB0     		sub	sp, sp, #52
+  58              	.LCFI1:
+  59              		.cfi_def_cfa_offset 88
+ 114:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d1 = 123.4567;
+  60              		.loc 1 114 0
+  61 001c CDE90245 		strd	r4, [sp, #8]
+  62              	.LVL1:
+ 115:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d2 = 2345.6789;
+  63              		.loc 1 115 0
+  64 0020 CDE904AB 		strd	sl, [sp, #16]
+  65              	.LVL2:
+  66              		.loc 1 116 0
+  67 0024 CDE90689 		strd	r8, [sp, #24]
+  68              	.LVL3:
+ 117:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 118:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	dAnswer = ( d1 + d2 ) * d3;
+  69              		.loc 1 118 0
+  70 0028 DDE90623 		ldrd	r2, [sp, #24]
+ 108:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+  71              		.loc 1 108 0
+  72 002c 0746     		mov	r7, r0
+  73              		.loc 1 118 0
+  74 002e CDE90023 		strd	r2, [sp]
+  75 0032 DDE90201 		ldrd	r0, [sp, #8]
+  76              	.LVL4:
+  77 0036 DDE90423 		ldrd	r2, [sp, #16]
+  78 003a FFF7FEFF 		bl	__aeabi_dadd
+  79 003e DDE90023 		ldrd	r2, [sp]
+  80 0042 FFF7FEFF 		bl	__aeabi_dmul
+  81 0046 CDE90A01 		strd	r0, [sp, #40]
+  82              	.LVL5:
+ 112:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+  83              		.loc 1 112 0
+  84 004a 0026     		movs	r6, #0
+  85              	.LVL6:
+  86              	.L6:
+ 119:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 120:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* The variable this task increments to show it is still running is passed in 
+ 121:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	as the parameter. */
+ 122:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
+ 123:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 124:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* Keep performing a calculation and checking the result against a constant. */
+ 125:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	for(;;)
+ 126:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	{
+ 127:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d1 = 123.4567;
+  87              		.loc 1 127 0
+  88 004c 16A3     		adr	r3, .L8
+  89 004e D3E90023 		ldrd	r2, [r3]
+  90 0052 CDE90223 		strd	r2, [sp, #8]
+ 128:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d2 = 2345.6789;
+  91              		.loc 1 128 0
+  92 0056 CDE904AB 		strd	sl, [sp, #16]
+ 129:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d3 = -918.222;
+  93              		.loc 1 129 0
+  94 005a CDE90689 		strd	r8, [sp, #24]
+ 130:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 131:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d4 = ( d1 + d2 ) * d3;
+  95              		.loc 1 131 0
+  96 005e DDE90645 		ldrd	r4, [sp, #24]
+  97 0062 DDE90201 		ldrd	r0, [sp, #8]
+  98 0066 DDE90423 		ldrd	r2, [sp, #16]
+  99 006a FFF7FEFF 		bl	__aeabi_dadd
+ 100 006e 2B46     		mov	r3, r5
+ 101 0070 2246     		mov	r2, r4
+ 102 0072 FFF7FEFF 		bl	__aeabi_dmul
+ 103 0076 CDE90801 		strd	r0, [sp, #32]
+ 132:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 133:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 134:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 135:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 136:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 137:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		/* If the calculation does not match the expected constant, stop the 
+ 138:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		increment of the check variable. */
+ 139:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( d4 - dAnswer ) > 0.001 )
+ 104              		.loc 1 139 0
+ 105 007a DDE90801 		ldrd	r0, [sp, #32]
+ 106 007e DDE90A23 		ldrd	r2, [sp, #40]
+ 107 0082 FFF7FEFF 		bl	__aeabi_dsub
+ 108 0086 0EA3     		adr	r3, .L8+24
+ 109 0088 D3E90023 		ldrd	r2, [r3]
+ 110 008c 21F00045 		bic	r5, r1, #-2147483648
+ 111 0090 2946     		mov	r1, r5
+ 112 0092 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 113 0096 20B9     		cbnz	r0, .L5
+ 140:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 141:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			sError = pdTRUE;
+ 142:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 143:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 144:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 114              		.loc 1 144 0
+ 115 0098 1EB9     		cbnz	r6, .L5
+ 145:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 146:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			/* If the calculation has always been correct, increment the check 
+ 147:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			variable so we know this task is still running okay. */
+ 148:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			( *pusTaskCheckVariable )++;
+ 116              		.loc 1 148 0
+ 117 009a 3888     		ldrh	r0, [r7, #0]
+ 118 009c 431C     		adds	r3, r0, #1
+ 119 009e 3B80     		strh	r3, [r7, #0]	@ movhi
+ 120 00a0 D4E7     		b	.L6
+ 121              	.L5:
+ 144:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 122              		.loc 1 144 0
+ 123 00a2 0126     		movs	r6, #1
+ 124              	.LVL7:
+ 125 00a4 D2E7     		b	.L6
+ 126              	.L9:
+ 127 00a6 00BF     		.align	3
+ 128              	.L8:
+ 129 00a8 5305A392 		.word	-1834810029
+ 130 00ac 3ADD5E40 		.word	1079958842
+ 131 00b0 82E2C798 		.word	-1731730814
+ 132 00b4 5B53A240 		.word	1084379995
+ 133 00b8 B29DEFA7 		.word	-1477468750
+ 134 00bc C6B18CC0 		.word	-1064521274
+ 135 00c0 FCA9F1D2 		.word	-755914244
+ 136 00c4 4D62503F 		.word	1062232653
+ 137              		.cfi_endproc
+ 138              	.LFE1:
+ 140              		.global	__aeabi_ddiv
+ 141              		.section	.text.vCompetingMathTask2,"ax",%progbits
+ 142              		.align	2
+ 143              		.thumb
+ 144              		.thumb_func
+ 146              	vCompetingMathTask2:
+ 147              	.LFB2:
+ 149:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 150:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 151:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 152:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 153:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 154:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 155:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	}
+ 156:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 157:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+ 158:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 159:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION( vCompetingMathTask2, pvParameters )
+ 160:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 148              		.loc 1 160 0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 48
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              	.LVL8:
+ 153 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 154              	.LCFI2:
+ 155              		.cfi_def_cfa_offset 36
+ 156              		.cfi_offset 14, -4
+ 157              		.cfi_offset 11, -8
+ 158              		.cfi_offset 10, -12
+ 159              		.cfi_offset 9, -16
+ 160              		.cfi_offset 8, -20
+ 161              		.cfi_offset 7, -24
+ 162              		.cfi_offset 6, -28
+ 163              		.cfi_offset 5, -32
+ 164              		.cfi_offset 4, -36
+ 161:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE d1, d2, d3, d4;
+ 162:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile unsigned short *pusTaskCheckVariable;
+ 163:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE dAnswer;
+ 164:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 165:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 166:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d1 = -389.38;
+ 165              		.loc 1 166 0
+ 166 0004 28A5     		adr	r5, .L16
+ 167 0006 D5E90045 		ldrd	r4, [r5]
+ 167:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d2 = 32498.2;
+ 168              		.loc 1 167 0
+ 169 000a 0FF2A40B 		adr	fp, .L16+8
+ 170 000e DBE900AB 		ldrd	sl, [fp]
+ 168:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d3 = -2.0001;
+ 171              		.loc 1 168 0
+ 172 0012 0FF2A409 		adr	r9, .L16+16
+ 173 0016 D9E90089 		ldrd	r8, [r9]
+ 160:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 174              		.loc 1 160 0
+ 175 001a 8DB0     		sub	sp, sp, #52
+ 176              	.LCFI3:
+ 177              		.cfi_def_cfa_offset 88
+ 166:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d1 = -389.38;
+ 178              		.loc 1 166 0
+ 179 001c CDE90245 		strd	r4, [sp, #8]
+ 180              	.LVL9:
+ 167:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	d2 = 32498.2;
+ 181              		.loc 1 167 0
+ 182 0020 CDE904AB 		strd	sl, [sp, #16]
+ 183              	.LVL10:
+ 184              		.loc 1 168 0
+ 185 0024 CDE90689 		strd	r8, [sp, #24]
+ 186              	.LVL11:
+ 169:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 170:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	dAnswer = ( d1 / d2 ) * d3;
+ 187              		.loc 1 170 0
+ 188 0028 DDE90623 		ldrd	r2, [sp, #24]
+ 160:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 189              		.loc 1 160 0
+ 190 002c 0746     		mov	r7, r0
+ 191              		.loc 1 170 0
+ 192 002e CDE90023 		strd	r2, [sp]
+ 193 0032 DDE90201 		ldrd	r0, [sp, #8]
+ 194              	.LVL12:
+ 195 0036 DDE90423 		ldrd	r2, [sp, #16]
+ 196 003a FFF7FEFF 		bl	__aeabi_ddiv
+ 197 003e DDE90023 		ldrd	r2, [sp]
+ 198 0042 FFF7FEFF 		bl	__aeabi_dmul
+ 199 0046 CDE90A01 		strd	r0, [sp, #40]
+ 200              	.LVL13:
+ 164:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 201              		.loc 1 164 0
+ 202 004a 0026     		movs	r6, #0
+ 203              	.LVL14:
+ 204              	.L15:
+ 171:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 172:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 173:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* The variable this task increments to show it is still running is passed in 
+ 174:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	as the parameter. */
+ 175:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
+ 176:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 177:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* Keep performing a calculation and checking the result against a constant. */
+ 178:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	for( ;; )
+ 179:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	{
+ 180:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d1 = -389.38;
+ 205              		.loc 1 180 0
+ 206 004c 16A3     		adr	r3, .L16
+ 207 004e D3E90023 		ldrd	r2, [r3]
+ 208 0052 CDE90223 		strd	r2, [sp, #8]
+ 181:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d2 = 32498.2;
+ 209              		.loc 1 181 0
+ 210 0056 CDE904AB 		strd	sl, [sp, #16]
+ 182:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d3 = -2.0001;
+ 211              		.loc 1 182 0
+ 212 005a CDE90689 		strd	r8, [sp, #24]
+ 183:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 184:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		d4 = ( d1 / d2 ) * d3;
+ 213              		.loc 1 184 0
+ 214 005e DDE90645 		ldrd	r4, [sp, #24]
+ 215 0062 DDE90201 		ldrd	r0, [sp, #8]
+ 216 0066 DDE90423 		ldrd	r2, [sp, #16]
+ 217 006a FFF7FEFF 		bl	__aeabi_ddiv
+ 218 006e 2B46     		mov	r3, r5
+ 219 0070 2246     		mov	r2, r4
+ 220 0072 FFF7FEFF 		bl	__aeabi_dmul
+ 221 0076 CDE90801 		strd	r0, [sp, #32]
+ 185:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 186:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 187:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 188:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 189:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		
+ 190:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		/* If the calculation does not match the expected constant, stop the 
+ 191:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		increment of the check variable. */
+ 192:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( d4 - dAnswer ) > 0.001 )
+ 222              		.loc 1 192 0
+ 223 007a DDE90801 		ldrd	r0, [sp, #32]
+ 224 007e DDE90A23 		ldrd	r2, [sp, #40]
+ 225 0082 FFF7FEFF 		bl	__aeabi_dsub
+ 226 0086 0EA3     		adr	r3, .L16+24
+ 227 0088 D3E90023 		ldrd	r2, [r3]
+ 228 008c 21F00045 		bic	r5, r1, #-2147483648
+ 229 0090 2946     		mov	r1, r5
+ 230 0092 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 231 0096 20B9     		cbnz	r0, .L14
+ 193:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 194:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			sError = pdTRUE;
+ 195:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 196:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 197:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 232              		.loc 1 197 0
+ 233 0098 1EB9     		cbnz	r6, .L14
+ 198:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 199:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			/* If the calculation has always been correct, increment the check 
+ 200:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			variable so we know
+ 201:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			this task is still running okay. */
+ 202:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			( *pusTaskCheckVariable )++;
+ 234              		.loc 1 202 0
+ 235 009a 3888     		ldrh	r0, [r7, #0]
+ 236 009c 431C     		adds	r3, r0, #1
+ 237 009e 3B80     		strh	r3, [r7, #0]	@ movhi
+ 238 00a0 D4E7     		b	.L15
+ 239              	.L14:
+ 197:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 240              		.loc 1 197 0
+ 241 00a2 0126     		movs	r6, #1
+ 242              	.LVL15:
+ 243 00a4 D2E7     		b	.L15
+ 244              	.L17:
+ 245 00a6 00BF     		.align	3
+ 246              	.L16:
+ 247 00a8 AE47E17A 		.word	2061584302
+ 248 00ac 145678C0 		.word	-1065855468
+ 249 00b0 CDCCCCCC 		.word	-858993459
+ 250 00b4 8CBCDF40 		.word	1088404620
+ 251 00b8 39D6C56D 		.word	1841681977
+ 252 00bc 340000C0 		.word	-1073741772
+ 253 00c0 FCA9F1D2 		.word	-755914244
+ 254 00c4 4D62503F 		.word	1062232653
+ 255              		.cfi_endproc
+ 256              	.LFE2:
+ 258              		.section	.text.vCompetingMathTask4,"ax",%progbits
+ 259              		.align	2
+ 260              		.thumb
+ 261              		.thumb_func
+ 263              	vCompetingMathTask4:
+ 264              	.LFB4:
+ 203:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 204:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 205:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 206:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 207:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 208:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	}
+ 209:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 210:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+ 211:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 212:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION( vCompetingMathTask3, pvParameters )
+ 213:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 214:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE *pdArray, dTotal1, dTotal2, dDifference;
+ 215:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile unsigned short *pusTaskCheckVariable;
+ 216:../FreeRTOS/Demo/Common/Minimal/flop.c **** const size_t xArraySize = 10;
+ 217:../FreeRTOS/Demo/Common/Minimal/flop.c **** size_t xPosition;
+ 218:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 219:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 220:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* The variable this task increments to show it is still running is passed in 
+ 221:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	as the parameter. */
+ 222:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
+ 223:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 224:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 225:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 226:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* Keep filling an array, keeping a running total of the values placed in the 
+ 227:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	array.  Then run through the array adding up all the values.  If the two totals 
+ 228:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	do not match, stop the check variable from incrementing. */
+ 229:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	for( ;; )
+ 230:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	{
+ 231:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal1 = 0.0;
+ 232:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal2 = 0.0;
+ 233:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 234:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		for( xPosition = 0; xPosition < xArraySize; xPosition++ )
+ 235:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 238:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 239:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 240:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 241:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 242:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 243:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 244:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		for( xPosition = 0; xPosition < xArraySize; xPosition++ )
+ 245:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 246:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal2 += pdArray[ xPosition ];
+ 247:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 248:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 249:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dDifference = dTotal1 - dTotal2;
+ 250:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( dDifference ) > 0.001 )
+ 251:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 252:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			sError = pdTRUE;
+ 253:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 254:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 255:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 256:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 257:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 258:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 259:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 260:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 261:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			/* If the calculation has always been correct, increment the check 
+ 262:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			variable so we know	this task is still running okay. */
+ 263:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			( *pusTaskCheckVariable )++;
+ 264:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 265:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	}
+ 266:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 267:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+ 268:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 269:../FreeRTOS/Demo/Common/Minimal/flop.c **** static portTASK_FUNCTION( vCompetingMathTask4, pvParameters )
+ 270:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 265              		.loc 1 270 0
+ 266              		.cfi_startproc
+ 267              		@ args = 0, pretend = 0, frame = 32
+ 268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 269              	.LVL16:
+ 270 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 271              	.LCFI4:
+ 272              		.cfi_def_cfa_offset 36
+ 273              		.cfi_offset 14, -4
+ 274              		.cfi_offset 11, -8
+ 275              		.cfi_offset 10, -12
+ 276              		.cfi_offset 9, -16
+ 277              		.cfi_offset 8, -20
+ 278              		.cfi_offset 7, -24
+ 279              		.cfi_offset 6, -28
+ 280              		.cfi_offset 5, -32
+ 281              		.cfi_offset 4, -36
+ 271:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile portDOUBLE *pdArray, dTotal1, dTotal2, dDifference;
+ 272:../FreeRTOS/Demo/Common/Minimal/flop.c **** volatile unsigned short *pusTaskCheckVariable;
+ 273:../FreeRTOS/Demo/Common/Minimal/flop.c **** const size_t xArraySize = 10;
+ 274:../FreeRTOS/Demo/Common/Minimal/flop.c **** size_t xPosition;
+ 275:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 276:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 277:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* The variable this task increments to show it is still running is passed in 
+ 278:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	as the parameter. */
+ 279:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pusTaskCheckVariable = ( unsigned short * ) pvParameters;
+ 280:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 281:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 282:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 283:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* Keep filling an array, keeping a running total of the values placed in the 
+ 284:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	array.  Then run through the array adding up all the values.  If the two totals 
+ 285:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	do not match, stop the check variable from incrementing. */
+ 286:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	for( ;; )
+ 287:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	{
+ 288:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal1 = 0.0;
+ 289:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal2 = 0.0;
+ 290:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 291:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		for( xPosition = 0; xPosition < xArraySize; xPosition++ )
+ 292:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 282              		.loc 1 293 0
+ 283 0004 0FF2D819 		adr	r9, .L24
+ 284 0008 D9E90089 		ldrd	r8, [r9]
+ 270:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 285              		.loc 1 270 0
+ 286 000c 89B0     		sub	sp, sp, #36
+ 287              	.LCFI5:
+ 288              		.cfi_def_cfa_offset 72
+ 270:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 289              		.loc 1 270 0
+ 290 000e 0190     		str	r0, [sp, #4]
+ 291              	.LVL17:
+ 281:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 292              		.loc 1 281 0
+ 293 0010 5020     		movs	r0, #80
+ 294              	.LVL18:
+ 295 0012 FFF7FEFF 		bl	pvPortMalloc
+ 275:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 296              		.loc 1 275 0
+ 297 0016 0025     		movs	r5, #0
+ 281:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 298              		.loc 1 281 0
+ 299 0018 0446     		mov	r4, r0
+ 300              	.LVL19:
+ 288:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal1 = 0.0;
+ 301              		.loc 1 288 0
+ 302 001a 4FF0000A 		mov	sl, #0
+ 303 001e 4FF0000B 		mov	fp, #0
+ 304              	.LVL20:
+ 305              	.L23:
+ 306 0022 CDE902AB 		strd	sl, [sp, #8]
+ 289:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal2 = 0.0;
+ 307              		.loc 1 289 0
+ 308 0026 CDE904AB 		strd	sl, [sp, #16]
+ 309              	.LVL21:
+ 310              		.loc 1 293 0
+ 311 002a C4E900AB 		strd	sl, [r4]
+ 294:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition * 12.123;	
+ 312              		.loc 1 294 0
+ 313 002e DDE90201 		ldrd	r0, [sp, #8]
+ 314 0032 0022     		movs	r2, #0
+ 315 0034 0023     		movs	r3, #0
+ 316 0036 FFF7FEFF 		bl	__aeabi_dadd
+ 317 003a 6BA3     		adr	r3, .L24+8
+ 318 003c D3E90023 		ldrd	r2, [r3]
+ 319 0040 CDE90201 		strd	r0, [sp, #8]
+ 320              	.LVL22:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 321              		.loc 1 293 0
+ 322 0044 C4E90223 		strd	r2, [r4, #8]
+ 323              		.loc 1 294 0
+ 324 0048 DDE90201 		ldrd	r0, [sp, #8]
+ 325 004c FFF7FEFF 		bl	__aeabi_dadd
+ 326 0050 67A3     		adr	r3, .L24+16
+ 327 0052 D3E90023 		ldrd	r2, [r3]
+ 328 0056 CDE90201 		strd	r0, [sp, #8]
+ 329              	.LVL23:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 330              		.loc 1 293 0
+ 331 005a C4E90423 		strd	r2, [r4, #16]
+ 332              		.loc 1 294 0
+ 333 005e DDE90201 		ldrd	r0, [sp, #8]
+ 334 0062 FFF7FEFF 		bl	__aeabi_dadd
+ 335 0066 64A3     		adr	r3, .L24+24
+ 336 0068 D3E90023 		ldrd	r2, [r3]
+ 337 006c CDE90201 		strd	r0, [sp, #8]
+ 338              	.LVL24:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 339              		.loc 1 293 0
+ 340 0070 C4E90623 		strd	r2, [r4, #24]
+ 341              		.loc 1 294 0
+ 342 0074 DDE90201 		ldrd	r0, [sp, #8]
+ 343 0078 FFF7FEFF 		bl	__aeabi_dadd
+ 344 007c 60A3     		adr	r3, .L24+32
+ 345 007e D3E90023 		ldrd	r2, [r3]
+ 346 0082 CDE90201 		strd	r0, [sp, #8]
+ 347              	.LVL25:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 348              		.loc 1 293 0
+ 349 0086 C4E90823 		strd	r2, [r4, #32]
+ 350              		.loc 1 294 0
+ 351 008a DDE90201 		ldrd	r0, [sp, #8]
+ 352 008e FFF7FEFF 		bl	__aeabi_dadd
+ 353 0092 5DA3     		adr	r3, .L24+40
+ 354 0094 D3E90023 		ldrd	r2, [r3]
+ 355 0098 CDE90201 		strd	r0, [sp, #8]
+ 356              	.LVL26:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 357              		.loc 1 293 0
+ 358 009c C4E90A23 		strd	r2, [r4, #40]
+ 359              		.loc 1 294 0
+ 360 00a0 DDE90201 		ldrd	r0, [sp, #8]
+ 361 00a4 FFF7FEFF 		bl	__aeabi_dadd
+ 362 00a8 59A3     		adr	r3, .L24+48
+ 363 00aa D3E90023 		ldrd	r2, [r3]
+ 364 00ae CDE90201 		strd	r0, [sp, #8]
+ 365              	.LVL27:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 366              		.loc 1 293 0
+ 367 00b2 C4E90C23 		strd	r2, [r4, #48]
+ 368              		.loc 1 294 0
+ 369 00b6 DDE90201 		ldrd	r0, [sp, #8]
+ 370 00ba FFF7FEFF 		bl	__aeabi_dadd
+ 371 00be 56A3     		adr	r3, .L24+56
+ 372 00c0 D3E90023 		ldrd	r2, [r3]
+ 373 00c4 CDE90201 		strd	r0, [sp, #8]
+ 374              	.LVL28:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 375              		.loc 1 293 0
+ 376 00c8 C4E90E23 		strd	r2, [r4, #56]
+ 377              		.loc 1 294 0
+ 378 00cc DDE90201 		ldrd	r0, [sp, #8]
+ 379 00d0 FFF7FEFF 		bl	__aeabi_dadd
+ 380 00d4 42A3     		adr	r3, .L24
+ 381 00d6 D3E90023 		ldrd	r2, [r3]
+ 382 00da CDE90201 		strd	r0, [sp, #8]
+ 383              	.LVL29:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 384              		.loc 1 293 0
+ 385 00de C4E91089 		strd	r8, [r4, #64]
+ 386              		.loc 1 294 0
+ 387 00e2 DDE90201 		ldrd	r0, [sp, #8]
+ 388 00e6 FFF7FEFF 		bl	__aeabi_dadd
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 389              		.loc 1 293 0
+ 390 00ea 4DA3     		adr	r3, .L24+64
+ 391 00ec D3E90023 		ldrd	r2, [r3]
+ 392              		.loc 1 294 0
+ 393 00f0 CDE90201 		strd	r0, [sp, #8]
+ 394              	.LVL30:
+ 293:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition * 12.123;
+ 395              		.loc 1 293 0
+ 396 00f4 C4E91223 		strd	r2, [r4, #72]
+ 397              		.loc 1 294 0
+ 398 00f8 DDE90201 		ldrd	r0, [sp, #8]
+ 399 00fc FFF7FEFF 		bl	__aeabi_dadd
+ 400 0100 CDE90201 		strd	r0, [sp, #8]
+ 401              	.LVL31:
+ 295:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 296:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 297:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 298:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 299:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 300:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 301:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		for( xPosition = 0; xPosition < xArraySize; xPosition++ )
+ 302:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 303:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal2 += pdArray[ xPosition ];
+ 402              		.loc 1 303 0
+ 403 0104 D4E90001 		ldrd	r0, [r4]
+ 404 0108 DDE90423 		ldrd	r2, [sp, #16]
+ 405 010c FFF7FEFF 		bl	__aeabi_dadd
+ 406 0110 CDE90401 		strd	r0, [sp, #16]
+ 407              	.LVL32:
+ 408 0114 D4E90201 		ldrd	r0, [r4, #8]
+ 409 0118 DDE90423 		ldrd	r2, [sp, #16]
+ 410 011c FFF7FEFF 		bl	__aeabi_dadd
+ 411 0120 CDE90401 		strd	r0, [sp, #16]
+ 412              	.LVL33:
+ 413 0124 D4E90401 		ldrd	r0, [r4, #16]
+ 414 0128 DDE90423 		ldrd	r2, [sp, #16]
+ 415 012c FFF7FEFF 		bl	__aeabi_dadd
+ 416 0130 CDE90401 		strd	r0, [sp, #16]
+ 417              	.LVL34:
+ 418 0134 D4E90601 		ldrd	r0, [r4, #24]
+ 419 0138 DDE90423 		ldrd	r2, [sp, #16]
+ 420 013c FFF7FEFF 		bl	__aeabi_dadd
+ 421 0140 CDE90401 		strd	r0, [sp, #16]
+ 422              	.LVL35:
+ 423 0144 D4E90801 		ldrd	r0, [r4, #32]
+ 424 0148 DDE90423 		ldrd	r2, [sp, #16]
+ 425 014c FFF7FEFF 		bl	__aeabi_dadd
+ 426 0150 CDE90401 		strd	r0, [sp, #16]
+ 427              	.LVL36:
+ 428 0154 D4E90A01 		ldrd	r0, [r4, #40]
+ 429 0158 DDE90423 		ldrd	r2, [sp, #16]
+ 430 015c FFF7FEFF 		bl	__aeabi_dadd
+ 431 0160 CDE90401 		strd	r0, [sp, #16]
+ 432              	.LVL37:
+ 433 0164 D4E90C01 		ldrd	r0, [r4, #48]
+ 434 0168 DDE90423 		ldrd	r2, [sp, #16]
+ 435 016c FFF7FEFF 		bl	__aeabi_dadd
+ 436 0170 CDE90401 		strd	r0, [sp, #16]
+ 437              	.LVL38:
+ 438 0174 D4E90E01 		ldrd	r0, [r4, #56]
+ 439 0178 DDE90423 		ldrd	r2, [sp, #16]
+ 440 017c FFF7FEFF 		bl	__aeabi_dadd
+ 441 0180 CDE90401 		strd	r0, [sp, #16]
+ 442              	.LVL39:
+ 443 0184 D4E91001 		ldrd	r0, [r4, #64]
+ 444 0188 DDE90423 		ldrd	r2, [sp, #16]
+ 445 018c FFF7FEFF 		bl	__aeabi_dadd
+ 446 0190 CDE90401 		strd	r0, [sp, #16]
+ 447              	.LVL40:
+ 448 0194 D4E91201 		ldrd	r0, [r4, #72]
+ 449 0198 DDE90423 		ldrd	r2, [sp, #16]
+ 450 019c FFF7FEFF 		bl	__aeabi_dadd
+ 451 01a0 CDE90401 		strd	r0, [sp, #16]
+ 452              	.LVL41:
+ 304:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 305:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 306:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dDifference = dTotal1 - dTotal2;
+ 453              		.loc 1 306 0
+ 454 01a4 DDE90201 		ldrd	r0, [sp, #8]
+ 455 01a8 DDE90423 		ldrd	r2, [sp, #16]
+ 456 01ac FFF7FEFF 		bl	__aeabi_dsub
+ 307:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( dDifference ) > 0.001 )
+ 457              		.loc 1 307 0
+ 458 01b0 1DA3     		adr	r3, .L24+72
+ 459 01b2 D3E90023 		ldrd	r2, [r3]
+ 306:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dDifference = dTotal1 - dTotal2;
+ 460              		.loc 1 306 0
+ 461 01b6 CDE90601 		strd	r0, [sp, #24]
+ 462              		.loc 1 307 0
+ 463 01ba DDE90601 		ldrd	r0, [sp, #24]
+ 464 01be 21F00047 		bic	r7, r1, #-2147483648
+ 465 01c2 3946     		mov	r1, r7
+ 466 01c4 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 467 01c8 28B9     		cbnz	r0, .L22
+ 308:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 309:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			sError = pdTRUE;
+ 310:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 311:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 312:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#if configUSE_PREEMPTION == 0
+ 313:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			taskYIELD();
+ 314:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		#endif
+ 315:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 316:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 468              		.loc 1 316 0
+ 469 01ca 25B9     		cbnz	r5, .L22
+ 317:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 318:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			/* If the calculation has always been correct, increment the check 
+ 319:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			variable so we know	this task is still running okay. */
+ 320:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			( *pusTaskCheckVariable )++;
+ 470              		.loc 1 320 0
+ 471 01cc 0198     		ldr	r0, [sp, #4]
+ 472 01ce 0188     		ldrh	r1, [r0, #0]
+ 473 01d0 4B1C     		adds	r3, r1, #1
+ 474 01d2 0380     		strh	r3, [r0, #0]	@ movhi
+ 475 01d4 25E7     		b	.L23
+ 476              	.L22:
+ 316:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 477              		.loc 1 316 0
+ 478 01d6 0125     		movs	r5, #1
+ 479              	.LVL42:
+ 480 01d8 23E7     		b	.L23
+ 481              	.L25:
+ 482 01da 00BFAFF3 		.align	3
+ 482      0080
+ 483              	.L24:
+ 484 01e0 E5D022DB 		.word	-618475291
+ 485 01e4 F93E5840 		.word	1079525113
+ 486 01e8 E5D022DB 		.word	-618475291
+ 487 01ec F93E2840 		.word	1076379385
+ 488 01f0 E5D022DB 		.word	-618475291
+ 489 01f4 F93E3840 		.word	1077427961
+ 490 01f8 AC1C5A64 		.word	1683627180
+ 491 01fc 3B2F4240 		.word	1078079291
+ 492 0200 E5D022DB 		.word	-618475291
+ 493 0204 F93E4840 		.word	1078476537
+ 494 0208 1E85EB51 		.word	1374389534
+ 495 020c B84E4E40 		.word	1078873784
+ 496 0210 AC1C5A64 		.word	1683627180
+ 497 0214 3B2F5240 		.word	1079127867
+ 498 0218 C876BE9F 		.word	-1614907704
+ 499 021c 1A375540 		.word	1079326490
+ 500 0220 022B8716 		.word	377957122
+ 501 0224 D9465B40 		.word	1079723737
+ 502 0228 FCA9F1D2 		.word	-755914244
+ 503 022c 4D62503F 		.word	1062232653
+ 504              		.cfi_endproc
+ 505              	.LFE4:
+ 507              		.section	.text.vCompetingMathTask3,"ax",%progbits
+ 508              		.align	2
+ 509              		.thumb
+ 510              		.thumb_func
+ 512              	vCompetingMathTask3:
+ 513              	.LFB3:
+ 213:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 514              		.loc 1 213 0
+ 515              		.cfi_startproc
+ 516              		@ args = 0, pretend = 0, frame = 24
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              	.LVL43:
+ 519 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 520              	.LCFI6:
+ 521              		.cfi_def_cfa_offset 32
+ 522              		.cfi_offset 14, -4
+ 523              		.cfi_offset 10, -8
+ 524              		.cfi_offset 9, -12
+ 525              		.cfi_offset 8, -16
+ 526              		.cfi_offset 7, -20
+ 527              		.cfi_offset 6, -24
+ 528              		.cfi_offset 5, -28
+ 529              		.cfi_offset 4, -32
+ 530 0004 8246     		mov	sl, r0
+ 531              	.LVL44:
+ 532 0006 86B0     		sub	sp, sp, #24
+ 533              	.LCFI7:
+ 534              		.cfi_def_cfa_offset 56
+ 224:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 535              		.loc 1 224 0
+ 536 0008 5020     		movs	r0, #80
+ 537              	.LVL45:
+ 538 000a FFF7FEFF 		bl	pvPortMalloc
+ 218:../FreeRTOS/Demo/Common/Minimal/flop.c **** short sError = pdFALSE;
+ 539              		.loc 1 218 0
+ 540 000e 0025     		movs	r5, #0
+ 224:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	pdArray = ( portDOUBLE * ) pvPortMalloc( xArraySize * sizeof( portDOUBLE ) );
+ 541              		.loc 1 224 0
+ 542 0010 0446     		mov	r4, r0
+ 543              	.LVL46:
+ 231:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal1 = 0.0;
+ 544              		.loc 1 231 0
+ 545 0012 4FF00008 		mov	r8, #0
+ 546 0016 4FF00009 		mov	r9, #0
+ 547              	.LVL47:
+ 548              	.L31:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 549              		.loc 1 236 0
+ 550 001a 0023     		movs	r3, #0
+ 551 001c 0022     		movs	r2, #0
+ 552 001e C4F21603 		movt	r3, 16406
+ 231:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal1 = 0.0;
+ 553              		.loc 1 231 0
+ 554 0022 CDE90089 		strd	r8, [sp]
+ 232:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dTotal2 = 0.0;
+ 555              		.loc 1 232 0
+ 556 0026 CDE90289 		strd	r8, [sp, #8]
+ 557              	.LVL48:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 558              		.loc 1 236 0
+ 559 002a C4E90023 		strd	r2, [r4]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 560              		.loc 1 237 0
+ 561 002e DDE90001 		ldrd	r0, [sp]
+ 562 0032 FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 563              		.loc 1 236 0
+ 564 0036 0023     		movs	r3, #0
+ 565 0038 0022     		movs	r2, #0
+ 566 003a C4F21A03 		movt	r3, 16410
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 567              		.loc 1 237 0
+ 568 003e CDE90001 		strd	r0, [sp]
+ 569              	.LVL49:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 570              		.loc 1 236 0
+ 571 0042 C4E90223 		strd	r2, [r4, #8]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 572              		.loc 1 237 0
+ 573 0046 DDE90001 		ldrd	r0, [sp]
+ 574 004a FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 575              		.loc 1 236 0
+ 576 004e 0023     		movs	r3, #0
+ 577 0050 0022     		movs	r2, #0
+ 578 0052 C4F21E03 		movt	r3, 16414
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 579              		.loc 1 237 0
+ 580 0056 CDE90001 		strd	r0, [sp]
+ 581              	.LVL50:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 582              		.loc 1 236 0
+ 583 005a C4E90423 		strd	r2, [r4, #16]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 584              		.loc 1 237 0
+ 585 005e DDE90001 		ldrd	r0, [sp]
+ 586 0062 FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 587              		.loc 1 236 0
+ 588 0066 0023     		movs	r3, #0
+ 589 0068 0022     		movs	r2, #0
+ 590 006a C4F22103 		movt	r3, 16417
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 591              		.loc 1 237 0
+ 592 006e CDE90001 		strd	r0, [sp]
+ 593              	.LVL51:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 594              		.loc 1 236 0
+ 595 0072 C4E90623 		strd	r2, [r4, #24]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 596              		.loc 1 237 0
+ 597 0076 DDE90001 		ldrd	r0, [sp]
+ 598 007a FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 599              		.loc 1 236 0
+ 600 007e 0023     		movs	r3, #0
+ 601 0080 0022     		movs	r2, #0
+ 602 0082 C4F22303 		movt	r3, 16419
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 603              		.loc 1 237 0
+ 604 0086 CDE90001 		strd	r0, [sp]
+ 605              	.LVL52:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 606              		.loc 1 236 0
+ 607 008a C4E90823 		strd	r2, [r4, #32]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 608              		.loc 1 237 0
+ 609 008e DDE90001 		ldrd	r0, [sp]
+ 610 0092 FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 611              		.loc 1 236 0
+ 612 0096 0023     		movs	r3, #0
+ 613 0098 0022     		movs	r2, #0
+ 614 009a C4F22503 		movt	r3, 16421
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 615              		.loc 1 237 0
+ 616 009e CDE90001 		strd	r0, [sp]
+ 617              	.LVL53:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 618              		.loc 1 236 0
+ 619 00a2 C4E90A23 		strd	r2, [r4, #40]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 620              		.loc 1 237 0
+ 621 00a6 DDE90001 		ldrd	r0, [sp]
+ 622 00aa FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 623              		.loc 1 236 0
+ 624 00ae 0023     		movs	r3, #0
+ 625 00b0 0022     		movs	r2, #0
+ 626 00b2 C4F22703 		movt	r3, 16423
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 627              		.loc 1 237 0
+ 628 00b6 CDE90001 		strd	r0, [sp]
+ 629              	.LVL54:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 630              		.loc 1 236 0
+ 631 00ba C4E90C23 		strd	r2, [r4, #48]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 632              		.loc 1 237 0
+ 633 00be DDE90001 		ldrd	r0, [sp]
+ 634 00c2 FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 635              		.loc 1 236 0
+ 636 00c6 0023     		movs	r3, #0
+ 637 00c8 0022     		movs	r2, #0
+ 638 00ca C4F22903 		movt	r3, 16425
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 639              		.loc 1 237 0
+ 640 00ce CDE90001 		strd	r0, [sp]
+ 641              	.LVL55:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 642              		.loc 1 236 0
+ 643 00d2 C4E90E23 		strd	r2, [r4, #56]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 644              		.loc 1 237 0
+ 645 00d6 DDE90001 		ldrd	r0, [sp]
+ 646 00da FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 647              		.loc 1 236 0
+ 648 00de 0023     		movs	r3, #0
+ 649 00e0 0022     		movs	r2, #0
+ 650 00e2 C4F22B03 		movt	r3, 16427
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 651              		.loc 1 237 0
+ 652 00e6 CDE90001 		strd	r0, [sp]
+ 653              	.LVL56:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 654              		.loc 1 236 0
+ 655 00ea C4E91023 		strd	r2, [r4, #64]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 656              		.loc 1 237 0
+ 657 00ee DDE90001 		ldrd	r0, [sp]
+ 658 00f2 FFF7FEFF 		bl	__aeabi_dadd
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 659              		.loc 1 236 0
+ 660 00f6 0023     		movs	r3, #0
+ 661 00f8 0022     		movs	r2, #0
+ 662 00fa C4F22D03 		movt	r3, 16429
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 663              		.loc 1 237 0
+ 664 00fe CDE90001 		strd	r0, [sp]
+ 665              	.LVL57:
+ 236:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			pdArray[ xPosition ] = ( portDOUBLE ) xPosition + 5.5;
+ 666              		.loc 1 236 0
+ 667 0102 C4E91223 		strd	r2, [r4, #72]
+ 237:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal1 += ( portDOUBLE ) xPosition + 5.5;	
+ 668              		.loc 1 237 0
+ 669 0106 DDE90001 		ldrd	r0, [sp]
+ 670 010a FFF7FEFF 		bl	__aeabi_dadd
+ 671 010e CDE90001 		strd	r0, [sp]
+ 672              	.LVL58:
+ 246:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			dTotal2 += pdArray[ xPosition ];
+ 673              		.loc 1 246 0
+ 674 0112 D4E90001 		ldrd	r0, [r4]
+ 675 0116 DDE90223 		ldrd	r2, [sp, #8]
+ 676 011a FFF7FEFF 		bl	__aeabi_dadd
+ 677 011e CDE90201 		strd	r0, [sp, #8]
+ 678              	.LVL59:
+ 679 0122 D4E90201 		ldrd	r0, [r4, #8]
+ 680 0126 DDE90223 		ldrd	r2, [sp, #8]
+ 681 012a FFF7FEFF 		bl	__aeabi_dadd
+ 682 012e CDE90201 		strd	r0, [sp, #8]
+ 683              	.LVL60:
+ 684 0132 D4E90401 		ldrd	r0, [r4, #16]
+ 685 0136 DDE90223 		ldrd	r2, [sp, #8]
+ 686 013a FFF7FEFF 		bl	__aeabi_dadd
+ 687 013e CDE90201 		strd	r0, [sp, #8]
+ 688              	.LVL61:
+ 689 0142 D4E90601 		ldrd	r0, [r4, #24]
+ 690 0146 DDE90223 		ldrd	r2, [sp, #8]
+ 691 014a FFF7FEFF 		bl	__aeabi_dadd
+ 692 014e CDE90201 		strd	r0, [sp, #8]
+ 693              	.LVL62:
+ 694 0152 D4E90801 		ldrd	r0, [r4, #32]
+ 695 0156 DDE90223 		ldrd	r2, [sp, #8]
+ 696 015a FFF7FEFF 		bl	__aeabi_dadd
+ 697 015e CDE90201 		strd	r0, [sp, #8]
+ 698              	.LVL63:
+ 699 0162 D4E90A01 		ldrd	r0, [r4, #40]
+ 700 0166 DDE90223 		ldrd	r2, [sp, #8]
+ 701 016a FFF7FEFF 		bl	__aeabi_dadd
+ 702 016e CDE90201 		strd	r0, [sp, #8]
+ 703              	.LVL64:
+ 704 0172 D4E90C01 		ldrd	r0, [r4, #48]
+ 705 0176 DDE90223 		ldrd	r2, [sp, #8]
+ 706 017a FFF7FEFF 		bl	__aeabi_dadd
+ 707 017e CDE90201 		strd	r0, [sp, #8]
+ 708              	.LVL65:
+ 709 0182 D4E90E01 		ldrd	r0, [r4, #56]
+ 710 0186 DDE90223 		ldrd	r2, [sp, #8]
+ 711 018a FFF7FEFF 		bl	__aeabi_dadd
+ 712 018e CDE90201 		strd	r0, [sp, #8]
+ 713              	.LVL66:
+ 714 0192 D4E91001 		ldrd	r0, [r4, #64]
+ 715 0196 DDE90223 		ldrd	r2, [sp, #8]
+ 716 019a FFF7FEFF 		bl	__aeabi_dadd
+ 717 019e CDE90201 		strd	r0, [sp, #8]
+ 718              	.LVL67:
+ 719 01a2 D4E91201 		ldrd	r0, [r4, #72]
+ 720 01a6 DDE90223 		ldrd	r2, [sp, #8]
+ 721 01aa FFF7FEFF 		bl	__aeabi_dadd
+ 722 01ae CDE90201 		strd	r0, [sp, #8]
+ 723              	.LVL68:
+ 249:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dDifference = dTotal1 - dTotal2;
+ 724              		.loc 1 249 0
+ 725 01b2 DDE90001 		ldrd	r0, [sp]
+ 726 01b6 DDE90223 		ldrd	r2, [sp, #8]
+ 727 01ba FFF7FEFF 		bl	__aeabi_dsub
+ 250:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( dDifference ) > 0.001 )
+ 728              		.loc 1 250 0
+ 729 01be 0CA3     		adr	r3, .L32
+ 730 01c0 D3E90023 		ldrd	r2, [r3]
+ 249:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		dDifference = dTotal1 - dTotal2;
+ 731              		.loc 1 249 0
+ 732 01c4 CDE90401 		strd	r0, [sp, #16]
+ 250:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( fabs( dDifference ) > 0.001 )
+ 733              		.loc 1 250 0
+ 734 01c8 DDE90401 		ldrd	r0, [sp, #16]
+ 735 01cc 21F00047 		bic	r7, r1, #-2147483648
+ 736 01d0 3946     		mov	r1, r7
+ 737 01d2 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 738 01d6 30B9     		cbnz	r0, .L30
+ 259:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 739              		.loc 1 259 0
+ 740 01d8 2DB9     		cbnz	r5, .L30
+ 263:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			( *pusTaskCheckVariable )++;
+ 741              		.loc 1 263 0
+ 742 01da BAF80000 		ldrh	r0, [sl, #0]
+ 743 01de 431C     		adds	r3, r0, #1
+ 744 01e0 AAF80030 		strh	r3, [sl, #0]	@ movhi
+ 745 01e4 19E7     		b	.L31
+ 746              	.L30:
+ 259:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( sError == pdFALSE )
+ 747              		.loc 1 259 0
+ 748 01e6 0125     		movs	r5, #1
+ 749              	.LVL69:
+ 750 01e8 17E7     		b	.L31
+ 751              	.L33:
+ 752 01ea 00BFAFF3 		.align	3
+ 752      0080
+ 753              	.L32:
+ 754 01f0 FCA9F1D2 		.word	-755914244
+ 755 01f4 4D62503F 		.word	1062232653
+ 756              		.cfi_endproc
+ 757              	.LFE3:
+ 759              		.section	.text.vStartMathTasks,"ax",%progbits
+ 760              		.align	2
+ 761              		.global	vStartMathTasks
+ 762              		.thumb
+ 763              		.thumb_func
+ 765              	vStartMathTasks:
+ 766              	.LFB0:
+  95:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 767              		.loc 1 95 0
+ 768              		.cfi_startproc
+ 769              		@ args = 0, pretend = 0, frame = 0
+ 770              		@ frame_needed = 0, uses_anonymous_args = 0
+ 771              	.LVL70:
+ 772 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 773              	.LCFI8:
+ 774              		.cfi_def_cfa_offset 32
+ 775              		.cfi_offset 14, -4
+ 776              		.cfi_offset 10, -8
+ 777              		.cfi_offset 9, -12
+ 778              		.cfi_offset 8, -16
+ 779              		.cfi_offset 7, -20
+ 780              		.cfi_offset 6, -24
+ 781              		.cfi_offset 5, -28
+ 782              		.cfi_offset 4, -32
+  96:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 783              		.loc 1 96 0
+ 784 0004 40F20007 		movw	r7, #:lower16:vCompetingMathTask1
+ 785 0008 40F20004 		movw	r4, #:lower16:.LANCHOR0
+ 786 000c C0F20004 		movt	r4, #:upper16:.LANCHOR0
+ 787 0010 C0F20007 		movt	r7, #:upper16:vCompetingMathTask1
+ 788 0014 40F20001 		movw	r1, #:lower16:.LC0
+  95:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 789              		.loc 1 95 0
+ 790 0018 84B0     		sub	sp, sp, #16
+ 791              	.LCFI9:
+ 792              		.cfi_def_cfa_offset 48
+  96:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 793              		.loc 1 96 0
+ 794 001a 4FF00009 		mov	r9, #0
+  95:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 795              		.loc 1 95 0
+ 796 001e 8246     		mov	sl, r0
+  96:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 797              		.loc 1 96 0
+ 798 0020 7822     		movs	r2, #120
+ 799 0022 2346     		mov	r3, r4
+ 800 0024 C0F20001 		movt	r1, #:upper16:.LC0
+ 801 0028 3846     		mov	r0, r7
+ 802              	.LVL71:
+  97:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 803              		.loc 1 97 0
+ 804 002a 40F20006 		movw	r6, #:lower16:vCompetingMathTask2
+ 805 002e C0F20006 		movt	r6, #:upper16:vCompetingMathTask2
+  96:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math1", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 806              		.loc 1 96 0
+ 807 0032 CDF800A0 		str	sl, [sp, #0]
+ 808 0036 CDF80490 		str	r9, [sp, #4]
+ 809 003a CDF80890 		str	r9, [sp, #8]
+ 810 003e CDF80C90 		str	r9, [sp, #12]
+ 811 0042 FFF7FEFF 		bl	xTaskGenericCreate
+  97:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 812              		.loc 1 97 0
+ 813 0046 40F20001 		movw	r1, #:lower16:.LC1
+ 814 004a 7822     		movs	r2, #120
+ 815 004c A31C     		adds	r3, r4, #2
+ 816 004e C0F20001 		movt	r1, #:upper16:.LC1
+ 817 0052 3046     		mov	r0, r6
+  98:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 818              		.loc 1 98 0
+ 819 0054 40F20005 		movw	r5, #:lower16:vCompetingMathTask3
+ 820 0058 C0F20005 		movt	r5, #:upper16:vCompetingMathTask3
+  97:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math2", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 821              		.loc 1 97 0
+ 822 005c CDF800A0 		str	sl, [sp, #0]
+ 823 0060 CDF80490 		str	r9, [sp, #4]
+ 824 0064 CDF80890 		str	r9, [sp, #8]
+ 825 0068 CDF80C90 		str	r9, [sp, #12]
+ 826 006c FFF7FEFF 		bl	xTaskGenericCreate
+  98:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 827              		.loc 1 98 0
+ 828 0070 40F20001 		movw	r1, #:lower16:.LC2
+ 829 0074 7822     		movs	r2, #120
+ 830 0076 231D     		adds	r3, r4, #4
+ 831 0078 C0F20001 		movt	r1, #:upper16:.LC2
+ 832 007c 2846     		mov	r0, r5
+  99:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math4", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 833              		.loc 1 99 0
+ 834 007e 40F20008 		movw	r8, #:lower16:vCompetingMathTask4
+ 835 0082 C0F20008 		movt	r8, #:upper16:vCompetingMathTask4
+  98:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math3", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 836              		.loc 1 98 0
+ 837 0086 CDF800A0 		str	sl, [sp, #0]
+ 838 008a CDF80490 		str	r9, [sp, #4]
+ 839 008e CDF80890 		str	r9, [sp, #8]
+ 840 0092 CDF80C90 		str	r9, [sp, #12]
+ 841 0096 FFF7FEFF 		bl	xTaskGenericCreate
+  99:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math4", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 842              		.loc 1 99 0
+ 843 009a 40F20001 		movw	r1, #:lower16:.LC3
+ 844 009e 7822     		movs	r2, #120
+ 845 00a0 A31D     		adds	r3, r4, #6
+ 846 00a2 C0F20001 		movt	r1, #:upper16:.LC3
+ 847 00a6 4046     		mov	r0, r8
+ 848 00a8 CDF800A0 		str	sl, [sp, #0]
+ 849 00ac CDF80490 		str	r9, [sp, #4]
+ 850 00b0 CDF80890 		str	r9, [sp, #8]
+ 851 00b4 CDF80C90 		str	r9, [sp, #12]
+ 852 00b8 FFF7FEFF 		bl	xTaskGenericCreate
+ 100:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask1, ( signed char * ) "Math5", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 853              		.loc 1 100 0
+ 854 00bc 40F20001 		movw	r1, #:lower16:.LC4
+ 855 00c0 7822     		movs	r2, #120
+ 856 00c2 04F10803 		add	r3, r4, #8
+ 857 00c6 C0F20001 		movt	r1, #:upper16:.LC4
+ 858 00ca 3846     		mov	r0, r7
+ 859 00cc CDF800A0 		str	sl, [sp, #0]
+ 860 00d0 CDF80490 		str	r9, [sp, #4]
+ 861 00d4 CDF80890 		str	r9, [sp, #8]
+ 862 00d8 CDF80C90 		str	r9, [sp, #12]
+ 863 00dc FFF7FEFF 		bl	xTaskGenericCreate
+ 101:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask2, ( signed char * ) "Math6", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 864              		.loc 1 101 0
+ 865 00e0 40F20001 		movw	r1, #:lower16:.LC5
+ 866 00e4 7822     		movs	r2, #120
+ 867 00e6 04F10A03 		add	r3, r4, #10
+ 868 00ea C0F20001 		movt	r1, #:upper16:.LC5
+ 869 00ee 3046     		mov	r0, r6
+ 870 00f0 CDF800A0 		str	sl, [sp, #0]
+ 871 00f4 CDF80490 		str	r9, [sp, #4]
+ 872 00f8 CDF80890 		str	r9, [sp, #8]
+ 873 00fc CDF80C90 		str	r9, [sp, #12]
+ 874 0100 FFF7FEFF 		bl	xTaskGenericCreate
+ 102:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask3, ( signed char * ) "Math7", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 875              		.loc 1 102 0
+ 876 0104 40F20001 		movw	r1, #:lower16:.LC6
+ 877 0108 7822     		movs	r2, #120
+ 878 010a 04F10C03 		add	r3, r4, #12
+ 879 010e C0F20001 		movt	r1, #:upper16:.LC6
+ 880 0112 2846     		mov	r0, r5
+ 881 0114 CDF800A0 		str	sl, [sp, #0]
+ 882 0118 CDF80490 		str	r9, [sp, #4]
+ 883 011c CDF80890 		str	r9, [sp, #8]
+ 884 0120 CDF80C90 		str	r9, [sp, #12]
+ 885 0124 FFF7FEFF 		bl	xTaskGenericCreate
+ 103:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	xTaskCreate( vCompetingMathTask4, ( signed char * ) "Math8", mathSTACK_SIZE, ( void * ) &( usTaskC
+ 886              		.loc 1 103 0
+ 887 0128 40F20001 		movw	r1, #:lower16:.LC7
+ 888 012c 4046     		mov	r0, r8
+ 889 012e C0F20001 		movt	r1, #:upper16:.LC7
+ 890 0132 7822     		movs	r2, #120
+ 891 0134 04F10E03 		add	r3, r4, #14
+ 892 0138 CDF800A0 		str	sl, [sp, #0]
+ 893 013c CDF80490 		str	r9, [sp, #4]
+ 894 0140 CDF80890 		str	r9, [sp, #8]
+ 895 0144 CDF80C90 		str	r9, [sp, #12]
+ 896 0148 FFF7FEFF 		bl	xTaskGenericCreate
+ 104:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 897              		.loc 1 104 0
+ 898 014c 04B0     		add	sp, sp, #16
+ 899 014e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, sl, pc}
+ 900              		.cfi_endproc
+ 901              	.LFE0:
+ 903 0152 00BF     		.section	.text.xAreMathsTaskStillRunning,"ax",%progbits
+ 904              		.align	2
+ 905              		.global	xAreMathsTaskStillRunning
+ 906              		.thumb
+ 907              		.thumb_func
+ 909              	xAreMathsTaskStillRunning:
+ 910              	.LFB5:
+ 321:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 322:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	}
+ 323:../FreeRTOS/Demo/Common/Minimal/flop.c **** }				 
+ 324:../FreeRTOS/Demo/Common/Minimal/flop.c **** /*-----------------------------------------------------------*/
+ 325:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 326:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* This is called to check that all the created tasks are still running. */
+ 327:../FreeRTOS/Demo/Common/Minimal/flop.c **** portBASE_TYPE xAreMathsTaskStillRunning( void )
+ 328:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 911              		.loc 1 328 0
+ 912              		.cfi_startproc
+ 913              		@ args = 0, pretend = 0, frame = 8
+ 914              		@ frame_needed = 0, uses_anonymous_args = 0
+ 915              		@ link register save eliminated.
+ 916              	.LVL72:
+ 329:../FreeRTOS/Demo/Common/Minimal/flop.c **** /* Keep a history of the check variables so we know if they have been incremented 
+ 330:../FreeRTOS/Demo/Common/Minimal/flop.c **** since the last call. */
+ 331:../FreeRTOS/Demo/Common/Minimal/flop.c **** static unsigned short usLastTaskCheck[ mathNUMBER_OF_TASKS ] = { ( unsigned short ) 0 };
+ 332:../FreeRTOS/Demo/Common/Minimal/flop.c **** portBASE_TYPE xReturn = pdTRUE, xTask;
+ 333:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 334:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	/* Check the maths tasks are still running by ensuring their check variables 
+ 335:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	are still incrementing. */
+ 336:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	for( xTask = 0; xTask < mathNUMBER_OF_TASKS; xTask++ )
+ 337:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	{
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 917              		.loc 1 338 0
+ 918 0000 40F20002 		movw	r2, #:lower16:.LANCHOR0
+ 919 0004 C0F20002 		movt	r2, #:upper16:.LANCHOR0
+ 920 0008 40F20003 		movw	r3, #:lower16:.LANCHOR1
+ 328:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 921              		.loc 1 328 0
+ 922 000c 2DE9F00F 		push	{r4, r5, r6, r7, r8, r9, sl, fp}
+ 923              	.LCFI10:
+ 924              		.cfi_def_cfa_offset 32
+ 925              		.cfi_offset 11, -4
+ 926              		.cfi_offset 10, -8
+ 927              		.cfi_offset 9, -12
+ 928              		.cfi_offset 8, -16
+ 929              		.cfi_offset 7, -20
+ 930              		.cfi_offset 6, -24
+ 931              		.cfi_offset 5, -28
+ 932              		.cfi_offset 4, -32
+ 933              		.loc 1 338 0
+ 934 0010 C0F20003 		movt	r3, #:upper16:.LANCHOR1
+ 935 0014 B2F80080 		ldrh	r8, [r2, #0]
+ 327:../FreeRTOS/Demo/Common/Minimal/flop.c **** portBASE_TYPE xAreMathsTaskStillRunning( void )
+ 936              		.loc 1 327 0
+ 937 0018 1988     		ldrh	r1, [r3, #0]
+ 339:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		{
+ 340:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			/* The check has not incremented so an error exists. */
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 342:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		}
+ 343:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 344:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		usLastTaskCheck[ xTask ] = usTaskCheck[ xTask ];
+ 938              		.loc 1 344 0
+ 939 001a 1488     		ldrh	r4, [r2, #0]
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 940              		.loc 1 338 0
+ 941 001c 1FFA88F7 		uxth	r7, r8
+ 942 0020 B2F80290 		ldrh	r9, [r2, #2]
+ 327:../FreeRTOS/Demo/Common/Minimal/flop.c **** portBASE_TYPE xAreMathsTaskStillRunning( void )
+ 943              		.loc 1 327 0
+ 944 0024 C81B     		subs	r0, r1, r7
+ 945              		.loc 1 344 0
+ 946 0026 B2F802C0 		ldrh	ip, [r2, #2]
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 947              		.loc 1 338 0
+ 948 002a B3F802A0 		ldrh	sl, [r3, #2]
+ 949 002e B2F804B0 		ldrh	fp, [r2, #4]
+ 327:../FreeRTOS/Demo/Common/Minimal/flop.c **** portBASE_TYPE xAreMathsTaskStillRunning( void )
+ 950              		.loc 1 327 0
+ 951 0032 18BF     		it	ne
+ 952 0034 0120     		movne	r0, #1
+ 953              	.LVL73:
+ 954              		.loc 1 344 0
+ 955 0036 9688     		ldrh	r6, [r2, #4]
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 956              		.loc 1 338 0
+ 957 0038 1FFA89F5 		uxth	r5, r9
+ 958 003c B2F80680 		ldrh	r8, [r2, #6]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 959              		.loc 1 341 0
+ 960 0040 AA45     		cmp	sl, r5
+ 961 0042 14BF     		ite	ne
+ 962 0044 0746     		movne	r7, r0
+ 963 0046 0027     		moveq	r7, #0
+ 964              		.loc 1 344 0
+ 965 0048 D188     		ldrh	r1, [r2, #6]
+ 966 004a A3F802C0 		strh	ip, [r3, #2]	@ movhi
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 967              		.loc 1 338 0
+ 968 004e B2F80890 		ldrh	r9, [r2, #8]
+ 969 0052 B3F804C0 		ldrh	ip, [r3, #4]
+ 970              		.loc 1 344 0
+ 971 0056 1089     		ldrh	r0, [r2, #8]
+ 972              	.LVL74:
+ 328:../FreeRTOS/Demo/Common/Minimal/flop.c **** {
+ 973              		.loc 1 328 0
+ 974 0058 82B0     		sub	sp, sp, #8
+ 975              	.LCFI11:
+ 976              		.cfi_def_cfa_offset 40
+ 977              		.loc 1 344 0
+ 978 005a 9E80     		strh	r6, [r3, #4]	@ movhi
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 979              		.loc 1 338 0
+ 980 005c 1FFA8BF5 		uxth	r5, fp
+ 981 0060 DE88     		ldrh	r6, [r3, #6]
+ 982 0062 B3F808A0 		ldrh	sl, [r3, #8]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 983              		.loc 1 341 0
+ 984 0066 AC45     		cmp	ip, r5
+ 985 0068 14BF     		ite	ne
+ 986 006a 3D46     		movne	r5, r7
+ 987 006c 0025     		moveq	r5, #0
+ 988              		.loc 1 344 0
+ 989 006e ADF80400 		strh	r0, [sp, #4]	@ movhi
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 990              		.loc 1 338 0
+ 991 0072 1FFA88F8 		uxth	r8, r8
+ 992 0076 5089     		ldrh	r0, [r2, #10]
+ 993              		.loc 1 344 0
+ 994 0078 B2F80AB0 		ldrh	fp, [r2, #10]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 995              		.loc 1 341 0
+ 996 007c 4645     		cmp	r6, r8
+ 997 007e 14BF     		ite	ne
+ 998 0080 A846     		movne	r8, r5
+ 999 0082 4FF00008 		moveq	r8, #0
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 1000              		.loc 1 338 0
+ 1001 0086 9789     		ldrh	r7, [r2, #12]
+ 1002 0088 B3F80AC0 		ldrh	ip, [r3, #10]
+ 1003 008c 1FFA89F9 		uxth	r9, r9
+ 1004              		.loc 1 344 0
+ 1005 0090 ADF806B0 		strh	fp, [sp, #6]	@ movhi
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 1006              		.loc 1 338 0
+ 1007 0094 9E89     		ldrh	r6, [r3, #12]
+ 1008              		.loc 1 344 0
+ 1009 0096 B2F80CB0 		ldrh	fp, [r2, #12]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 1010              		.loc 1 341 0
+ 1011 009a CA45     		cmp	sl, r9
+ 1012 009c 08BF     		it	eq
+ 1013 009e 4FF00008 		moveq	r8, #0
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 1014              		.loc 1 338 0
+ 1015 00a2 D589     		ldrh	r5, [r2, #14]
+ 1016 00a4 80B2     		uxth	r0, r0
+ 1017 00a6 B3F80EA0 		ldrh	sl, [r3, #14]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 1018              		.loc 1 341 0
+ 1019 00aa 8445     		cmp	ip, r0
+ 1020 00ac 08BF     		it	eq
+ 1021 00ae 4FF00008 		moveq	r8, #0
+ 1022              		.loc 1 344 0
+ 1023 00b2 D289     		ldrh	r2, [r2, #14]
+ 1024 00b4 1C80     		strh	r4, [r3, #0]	@ movhi
+ 1025              	.LVL75:
+ 1026 00b6 D980     		strh	r1, [r3, #6]	@ movhi
+ 1027              	.LVL76:
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 1028              		.loc 1 338 0
+ 1029 00b8 BFB2     		uxth	r7, r7
+ 1030              		.loc 1 344 0
+ 1031 00ba BDF80410 		ldrh	r1, [sp, #4]
+ 1032 00be BDF80640 		ldrh	r4, [sp, #6]
+ 341:../FreeRTOS/Demo/Common/Minimal/flop.c **** 			xReturn = pdFALSE;
+ 1033              		.loc 1 341 0
+ 1034 00c2 BE42     		cmp	r6, r7
+ 1035 00c4 08BF     		it	eq
+ 1036 00c6 4FF00008 		moveq	r8, #0
+ 338:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		if( usTaskCheck[ xTask ] == usLastTaskCheck[ xTask ] )
+ 1037              		.loc 1 338 0
+ 1038 00ca A8B2     		uxth	r0, r5
+ 1039              		.loc 1 344 0
+ 1040 00cc 1981     		strh	r1, [r3, #8]	@ movhi
+ 1041              	.LVL77:
+ 345:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	}
+ 346:../FreeRTOS/Demo/Common/Minimal/flop.c **** 
+ 347:../FreeRTOS/Demo/Common/Minimal/flop.c **** 	return xReturn;
+ 348:../FreeRTOS/Demo/Common/Minimal/flop.c **** }
+ 1042              		.loc 1 348 0
+ 1043 00ce 8245     		cmp	sl, r0
+ 1044 00d0 14BF     		ite	ne
+ 1045 00d2 4046     		movne	r0, r8
+ 1046 00d4 0020     		moveq	r0, #0
+ 344:../FreeRTOS/Demo/Common/Minimal/flop.c **** 		usLastTaskCheck[ xTask ] = usTaskCheck[ xTask ];
+ 1047              		.loc 1 344 0
+ 1048 00d6 5C81     		strh	r4, [r3, #10]	@ movhi
+ 1049              	.LVL78:
+ 1050 00d8 A3F80CB0 		strh	fp, [r3, #12]	@ movhi
+ 1051              	.LVL79:
+ 1052 00dc DA81     		strh	r2, [r3, #14]	@ movhi
+ 1053              	.LVL80:
+ 1054              		.loc 1 348 0
+ 1055 00de 02B0     		add	sp, sp, #8
+ 1056 00e0 BDE8F00F 		pop	{r4, r5, r6, r7, r8, r9, sl, fp}
+ 1057 00e4 7047     		bx	lr
+ 1058              		.cfi_endproc
+ 1059              	.LFE5:
+ 1061 00e6 00BF     		.section	.bss.usTaskCheck,"aw",%nobits
+ 1062              		.align	2
+ 1063              		.set	.LANCHOR0,. + 0
+ 1066              	usTaskCheck:
+ 1067 0000 00000000 		.space	16
+ 1067      00000000 
+ 1067      00000000 
+ 1067      00000000 
+ 1068              		.section	.bss.usLastTaskCheck.5266,"aw",%nobits
+ 1069              		.align	2
+ 1070              		.set	.LANCHOR1,. + 0
+ 1073              	usLastTaskCheck.5266:
+ 1074 0000 00000000 		.space	16
+ 1074      00000000 
+ 1074      00000000 
+ 1074      00000000 
+ 1075              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1076              		.align	2
+ 1077              	.LC0:
+ 1078 0000 4D617468 		.ascii	"Math1\000"
+ 1078      3100
+ 1079 0006 0000     		.space	2
+ 1080              	.LC1:
+ 1081 0008 4D617468 		.ascii	"Math2\000"
+ 1081      3200
+ 1082 000e 0000     		.space	2
+ 1083              	.LC2:
+ 1084 0010 4D617468 		.ascii	"Math3\000"
+ 1084      3300
+ 1085 0016 0000     		.space	2
+ 1086              	.LC3:
+ 1087 0018 4D617468 		.ascii	"Math4\000"
+ 1087      3400
+ 1088 001e 0000     		.space	2
+ 1089              	.LC4:
+ 1090 0020 4D617468 		.ascii	"Math5\000"
+ 1090      3500
+ 1091 0026 0000     		.space	2
+ 1092              	.LC5:
+ 1093 0028 4D617468 		.ascii	"Math6\000"
+ 1093      3600
+ 1094 002e 0000     		.space	2
+ 1095              	.LC6:
+ 1096 0030 4D617468 		.ascii	"Math7\000"
+ 1096      3700
+ 1097 0036 0000     		.space	2
+ 1098              	.LC7:
+ 1099 0038 4D617468 		.ascii	"Math8\000"
+ 1099      3800
+ 1100 003e 0000     		.text
+ 1101              	.Letext0:
+ 1102              		.file 2 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
+DEFINED SYMBOLS
+                            *ABS*:00000000 flop.c
+     /tmp/ccJufcXj.s:23     .text.vCompetingMathTask1:00000000 $t
+     /tmp/ccJufcXj.s:27     .text.vCompetingMathTask1:00000000 vCompetingMathTask1
+     /tmp/ccJufcXj.s:129    .text.vCompetingMathTask1:000000a8 $d
+     /tmp/ccJufcXj.s:142    .text.vCompetingMathTask2:00000000 $t
+     /tmp/ccJufcXj.s:146    .text.vCompetingMathTask2:00000000 vCompetingMathTask2
+     /tmp/ccJufcXj.s:247    .text.vCompetingMathTask2:000000a8 $d
+     /tmp/ccJufcXj.s:259    .text.vCompetingMathTask4:00000000 $t
+     /tmp/ccJufcXj.s:263    .text.vCompetingMathTask4:00000000 vCompetingMathTask4
+     /tmp/ccJufcXj.s:484    .text.vCompetingMathTask4:000001e0 $d
+     /tmp/ccJufcXj.s:508    .text.vCompetingMathTask3:00000000 $t
+     /tmp/ccJufcXj.s:512    .text.vCompetingMathTask3:00000000 vCompetingMathTask3
+     /tmp/ccJufcXj.s:754    .text.vCompetingMathTask3:000001f0 $d
+     /tmp/ccJufcXj.s:760    .text.vStartMathTasks:00000000 $t
+     /tmp/ccJufcXj.s:765    .text.vStartMathTasks:00000000 vStartMathTasks
+     /tmp/ccJufcXj.s:1063   .bss.usTaskCheck:00000000 .LANCHOR0
+     /tmp/ccJufcXj.s:1077   .rodata.str1.4:00000000 .LC0
+     /tmp/ccJufcXj.s:1080   .rodata.str1.4:00000008 .LC1
+     /tmp/ccJufcXj.s:1083   .rodata.str1.4:00000010 .LC2
+     /tmp/ccJufcXj.s:1086   .rodata.str1.4:00000018 .LC3
+     /tmp/ccJufcXj.s:1089   .rodata.str1.4:00000020 .LC4
+     /tmp/ccJufcXj.s:1092   .rodata.str1.4:00000028 .LC5
+     /tmp/ccJufcXj.s:1095   .rodata.str1.4:00000030 .LC6
+     /tmp/ccJufcXj.s:1098   .rodata.str1.4:00000038 .LC7
+     /tmp/ccJufcXj.s:904    .text.xAreMathsTaskStillRunning:00000000 $t
+     /tmp/ccJufcXj.s:909    .text.xAreMathsTaskStillRunning:00000000 xAreMathsTaskStillRunning
+     /tmp/ccJufcXj.s:1070   .bss.usLastTaskCheck.5266:00000000 .LANCHOR1
+     /tmp/ccJufcXj.s:1062   .bss.usTaskCheck:00000000 $d
+     /tmp/ccJufcXj.s:1066   .bss.usTaskCheck:00000000 usTaskCheck
+     /tmp/ccJufcXj.s:1069   .bss.usLastTaskCheck.5266:00000000 $d
+     /tmp/ccJufcXj.s:1073   .bss.usLastTaskCheck.5266:00000000 usLastTaskCheck.5266
+     /tmp/ccJufcXj.s:1076   .rodata.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dadd
+__aeabi_dmul
+__aeabi_dsub
+__aeabi_dcmpgt
+__aeabi_ddiv
+pvPortMalloc
+xTaskGenericCreate

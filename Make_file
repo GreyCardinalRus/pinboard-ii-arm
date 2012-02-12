@@ -59,7 +59,7 @@
 # *************************************************************************/
 
 ############# program name
-TARGET = 4-Debug
+TARGET = Debug
  	
 # program version
 VER_MAJOR = 0
@@ -79,7 +79,7 @@ MCU = cortex-m3
 # STM32F10X_HD_VL : STM32 XL-density devices
 # STM32F10X_CL : STM32 Connectivity line devices
 # STM32F10X_XL : STM32 XL-density devices
-CHIP = STM32F10X_MD_VL
+CHIP = STM32F10X_MD
 
 #MCU = cortex-m4
 #STM32F407VG
@@ -97,6 +97,13 @@ AR=arm-none-eabi-ar
 AS=arm-none-eabi-as
 #CP=arm-none-eabi-objcopy
 #OD=arm-none-eabi-objdump
+OBJCOPY = $(TOOL)objcopy
+OBJDUMP = $(TOOL)objdump
+SIZE = $(TOOL)size -d
+
+RM = rm -f
+CP = cp
+MD = mkdir 
 
 # dirs
 	BASE = .
@@ -148,7 +155,7 @@ AS=arm-none-eabi-as
  	OBJS := $(SRCS)
  	OBJS += $(wildcard $(addsuffix /*.cpp, $(DIRS)))
  	OBJS += $(wildcard $(addsuffix /*.c, $(DIRS)))
- 	OBJS += $(wildcard $(addsuffix /*.S, $(DIRS)))
+ 	OBJS += $(wildcard $(addsuffix /*.s, $(DIRS)))
  	OBJS := $(notdir $(OBJS))
  	OBJS := $(OBJS:.cpp=.o)
  	OBJS := $(OBJS:.c=.o)
@@ -326,15 +333,15 @@ endif
 		
 
 
-OBJCOPY=arm-none-eabi-objcopy
+#OBJCOPY=arm-none-eabi-objcopy
 #LDSCRIPT=$(SRC_DIR)/standalone.ld
 #LDSCRIPT=$(SRC_DIR)/STM32F407xG.ld
 #LDSCRIPT=$(SRC_DIR)/stm32_flash.ld
 # should use --gc-sections but the debugger does not seem to be able to cope with the option.
-LINKER_FLAGS=-nostartfiles -Xlinker -oRTOSDemo.axf -Xlinker -M -Xlinker -Map=rtosdemo.map -Xlinker --no-gc-sections
+#LINKER_FLAGS=-nostartfiles -Xlinker -oRTOSDemo.axf -Xlinker -M -Xlinker -Map=rtosdemo.map -Xlinker --no-gc-sections
 
 
-CFLAGS=$(DEBUG) \
+#CFLAGS=$(DEBUG) \
 		-I $(SRC_DIR) -I $(RTOS_SOURCE_DIR)/include -I $(RTOS_SOURCE_DIR)/portable/GCC/ARM_CM3 \
 		-I $(DEMO_INCLUDE_DIR) \
 		-D USE_STDPERIPH_DRIVER \
@@ -349,7 +356,7 @@ CFLAGS=$(DEBUG) \
 		-DTARGET_IS_TEMPEST_RB1
 
 #		../../Utilities/STM32F4-Discovery/stm32f4_discovery_audio_codec.c 
-SOURCE=	 $(SRC_DIR)/system_stm32f10x.c\
+#SOURCE=	 $(SRC_DIR)/system_stm32f10x.c\
 		$(RTOS_SOURCE_DIR)/list.c \
 		$(RTOS_SOURCE_DIR)/timers.c \
 		$(RTOS_SOURCE_DIR)/queue.c \
@@ -372,34 +379,34 @@ SOURCE=	 $(SRC_DIR)/system_stm32f10x.c\
 #		../MyARMLib/STM32/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c \
 #		../MyARMLib/STM32/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dac.c \
 
-LIBS= 
+#LIBS= 
 #$(LUMINARY_DRIVER_DIR)/gcc/libdriver.a $(LUMINARY_DRIVER_DIR)/gcc/libgr.a
 
-OBJS = $(SOURCE:.c=.o)
+#OBJS = $(SOURCE:.c=.o)
 
-all: RTOSDemo.bin
+#all: RTOSDemo.bin
 	 
-RTOSDemo.bin : RTOSDemo.axf
-	$(OBJCOPY) RTOSDemo.axf -O binary RTOSDemo.bin
+#RTOSDemo.bin : RTOSDemo.axf
+#	$(OBJCOPY) RTOSDemo.axf -O binary RTOSDemo.bin
 
 #RTOSDemo.axf : $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o Makefile
 #	$(CC) $(CFLAGS) $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o $(LIBS) $(LINKER_FLAGS)
 
-RTOSDemo.axf : $(OBJS)  Makefile
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LINKER_FLAGS)
+#RTOSDemo.axf : $(OBJS)  Makefile
+#	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LINKER_FLAGS)
 
-$(OBJS) : %.o : %.c Makefile $(SRC_DIR)/FreeRTOSConfig.h
-	$(CC) -c $(CFLAGS) $< -o $@
+#$(OBJS) : %.o : %.c Makefile $(SRC_DIR)/FreeRTOSConfig.h
+#	$(CC) -c $(CFLAGS) $< -o $@
 
 #%.o : $(SRC_DIR)/%.c
 #        $(CC) -c $(CFLAGS) $< -o $@
         
-startup_stm32f10x.o : $(SRC_DIR)/startup_stm32f10x_md.s Makefile
-	$(CC) -c $(CFLAGS) -O1 $(SRC_DIR)/startup_stm3210x_md.s -o $(SRC_DIR)/startup_stm3210x_md.o
+#startup_stm32f10x.o : $(SRC_DIR)/startup_stm32f10x_md.s Makefile
+#	$(CC) -c $(CFLAGS) -O1 $(SRC_DIR)/startup_stm3210x_md.s -o $(SRC_DIR)/startup_stm3210x_md.o
 		
-clean :
-	touch Makefile
-	cs-rm -f $(OBJS) $(SRC_DIR)/startup_stm32f10x.o rtosdemo.map RTOSDemo.axf $(SRC_DIR)/RTOSDemo.bin
+#clean :
+#	touch Makefile
+#	cs-rm -f $(OBJS) $(SRC_DIR)/startup_stm32f10x.o rtosdemo.map RTOSDemo.axf $(SRC_DIR)/RTOSDemo.bin
 	
 
 
