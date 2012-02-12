@@ -107,13 +107,16 @@ CFLAGS=$(DEBUG) \
 		-DTARGET_IS_TEMPEST_RB1
 
 #		../../Utilities/STM32F4-Discovery/stm32f4_discovery_audio_codec.c 
-SOURCE=	$(SRC_DIR)/main.c $(SRC_DIR)/system_stm32f10x.c\
+SOURCE=	 $(SRC_DIR)/system_stm32f10x.c\
 		$(RTOS_SOURCE_DIR)/list.c \
 		$(RTOS_SOURCE_DIR)/timers.c \
 		$(RTOS_SOURCE_DIR)/queue.c \
 		$(RTOS_SOURCE_DIR)/tasks.c \
 		$(RTOS_SOURCE_DIR)/portable/GCC/ARM_CM3/port.c \
-		$(RTOS_SOURCE_DIR)/portable/MemMang/heap_2.c
+		$(RTOS_SOURCE_DIR)/portable/MemMang/heap_2.c\
+		../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c \
+		../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c \
+		$(SRC_DIR)/main.c
 #		../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src/stm32f10x_syscfg.c \
 #		../MyARMLib/STM32/STM32F4xx_StdPeriph_Driver/src/misc.c \
 #		../MyARMLib/STM32/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_adc.c \
@@ -137,8 +140,11 @@ all: RTOSDemo.bin
 RTOSDemo.bin : RTOSDemo.axf
 	$(OBJCOPY) RTOSDemo.axf -O binary RTOSDemo.bin
 
-RTOSDemo.axf : $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o Makefile
-	$(CC) $(CFLAGS) $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o $(LIBS) $(LINKER_FLAGS)
+#RTOSDemo.axf : $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o Makefile
+#	$(CC) $(CFLAGS) $(OBJS) $(SRC_DIR)/startup_stm32f10x_md.o $(LIBS) $(LINKER_FLAGS)
+
+RTOSDemo.axf : $(OBJS)  Makefile
+	$(CC) $(CFLAGS) $(OBJS)  $(LIBS) $(LINKER_FLAGS)
 
 $(OBJS) : %.o : %.c Makefile $(SRC_DIR)/FreeRTOSConfig.h
 	$(CC) -c $(CFLAGS) $< -o $@
