@@ -303,24 +303,24 @@
  184              		.file 3 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_it.c
-     /tmp/ccfe4YsH.s:19     .text.NMI_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:24     .text.NMI_Handler:00000000 NMI_Handler
-     /tmp/ccfe4YsH.s:38     .text.HardFault_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
-     /tmp/ccfe4YsH.s:56     .text.MemManage_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
-     /tmp/ccfe4YsH.s:74     .text.BusFault_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
-     /tmp/ccfe4YsH.s:92     .text.UsageFault_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
-     /tmp/ccfe4YsH.s:110    .text.SVC_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:115    .text.SVC_Handler:00000000 SVC_Handler
-     /tmp/ccfe4YsH.s:128    .text.DebugMon_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:133    .text.DebugMon_Handler:00000000 DebugMon_Handler
-     /tmp/ccfe4YsH.s:146    .text.PendSV_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:151    .text.PendSV_Handler:00000000 PendSV_Handler
-     /tmp/ccfe4YsH.s:164    .text.SysTick_Handler:00000000 $t
-     /tmp/ccfe4YsH.s:169    .text.SysTick_Handler:00000000 SysTick_Handler
+     /tmp/ccQ5H5DG.s:19     .text.NMI_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:24     .text.NMI_Handler:00000000 NMI_Handler
+     /tmp/ccQ5H5DG.s:38     .text.HardFault_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
+     /tmp/ccQ5H5DG.s:56     .text.MemManage_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
+     /tmp/ccQ5H5DG.s:74     .text.BusFault_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
+     /tmp/ccQ5H5DG.s:92     .text.UsageFault_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
+     /tmp/ccQ5H5DG.s:110    .text.SVC_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:115    .text.SVC_Handler:00000000 SVC_Handler
+     /tmp/ccQ5H5DG.s:128    .text.DebugMon_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:133    .text.DebugMon_Handler:00000000 DebugMon_Handler
+     /tmp/ccQ5H5DG.s:146    .text.PendSV_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:151    .text.PendSV_Handler:00000000 PendSV_Handler
+     /tmp/ccQ5H5DG.s:164    .text.SysTick_Handler:00000000 $t
+     /tmp/ccQ5H5DG.s:169    .text.SysTick_Handler:00000000 SysTick_Handler
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

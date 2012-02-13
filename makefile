@@ -69,7 +69,7 @@
 #----------------------------------------------------------------------------
 
 #############  program name
-	TARGET	= Debug
+	TARGET	= main
 
 # program version
 	VER_MAJOR	= 0
