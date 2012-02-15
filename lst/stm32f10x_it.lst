@@ -192,12 +192,12 @@
  105 0000 FEE7     		b	.L9
  106              		.cfi_endproc
  107              	.LFE59:
- 109 0002 00BF     		.section	.text.SVC_Handler,"ax",%progbits
+ 109 0002 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
  110              		.align	2
- 111              		.global	SVC_Handler
+ 111              		.global	DebugMon_Handler
  112              		.thumb
  113              		.thumb_func
- 115              	SVC_Handler:
+ 115              	DebugMon_Handler:
  116              	.LFB60:
   97:./src/stm32f10x_it.c ****   /* Go to infinite loop when Usage Fault exception occurs */
   98:./src/stm32f10x_it.c ****   while (1)
@@ -210,25 +210,9 @@
  105:./src/stm32f10x_it.c ****   * @param  None
  106:./src/stm32f10x_it.c ****   * @retval None
  107:./src/stm32f10x_it.c ****   */
- 108:./src/stm32f10x_it.c **** void SVC_Handler(void)
- 109:./src/stm32f10x_it.c **** {
- 117              		.loc 1 109 0
- 118              		.cfi_startproc
- 119              		@ args = 0, pretend = 0, frame = 0
- 120              		@ frame_needed = 0, uses_anonymous_args = 0
- 121              		@ link register save eliminated.
- 110:./src/stm32f10x_it.c **** }
- 122              		.loc 1 110 0
- 123 0000 7047     		bx	lr
- 124              		.cfi_endproc
- 125              	.LFE60:
- 127 0002 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
- 128              		.align	2
- 129              		.global	DebugMon_Handler
- 130              		.thumb
- 131              		.thumb_func
- 133              	DebugMon_Handler:
- 134              	.LFB61:
+ 108:./src/stm32f10x_it.c **** //void SVC_Handler(void)
+ 109:./src/stm32f10x_it.c **** //{
+ 110:./src/stm32f10x_it.c **** //}
  111:./src/stm32f10x_it.c **** 
  112:./src/stm32f10x_it.c **** /**
  113:./src/stm32f10x_it.c ****   * @brief  This function handles Debug Monitor exception.
@@ -237,90 +221,34 @@
  116:./src/stm32f10x_it.c ****   */
  117:./src/stm32f10x_it.c **** void DebugMon_Handler(void)
  118:./src/stm32f10x_it.c **** {
- 135              		.loc 1 118 0
- 136              		.cfi_startproc
- 137              		@ args = 0, pretend = 0, frame = 0
- 138              		@ frame_needed = 0, uses_anonymous_args = 0
- 139              		@ link register save eliminated.
+ 117              		.loc 1 118 0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              		@ link register save eliminated.
  119:./src/stm32f10x_it.c **** }
- 140              		.loc 1 119 0
- 141 0000 7047     		bx	lr
- 142              		.cfi_endproc
- 143              	.LFE61:
- 145 0002 00BF     		.section	.text.PendSV_Handler,"ax",%progbits
- 146              		.align	2
- 147              		.global	PendSV_Handler
- 148              		.thumb
- 149              		.thumb_func
- 151              	PendSV_Handler:
- 152              	.LFB62:
- 120:./src/stm32f10x_it.c **** 
- 121:./src/stm32f10x_it.c **** /**
- 122:./src/stm32f10x_it.c ****   * @brief  This function handles PendSVC exception.
- 123:./src/stm32f10x_it.c ****   * @param  None
- 124:./src/stm32f10x_it.c ****   * @retval None
- 125:./src/stm32f10x_it.c ****   */
- 126:./src/stm32f10x_it.c **** void PendSV_Handler(void)
- 127:./src/stm32f10x_it.c **** {
- 153              		.loc 1 127 0
- 154              		.cfi_startproc
- 155              		@ args = 0, pretend = 0, frame = 0
- 156              		@ frame_needed = 0, uses_anonymous_args = 0
- 157              		@ link register save eliminated.
- 128:./src/stm32f10x_it.c **** }
- 158              		.loc 1 128 0
- 159 0000 7047     		bx	lr
- 160              		.cfi_endproc
- 161              	.LFE62:
- 163 0002 00BF     		.section	.text.SysTick_Handler,"ax",%progbits
- 164              		.align	2
- 165              		.global	SysTick_Handler
- 166              		.thumb
- 167              		.thumb_func
- 169              	SysTick_Handler:
- 170              	.LFB63:
- 129:./src/stm32f10x_it.c **** 
- 130:./src/stm32f10x_it.c **** /**
- 131:./src/stm32f10x_it.c ****   * @brief  This function handles SysTick Handler.
- 132:./src/stm32f10x_it.c ****   * @param  None
- 133:./src/stm32f10x_it.c ****   * @retval None
- 134:./src/stm32f10x_it.c ****   */
- 135:./src/stm32f10x_it.c **** void SysTick_Handler(void)
- 136:./src/stm32f10x_it.c **** {
- 171              		.loc 1 136 0
- 172              		.cfi_startproc
- 173              		@ args = 0, pretend = 0, frame = 0
- 174              		@ frame_needed = 0, uses_anonymous_args = 0
- 175              		@ link register save eliminated.
- 137:./src/stm32f10x_it.c **** }
- 176              		.loc 1 137 0
- 177 0000 7047     		bx	lr
- 178              		.cfi_endproc
- 179              	.LFE63:
- 181 0002 00BF     		.text
- 182              	.Letext0:
- 183              		.file 2 "../MyARMLib/CMSIS/include/core_cm3.h"
- 184              		.file 3 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
+ 122              		.loc 1 119 0
+ 123 0000 7047     		bx	lr
+ 124              		.cfi_endproc
+ 125              	.LFE60:
+ 127 0002 00BF     		.text
+ 128              	.Letext0:
+ 129              		.file 2 "../MyARMLib/CMSIS/include/core_cm3.h"
+ 130              		.file 3 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_it.c
-     /tmp/ccQ5H5DG.s:19     .text.NMI_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:24     .text.NMI_Handler:00000000 NMI_Handler
-     /tmp/ccQ5H5DG.s:38     .text.HardFault_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
-     /tmp/ccQ5H5DG.s:56     .text.MemManage_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
-     /tmp/ccQ5H5DG.s:74     .text.BusFault_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
-     /tmp/ccQ5H5DG.s:92     .text.UsageFault_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
-     /tmp/ccQ5H5DG.s:110    .text.SVC_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:115    .text.SVC_Handler:00000000 SVC_Handler
-     /tmp/ccQ5H5DG.s:128    .text.DebugMon_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:133    .text.DebugMon_Handler:00000000 DebugMon_Handler
-     /tmp/ccQ5H5DG.s:146    .text.PendSV_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:151    .text.PendSV_Handler:00000000 PendSV_Handler
-     /tmp/ccQ5H5DG.s:164    .text.SysTick_Handler:00000000 $t
-     /tmp/ccQ5H5DG.s:169    .text.SysTick_Handler:00000000 SysTick_Handler
+     /tmp/ccoYAkcc.s:19     .text.NMI_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:24     .text.NMI_Handler:00000000 NMI_Handler
+     /tmp/ccoYAkcc.s:38     .text.HardFault_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
+     /tmp/ccoYAkcc.s:56     .text.MemManage_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
+     /tmp/ccoYAkcc.s:74     .text.BusFault_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
+     /tmp/ccoYAkcc.s:92     .text.UsageFault_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
+     /tmp/ccoYAkcc.s:110    .text.DebugMon_Handler:00000000 $t
+     /tmp/ccoYAkcc.s:115    .text.DebugMon_Handler:00000000 DebugMon_Handler
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

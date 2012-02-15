@@ -8,7 +8,7 @@
 //--------------------------------------------------------------
 
 void vTaskLED1(void *pvParameters) {
-
+	pvParameters=pvParameters;
 	for (;;) {
 		GPIO_SetBits(GPIOF, GPIO_Pin_6);
 		vTaskDelay(500);
@@ -19,7 +19,7 @@ void vTaskLED1(void *pvParameters) {
 }
 
 void vTaskLED2(void *pvParameters) {
-
+	pvParameters=pvParameters;
 	for (;;) {
 		GPIO_SetBits(GPIOF, GPIO_Pin_7);
 		vTaskDelay(321);

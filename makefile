@@ -98,6 +98,7 @@
 
 #MCU = cortex-m4
 #STM32F407VG
+STARTUP = startup_stm32f10x_md.S
 
 	RTOS_ROOT=../FreeRTOS
 	CMSIS_DRIVER_DIR=../MyARMLib/CMSIS/include
@@ -136,6 +137,7 @@
 #files
 	HEX		= $(EXEDIR)/$(TARGET).hex
 	BIN		= $(EXEDIR)/$(TARGET).bin
+	AXF		= $(EXEDIR)/$(TARGET).axf
 	ELF		= $(EXEDIR)/$(TARGET).elf
 	MAP		= $(LSTDIR)/$(TARGET).map
 	LSS		= $(LSTDIR)/$(TARGET).lss
@@ -148,24 +150,23 @@
 	SCMDIR		= ../scmRTOS
 	COMMON		= ../SamplesCommon
  
-# source directories (all *.c, *.cpp and *.S files included)
+# source directories (all *.c, *.cpp and *.s files included)
 	DIRS	:= $(SRCDIR)
 	DIRS	+= $(COMMON)
-	DIRS	+= $(SRCDIR)/debug
-	#DIRS	+= $(SCMDIR)/Common 
-	#DIRS	+= $(SCMDIR)/CortexM3
-	#DIRS	+= $(SCMDIR)/Extensions/Profiler
+	DIRS	+= $(RTOS_ROOT)/Source
+	DIRS	+= $(RTOS_ROOT)/Source/portable/GCC/ARM_CM3
 	DIRS	+= $(RTOS_ROOT)/Source/include
 #	DIRS	+= $(RTOS_ROOT)/Demo/Common/Minimal
 	DIRS	+= $(RTOS_ROOT)/Demo/Common/include
 #	DIRS	+= $(RTOS_ROOT)/Demo/Common/ethernet/uIP/uip-1.0/uip 	
-	
+#	DIRS	+= $(RTOS_ROOT)/Source/portable/GCC/ARM_CM3_MPU	
 	
 	#STM32F1_DISCOVERY_DRIVER_DIR=../MyARMLib/STM32/STM32F4_discovery
 	DIRS	+= $(CMSIS_DRIVER_DIR)
 	DIRS	+= ../MyARMLib/CMSIS/include
 	DIRS	+= ../MyARMLib/STM32/STM32F10x/include
 	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc
+	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src
 #	DIRS	+= ../MyARMLib/FreeRTOS
 
 # includes
@@ -179,6 +180,19 @@
 	OBJS	+= $(wildcard $(addsuffix /*.cpp, $(DIRS)))
 	OBJS	+= $(wildcard $(addsuffix /*.c, $(DIRS)))
 	OBJS	+= $(wildcard $(addsuffix /*.S, $(DIRS)))
+	
+	#OBJS	+= $(RTOS_ROOT)/Source/tasks.c
+	#/port.c
+
+#	OBJS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c 
+#	OBJS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/tasks.c
+#	OBJS	+= $(RTOS_ROOT)/Source/list.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/timers.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/queue.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/tasks.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/portable/GCC/ARM_CM3/port.c 
+#	OBJS	+= $(RTOS_ROOT)/Source/portable/MemMang/heap_2.c	
 	OBJS	:= $(notdir $(OBJS))
 	OBJS	:= $(OBJS:.cpp=.o)
 	OBJS	:= $(OBJS:.c=.o)
@@ -198,7 +212,7 @@
 	FLAGS	= -mcpu=$(MCU) -mthumb
 	FLAGS	+= $(INCS)
 	FLAGS	+= -MD -DGCC_ARMCM3
-	FLAGS	+= $(DEFS) 
+	FLAGS	+= $(DEFS) -DUSE_STDPERIPH_DRIVER
 	FLAGS	+= -Wa,-adhlns=$(addprefix $(LSTDIR)/, $(notdir $(addsuffix .lst, $(basename $<))))
 
 	AFLAGS	= $(FLAGS)
@@ -206,11 +220,12 @@
 	CFLAGS	= $(FLAGS)
 	CFLAGS	+= $(OPTIMIZE)
 	CFLAGS	+= -std=gnu99
+	CFLAGS	+= -D GCC_ARMCM3
 	CFLAGS	+= -g
 	CFLAGS	+= -ffunction-sections -fdata-sections
-	#CFLAGS	+= -Wall -Wextra
-	#CFLAGS	+= -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls
-	#CFLAGS	+= -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
+#	CFLAGS	+= -Wall -Wextra
+#	CFLAGS	+= -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls
+#	CFLAGS	+= -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
 
 	CXXFLAGS	= $(FLAGS)
 	CXXFLAGS	+= $(OPTIMIZE)
@@ -267,12 +282,12 @@ endif
 
 ############# targets
 
-all : start dirs $(ELF) $(BIN) $(LSS) $(OK)
+all : start dirs $(AXF) $(ELF) $(BIN) $(LSS) $(OK)
 
 build: clean all
 
 start:
-	@echo --- building $(TARGET)
+	@echo --- building $(TARGET) $(OBJS)
 
 $(LSS): $(ELF) makefile
 	@echo --- making asm-lst...
@@ -283,8 +298,12 @@ $(OK): $(ELF)
 	@$(SIZE) $(ELF)
 	@echo "Errors: none"
 
+$(AXF):	$(OBJS) makefile
+	@echo --- linking... axf
+	$(LD) $(OBJS) $(LIBS) $(LD_FLAGS) -o "$(AXF)"
+	
 $(ELF):	$(OBJS) makefile
-	@echo --- linking...
+	@echo --- linking... 
 	$(LD) $(OBJS) $(LIBS) $(LD_FLAGS) -o "$(ELF)"
 
 $(HEX): $(ELF)

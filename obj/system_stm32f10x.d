@@ -5,4 +5,9 @@ obj/system_stm32f10x.o: src/system_stm32f10x.c \
  /home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/include/stdint.h \
  ../MyARMLib/CMSIS/include/core_cmInstr.h \
  ../MyARMLib/CMSIS/include/core_cmFunc.h \
- ../MyARMLib/STM32/STM32F10x/include/system_stm32f10x.h
+ ../MyARMLib/STM32/STM32F10x/include/system_stm32f10x.h \
+ src/stm32f10x_conf.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_gpio.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rcc.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rtc.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/misc.h
