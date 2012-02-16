@@ -21,7 +21,7 @@
   21              		.thumb
   22              		.thumb_func
   24              	vTaskLED2:
-  25              	.LFB56:
+  25              	.LFB57:
   26              		.file 1 "./src/main.c"
    1:./src/main.c  **** /* Standard includes. */
    2:./src/main.c  **** #include "stm32f10x.h"
@@ -31,20 +31,30 @@
    6:./src/main.c  **** 
    7:./src/main.c  **** 
    8:./src/main.c  **** //--------------------------------------------------------------
-   9:./src/main.c  **** 
-  10:./src/main.c  **** void vTaskLED1(void *pvParameters) {
-  11:./src/main.c  **** 	pvParameters=pvParameters;
-  12:./src/main.c  **** 	for (;;) {
-  13:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_6);
-  14:./src/main.c  **** 		vTaskDelay(500);
-  15:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_6);
-  16:./src/main.c  **** 		vTaskDelay(500);
-  17:./src/main.c  **** 	}
-  18:./src/main.c  **** 
-  19:./src/main.c  **** }
-  20:./src/main.c  **** 
-  21:./src/main.c  **** void vTaskLED2(void *pvParameters) {
-  27              		.loc 1 21 0
+   9:./src/main.c  **** void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName )
+  10:./src/main.c  **** {
+  11:./src/main.c  **** 	( void ) pcTaskName;
+  12:./src/main.c  **** 	( void ) pxTask;
+  13:./src/main.c  **** 
+  14:./src/main.c  **** 	/* Run time stack overflow checking is performed if
+  15:./src/main.c  **** 	configconfigCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+  16:./src/main.c  **** 	function is called if a stack overflow is detected. */
+  17:./src/main.c  **** 	for( ;; );
+  18:./src/main.c  **** }
+  19:./src/main.c  **** 
+  20:./src/main.c  **** void vTaskLED1(void *pvParameters) {
+  21:./src/main.c  **** 	pvParameters=pvParameters;
+  22:./src/main.c  **** 	for (;;) {
+  23:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_6);
+  24:./src/main.c  **** 		vTaskDelay(500);
+  25:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_6);
+  26:./src/main.c  **** 		vTaskDelay(500);
+  27:./src/main.c  **** 	}
+  28:./src/main.c  **** 
+  29:./src/main.c  **** }
+  30:./src/main.c  **** 
+  31:./src/main.c  **** void vTaskLED2(void *pvParameters) {
+  27              		.loc 1 31 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -56,40 +66,40 @@
   36              		.cfi_offset 3, -8
   37              	.LVL1:
   38              	.L2:
-  22:./src/main.c  **** 	pvParameters=pvParameters;
-  23:./src/main.c  **** 	for (;;) {
-  24:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_7);
-  39              		.loc 1 24 0 discriminator 1
+  32:./src/main.c  **** 	pvParameters=pvParameters;
+  33:./src/main.c  **** 	for (;;) {
+  34:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_7);
+  39              		.loc 1 34 0 discriminator 1
   40 0002 4FF4E050 		mov	r0, #7168
   41 0006 8021     		movs	r1, #128
   42 0008 C4F20100 		movt	r0, 16385
   43 000c FFF7FEFF 		bl	GPIO_SetBits
-  25:./src/main.c  **** 		vTaskDelay(321);
-  44              		.loc 1 25 0 discriminator 1
+  35:./src/main.c  **** 		vTaskDelay(321);
+  44              		.loc 1 35 0 discriminator 1
   45 0010 40F24110 		movw	r0, #321
   46 0014 FFF7FEFF 		bl	vTaskDelay
-  26:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_7);
-  47              		.loc 1 26 0 discriminator 1
+  36:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_7);
+  47              		.loc 1 36 0 discriminator 1
   48 0018 4FF4E050 		mov	r0, #7168
   49 001c C4F20100 		movt	r0, 16385
   50 0020 8021     		movs	r1, #128
   51 0022 FFF7FEFF 		bl	GPIO_ResetBits
-  27:./src/main.c  **** 		vTaskDelay(321);
-  52              		.loc 1 27 0 discriminator 1
+  37:./src/main.c  **** 		vTaskDelay(321);
+  52              		.loc 1 37 0 discriminator 1
   53 0026 40F24110 		movw	r0, #321
   54 002a FFF7FEFF 		bl	vTaskDelay
   55 002e E8E7     		b	.L2
   56              		.cfi_endproc
-  57              	.LFE56:
+  57              	.LFE57:
   59              		.section	.text.vTaskLED1,"ax",%progbits
   60              		.align	2
   61              		.global	vTaskLED1
   62              		.thumb
   63              		.thumb_func
   65              	vTaskLED1:
-  66              	.LFB55:
-  10:./src/main.c  **** void vTaskLED1(void *pvParameters) {
-  67              		.loc 1 10 0
+  66              	.LFB56:
+  20:./src/main.c  **** void vTaskLED1(void *pvParameters) {
+  67              		.loc 1 20 0
   68              		.cfi_startproc
   69              		@ args = 0, pretend = 0, frame = 0
   70              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -101,199 +111,220 @@
   76              		.cfi_offset 3, -8
   77              	.LVL3:
   78              	.L5:
-  13:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_6);
-  79              		.loc 1 13 0 discriminator 1
+  23:./src/main.c  **** 		GPIO_SetBits(GPIOF, GPIO_Pin_6);
+  79              		.loc 1 23 0 discriminator 1
   80 0002 4FF4E050 		mov	r0, #7168
   81 0006 4021     		movs	r1, #64
   82 0008 C4F20100 		movt	r0, 16385
   83 000c FFF7FEFF 		bl	GPIO_SetBits
-  14:./src/main.c  **** 		vTaskDelay(500);
-  84              		.loc 1 14 0 discriminator 1
+  24:./src/main.c  **** 		vTaskDelay(500);
+  84              		.loc 1 24 0 discriminator 1
   85 0010 4FF4FA70 		mov	r0, #500
   86 0014 FFF7FEFF 		bl	vTaskDelay
-  15:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_6);
-  87              		.loc 1 15 0 discriminator 1
+  25:./src/main.c  **** 		GPIO_ResetBits(GPIOF, GPIO_Pin_6);
+  87              		.loc 1 25 0 discriminator 1
   88 0018 4FF4E050 		mov	r0, #7168
   89 001c C4F20100 		movt	r0, 16385
   90 0020 4021     		movs	r1, #64
   91 0022 FFF7FEFF 		bl	GPIO_ResetBits
-  16:./src/main.c  **** 		vTaskDelay(500);
-  92              		.loc 1 16 0 discriminator 1
+  26:./src/main.c  **** 		vTaskDelay(500);
+  92              		.loc 1 26 0 discriminator 1
   93 0026 4FF4FA70 		mov	r0, #500
   94 002a FFF7FEFF 		bl	vTaskDelay
   95 002e E8E7     		b	.L5
   96              		.cfi_endproc
-  97              	.LFE55:
-  99              		.section	.text.startup.main,"ax",%progbits
+  97              	.LFE56:
+  99              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
  100              		.align	2
- 101              		.global	main
+ 101              		.global	vApplicationStackOverflowHook
  102              		.thumb
  103              		.thumb_func
- 105              	main:
- 106              	.LFB57:
-  28:./src/main.c  **** 	}
-  29:./src/main.c  **** 
-  30:./src/main.c  **** }
-  31:./src/main.c  **** 
-  32:./src/main.c  **** 
-  33:./src/main.c  **** //--------------------------------------------------------------
-  34:./src/main.c  **** int main(void) {
- 107              		.loc 1 34 0
+ 105              	vApplicationStackOverflowHook:
+ 106              	.LFB55:
+  10:./src/main.c  **** {
+ 107              		.loc 1 10 0
  108              		.cfi_startproc
- 109              		@ args = 0, pretend = 0, frame = 8
+ 109              		@ args = 0, pretend = 0, frame = 0
  110              		@ frame_needed = 0, uses_anonymous_args = 0
- 111 0000 30B5     		push	{r4, r5, lr}
- 112              	.LCFI2:
- 113              		.cfi_def_cfa_offset 12
- 114              		.cfi_offset 14, -4
- 115              		.cfi_offset 5, -8
- 116              		.cfi_offset 4, -12
-  35:./src/main.c  **** 
-  36:./src/main.c  **** 	GPIO_InitTypeDef GPIO_InitStructure;
-  37:./src/main.c  **** 
-  38:./src/main.c  **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
- 117              		.loc 1 38 0
- 118 0002 8020     		movs	r0, #128
-  34:./src/main.c  **** int main(void) {
- 119              		.loc 1 34 0
- 120 0004 87B0     		sub	sp, sp, #28
- 121              	.LCFI3:
- 122              		.cfi_def_cfa_offset 40
- 123              		.loc 1 38 0
- 124 0006 0121     		movs	r1, #1
- 125 0008 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
-  39:./src/main.c  **** 	/**
-  40:./src/main.c  **** 	 *  LED1 -> PF6 , LED2 -> PF7 , LED3 -> PF8 , LED4 -> PF9
-  41:./src/main.c  **** 	 */
-  42:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
-  43:./src/main.c  **** 			| GPIO_Pin_9;
-  44:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  45:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-  46:./src/main.c  **** 	GPIO_Init(GPIOF, &GPIO_InitStructure);
- 126              		.loc 1 46 0
- 127 000c 4FF4E050 		mov	r0, #7168
-  44:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
- 128              		.loc 1 44 0
- 129 0010 0322     		movs	r2, #3
-  45:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
- 130              		.loc 1 45 0
- 131 0012 1023     		movs	r3, #16
- 132              		.loc 1 46 0
- 133 0014 C4F20100 		movt	r0, 16385
- 134 0018 05A9     		add	r1, sp, #20
-  42:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
- 135              		.loc 1 42 0
- 136 001a 4FF47075 		mov	r5, #960	@ movhi
+ 111              		@ link register save eliminated.
+ 112              	.LVL4:
+ 113              	.L7:
+ 114 0000 FEE7     		b	.L7
+ 115              		.cfi_endproc
+ 116              	.LFE55:
+ 118 0002 00BF     		.section	.text.startup.main,"ax",%progbits
+ 119              		.align	2
+ 120              		.global	main
+ 121              		.thumb
+ 122              		.thumb_func
+ 124              	main:
+ 125              	.LFB58:
+  38:./src/main.c  **** 	}
+  39:./src/main.c  **** 
+  40:./src/main.c  **** }
+  41:./src/main.c  **** 
+  42:./src/main.c  **** 
+  43:./src/main.c  **** //--------------------------------------------------------------
+  44:./src/main.c  **** int main(void) {
+ 126              		.loc 1 44 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 8
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		.loc 1 44 0
+ 131 0000 30B5     		push	{r4, r5, lr}
+ 132              	.LCFI2:
+ 133              		.cfi_def_cfa_offset 12
+ 134              		.cfi_offset 14, -4
+ 135              		.cfi_offset 5, -8
+ 136              		.cfi_offset 4, -12
+  45:./src/main.c  **** 
+  46:./src/main.c  **** 	GPIO_InitTypeDef GPIO_InitStructure;
   47:./src/main.c  **** 
-  48:./src/main.c  **** 	xTaskCreate( vTaskLED1, ( signed char * ) "LED1", configMINIMAL_STACK_SIZE, NULL, 2,
+  48:./src/main.c  **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
  137              		.loc 1 48 0
- 138 001e 0024     		movs	r4, #0
-  42:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
- 139              		.loc 1 42 0
- 140 0020 ADF81450 		strh	r5, [sp, #20]	@ movhi
-  44:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
- 141              		.loc 1 44 0
- 142 0024 8DF81620 		strb	r2, [sp, #22]
-  45:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
- 143              		.loc 1 45 0
- 144 0028 8DF81730 		strb	r3, [sp, #23]
-  46:./src/main.c  **** 	GPIO_Init(GPIOF, &GPIO_InitStructure);
- 145              		.loc 1 46 0
- 146 002c FFF7FEFF 		bl	GPIO_Init
- 147              		.loc 1 48 0
- 148 0030 40F20000 		movw	r0, #:lower16:vTaskLED1
- 149 0034 40F20001 		movw	r1, #:lower16:.LC0
- 150 0038 0225     		movs	r5, #2
- 151 003a C0F20001 		movt	r1, #:upper16:.LC0
- 152 003e 7822     		movs	r2, #120
- 153 0040 2346     		mov	r3, r4
- 154 0042 C0F20000 		movt	r0, #:upper16:vTaskLED1
- 155 0046 0095     		str	r5, [sp, #0]
- 156 0048 0194     		str	r4, [sp, #4]
- 157 004a 0294     		str	r4, [sp, #8]
- 158 004c 0394     		str	r4, [sp, #12]
- 159 004e FFF7FEFF 		bl	xTaskGenericCreate
-  49:./src/main.c  **** 			( xTaskHandle * ) NULL);
-  50:./src/main.c  **** 	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE, NULL, 2,
- 160              		.loc 1 50 0
- 161 0052 40F20000 		movw	r0, #:lower16:vTaskLED2
- 162 0056 40F20001 		movw	r1, #:lower16:.LC1
- 163 005a C0F20001 		movt	r1, #:upper16:.LC1
- 164 005e 7822     		movs	r2, #120
- 165 0060 2346     		mov	r3, r4
- 166 0062 C0F20000 		movt	r0, #:upper16:vTaskLED2
- 167 0066 0095     		str	r5, [sp, #0]
- 168 0068 0194     		str	r4, [sp, #4]
- 169 006a 0294     		str	r4, [sp, #8]
- 170 006c 0394     		str	r4, [sp, #12]
- 171 006e FFF7FEFF 		bl	xTaskGenericCreate
-  51:./src/main.c  **** 			( xTaskHandle * ) NULL);
-  52:./src/main.c  **** 
-  53:./src/main.c  **** 	/* Start the scheduler. */
-  54:./src/main.c  **** 	vTaskStartScheduler();
- 172              		.loc 1 54 0
- 173 0072 FFF7FEFF 		bl	vTaskStartScheduler
- 174              	.L7:
- 175 0076 FEE7     		b	.L7
- 176              		.cfi_endproc
- 177              	.LFE57:
- 179              		.section	.text.vApplicationTickHook,"ax",%progbits
- 180              		.align	2
- 181              		.global	vApplicationTickHook
- 182              		.thumb
- 183              		.thumb_func
- 185              	vApplicationTickHook:
- 186              	.LFB58:
-  55:./src/main.c  **** 
-  56:./src/main.c  **** 	/* Will only get here if there was insufficient memory to create the idle
-  57:./src/main.c  **** 	 task.  The idle task is created within vTaskStartScheduler(). */
-  58:./src/main.c  **** 	for (;;)
-  59:./src/main.c  **** 		;
-  60:./src/main.c  **** }
-  61:./src/main.c  **** /*-----------------------------------------------------------*/
+ 138 0002 8020     		movs	r0, #128
+  44:./src/main.c  **** int main(void) {
+ 139              		.loc 1 44 0
+ 140 0004 87B0     		sub	sp, sp, #28
+ 141              	.LCFI3:
+ 142              		.cfi_def_cfa_offset 40
+ 143              		.loc 1 48 0
+ 144 0006 0121     		movs	r1, #1
+ 145 0008 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  49:./src/main.c  **** 	/**
+  50:./src/main.c  **** 	 *  LED1 -> PF6 , LED2 -> PF7 , LED3 -> PF8 , LED4 -> PF9
+  51:./src/main.c  **** 	 */
+  52:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
+  53:./src/main.c  **** 			| GPIO_Pin_9;
+  54:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  55:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  56:./src/main.c  **** 	GPIO_Init(GPIOF, &GPIO_InitStructure);
+ 146              		.loc 1 56 0
+ 147 000c 4FF4E050 		mov	r0, #7168
+  54:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 148              		.loc 1 54 0
+ 149 0010 0322     		movs	r2, #3
+  55:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 150              		.loc 1 55 0
+ 151 0012 1023     		movs	r3, #16
+ 152              		.loc 1 56 0
+ 153 0014 C4F20100 		movt	r0, 16385
+ 154 0018 05A9     		add	r1, sp, #20
+  52:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
+ 155              		.loc 1 52 0
+ 156 001a 4FF47075 		mov	r5, #960	@ movhi
+  57:./src/main.c  **** 
+  58:./src/main.c  **** 	xTaskCreate( vTaskLED1, ( signed char * ) "LED1", configMINIMAL_STACK_SIZE, NULL, 2,
+ 157              		.loc 1 58 0
+ 158 001e 0024     		movs	r4, #0
+  52:./src/main.c  **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
+ 159              		.loc 1 52 0
+ 160 0020 ADF81450 		strh	r5, [sp, #20]	@ movhi
+  54:./src/main.c  **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 161              		.loc 1 54 0
+ 162 0024 8DF81620 		strb	r2, [sp, #22]
+  55:./src/main.c  **** 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 163              		.loc 1 55 0
+ 164 0028 8DF81730 		strb	r3, [sp, #23]
+  56:./src/main.c  **** 	GPIO_Init(GPIOF, &GPIO_InitStructure);
+ 165              		.loc 1 56 0
+ 166 002c FFF7FEFF 		bl	GPIO_Init
+ 167              		.loc 1 58 0
+ 168 0030 40F20000 		movw	r0, #:lower16:vTaskLED1
+ 169 0034 40F20001 		movw	r1, #:lower16:.LC0
+ 170 0038 0225     		movs	r5, #2
+ 171 003a C0F20001 		movt	r1, #:upper16:.LC0
+ 172 003e 7822     		movs	r2, #120
+ 173 0040 2346     		mov	r3, r4
+ 174 0042 C0F20000 		movt	r0, #:upper16:vTaskLED1
+ 175 0046 0095     		str	r5, [sp, #0]
+ 176 0048 0194     		str	r4, [sp, #4]
+ 177 004a 0294     		str	r4, [sp, #8]
+ 178 004c 0394     		str	r4, [sp, #12]
+ 179 004e FFF7FEFF 		bl	xTaskGenericCreate
+  59:./src/main.c  **** 			( xTaskHandle * ) NULL);
+  60:./src/main.c  **** 	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE, NULL, 2,
+ 180              		.loc 1 60 0
+ 181 0052 40F20000 		movw	r0, #:lower16:vTaskLED2
+ 182 0056 40F20001 		movw	r1, #:lower16:.LC1
+ 183 005a C0F20001 		movt	r1, #:upper16:.LC1
+ 184 005e 7822     		movs	r2, #120
+ 185 0060 2346     		mov	r3, r4
+ 186 0062 C0F20000 		movt	r0, #:upper16:vTaskLED2
+ 187 0066 0095     		str	r5, [sp, #0]
+ 188 0068 0194     		str	r4, [sp, #4]
+ 189 006a 0294     		str	r4, [sp, #8]
+ 190 006c 0394     		str	r4, [sp, #12]
+ 191 006e FFF7FEFF 		bl	xTaskGenericCreate
+  61:./src/main.c  **** 			( xTaskHandle * ) NULL);
   62:./src/main.c  **** 
-  63:./src/main.c  **** void vApplicationTickHook(void) {
- 187              		.loc 1 63 0
- 188              		.cfi_startproc
- 189              		@ args = 0, pretend = 0, frame = 0
- 190              		@ frame_needed = 0, uses_anonymous_args = 0
- 191              		@ link register save eliminated.
-  64:./src/main.c  **** 
-  65:./src/main.c  **** //	TimingDelay_Decrement();
-  66:./src/main.c  **** }
- 192              		.loc 1 66 0
- 193 0000 7047     		bx	lr
- 194              		.cfi_endproc
- 195              	.LFE58:
- 197 0002 00BF     		.section	.rodata.str1.4,"aMS",%progbits,1
- 198              		.align	2
- 199              	.LC0:
- 200 0000 4C454431 		.ascii	"LED1\000"
- 200      00
- 201 0005 000000   		.space	3
- 202              	.LC1:
- 203 0008 4C454432 		.ascii	"LED2\000"
- 203      00
- 204 000d 000000   		.text
- 205              	.Letext0:
- 206              		.file 2 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
- 207              		.file 3 "../MyARMLib/STM32/STM32F10x/include/stm32f10x.h"
- 208              		.file 4 "../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_gpio.h"
- 209              		.file 5 "../FreeRTOS/Source/include/task.h"
- 210              		.file 6 "../MyARMLib/CMSIS/include/core_cm3.h"
+  63:./src/main.c  **** 	/* Start the scheduler. */
+  64:./src/main.c  **** 	vTaskStartScheduler();
+ 192              		.loc 1 64 0
+ 193 0072 FFF7FEFF 		bl	vTaskStartScheduler
+ 194              	.L9:
+ 195 0076 FEE7     		b	.L9
+ 196              		.cfi_endproc
+ 197              	.LFE58:
+ 199              		.section	.text.vApplicationTickHook,"ax",%progbits
+ 200              		.align	2
+ 201              		.global	vApplicationTickHook
+ 202              		.thumb
+ 203              		.thumb_func
+ 205              	vApplicationTickHook:
+ 206              	.LFB59:
+  65:./src/main.c  **** 
+  66:./src/main.c  **** 	/* Will only get here if there was insufficient memory to create the idle
+  67:./src/main.c  **** 	 task.  The idle task is created within vTaskStartScheduler(). */
+  68:./src/main.c  **** 	for (;;)
+  69:./src/main.c  **** 		;
+  70:./src/main.c  **** }
+  71:./src/main.c  **** /*-----------------------------------------------------------*/
+  72:./src/main.c  **** 
+  73:./src/main.c  **** void vApplicationTickHook(void) {
+ 207              		.loc 1 73 0
+ 208              		.cfi_startproc
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211              		@ link register save eliminated.
+  74:./src/main.c  **** 
+  75:./src/main.c  **** //	TimingDelay_Decrement();
+  76:./src/main.c  **** }
+ 212              		.loc 1 76 0
+ 213 0000 7047     		bx	lr
+ 214              		.cfi_endproc
+ 215              	.LFE59:
+ 217 0002 00BF     		.section	.rodata.str1.4,"aMS",%progbits,1
+ 218              		.align	2
+ 219              	.LC0:
+ 220 0000 4C454431 		.ascii	"LED1\000"
+ 220      00
+ 221 0005 000000   		.space	3
+ 222              	.LC1:
+ 223 0008 4C454432 		.ascii	"LED2\000"
+ 223      00
+ 224 000d 000000   		.text
+ 225              	.Letext0:
+ 226              		.file 2 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
+ 227              		.file 3 "../MyARMLib/STM32/STM32F10x/include/stm32f10x.h"
+ 228              		.file 4 "../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_gpio.h"
+ 229              		.file 5 "../FreeRTOS/Source/include/task.h"
+ 230              		.file 6 "../MyARMLib/CMSIS/include/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-     /tmp/ccQYIRv7.s:19     .text.vTaskLED2:00000000 $t
-     /tmp/ccQYIRv7.s:24     .text.vTaskLED2:00000000 vTaskLED2
-     /tmp/ccQYIRv7.s:60     .text.vTaskLED1:00000000 $t
-     /tmp/ccQYIRv7.s:65     .text.vTaskLED1:00000000 vTaskLED1
-     /tmp/ccQYIRv7.s:100    .text.startup.main:00000000 $t
-     /tmp/ccQYIRv7.s:105    .text.startup.main:00000000 main
-     /tmp/ccQYIRv7.s:199    .rodata.str1.4:00000000 .LC0
-     /tmp/ccQYIRv7.s:202    .rodata.str1.4:00000008 .LC1
-     /tmp/ccQYIRv7.s:180    .text.vApplicationTickHook:00000000 $t
-     /tmp/ccQYIRv7.s:185    .text.vApplicationTickHook:00000000 vApplicationTickHook
-     /tmp/ccQYIRv7.s:198    .rodata.str1.4:00000000 $d
+     /tmp/ccwx6Jyp.s:19     .text.vTaskLED2:00000000 $t
+     /tmp/ccwx6Jyp.s:24     .text.vTaskLED2:00000000 vTaskLED2
+     /tmp/ccwx6Jyp.s:60     .text.vTaskLED1:00000000 $t
+     /tmp/ccwx6Jyp.s:65     .text.vTaskLED1:00000000 vTaskLED1
+     /tmp/ccwx6Jyp.s:100    .text.vApplicationStackOverflowHook:00000000 $t
+     /tmp/ccwx6Jyp.s:105    .text.vApplicationStackOverflowHook:00000000 vApplicationStackOverflowHook
+     /tmp/ccwx6Jyp.s:119    .text.startup.main:00000000 $t
+     /tmp/ccwx6Jyp.s:124    .text.startup.main:00000000 main
+     /tmp/ccwx6Jyp.s:219    .rodata.str1.4:00000000 .LC0
+     /tmp/ccwx6Jyp.s:222    .rodata.str1.4:00000008 .LC1
+     /tmp/ccwx6Jyp.s:200    .text.vApplicationTickHook:00000000 $t
+     /tmp/ccwx6Jyp.s:205    .text.vApplicationTickHook:00000000 vApplicationTickHook
+     /tmp/ccwx6Jyp.s:218    .rodata.str1.4:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

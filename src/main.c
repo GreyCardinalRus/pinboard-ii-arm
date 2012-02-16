@@ -6,6 +6,16 @@
 
 
 //--------------------------------------------------------------
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName )
+{
+	( void ) pcTaskName;
+	( void ) pxTask;
+
+	/* Run time stack overflow checking is performed if
+	configconfigCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+	function is called if a stack overflow is detected. */
+	for( ;; );
+}
 
 void vTaskLED1(void *pvParameters) {
 	pvParameters=pvParameters;

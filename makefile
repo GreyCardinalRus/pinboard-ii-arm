@@ -211,7 +211,8 @@ STARTUP = startup_stm32f10x_md.S
 # flags
 	FLAGS	= -mcpu=$(MCU) -mthumb
 	FLAGS	+= $(INCS)
-	FLAGS	+= -MD -DGCC_ARMCM3
+	FLAGS	+= -MD 
+	#-DGCC_ARMCM3
 	FLAGS	+= $(DEFS) -DUSE_STDPERIPH_DRIVER
 	FLAGS	+= -Wa,-adhlns=$(addprefix $(LSTDIR)/, $(notdir $(addsuffix .lst, $(basename $<))))
 

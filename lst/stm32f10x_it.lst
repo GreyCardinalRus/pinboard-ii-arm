@@ -237,18 +237,18 @@
  130              		.file 3 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_it.c
-     /tmp/ccoYAkcc.s:19     .text.NMI_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:24     .text.NMI_Handler:00000000 NMI_Handler
-     /tmp/ccoYAkcc.s:38     .text.HardFault_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
-     /tmp/ccoYAkcc.s:56     .text.MemManage_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
-     /tmp/ccoYAkcc.s:74     .text.BusFault_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
-     /tmp/ccoYAkcc.s:92     .text.UsageFault_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
-     /tmp/ccoYAkcc.s:110    .text.DebugMon_Handler:00000000 $t
-     /tmp/ccoYAkcc.s:115    .text.DebugMon_Handler:00000000 DebugMon_Handler
+     /tmp/ccYMPBdP.s:19     .text.NMI_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:24     .text.NMI_Handler:00000000 NMI_Handler
+     /tmp/ccYMPBdP.s:38     .text.HardFault_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
+     /tmp/ccYMPBdP.s:56     .text.MemManage_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
+     /tmp/ccYMPBdP.s:74     .text.BusFault_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
+     /tmp/ccYMPBdP.s:92     .text.UsageFault_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
+     /tmp/ccYMPBdP.s:110    .text.DebugMon_Handler:00000000 $t
+     /tmp/ccYMPBdP.s:115    .text.DebugMon_Handler:00000000 DebugMon_Handler
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS
