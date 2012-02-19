@@ -20,9 +20,9 @@ void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed char *pcTaskName
 void vTaskLED1(void *pvParameters) {
 	pvParameters=pvParameters;
 	for (;;) {
-		GPIO_SetBits(GPIOF, GPIO_Pin_6);
+		GPIO_SetBits(GPIOA, GPIO_Pin_15);
 		vTaskDelay(500);
-		GPIO_ResetBits(GPIOF, GPIO_Pin_6);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_15);
 		vTaskDelay(500);
 	}
 
@@ -31,9 +31,9 @@ void vTaskLED1(void *pvParameters) {
 void vTaskLED2(void *pvParameters) {
 	pvParameters=pvParameters;
 	for (;;) {
-		GPIO_SetBits(GPIOF, GPIO_Pin_7);
+		GPIO_SetBits(GPIOB, GPIO_Pin_3);
 		vTaskDelay(321);
-		GPIO_ResetBits(GPIOF, GPIO_Pin_7);
+		GPIO_ResetBits(GPIOB, GPIO_Pin_3);
 		vTaskDelay(321);
 	}
 
@@ -43,17 +43,25 @@ void vTaskLED2(void *pvParameters) {
 //--------------------------------------------------------------
 int main(void) {
 
-	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStructureA,GPIO_InitStructureB;
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	/**
 	 *  LED1 -> PF6 , LED2 -> PF7 , LED3 -> PF8 , LED4 -> PF9
 	 */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8
-			| GPIO_Pin_9;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIOF, &GPIO_InitStructure);
+	GPIO_InitStructureA.GPIO_Pin = GPIO_Pin_15;// | GPIO_Pin_7 | GPIO_Pin_8	| GPIO_Pin_9;
+	GPIO_InitStructureA.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_InitStructureA.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOA, &GPIO_InitStructureA);
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	/**
+	 *  LED1 -> PF6 , LED2 -> PF7 , LED3 -> PF8 , LED4 -> PF9
+	 */
+	GPIO_InitStructureB.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5	;//| GPIO_Pin_9;
+	GPIO_InitStructureB.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_InitStructureB.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_Init(GPIOA, &GPIO_InitStructureB);
 
 	xTaskCreate( vTaskLED1, ( signed char * ) "LED1", configMINIMAL_STACK_SIZE, NULL, 2,
 			( xTaskHandle * ) NULL);

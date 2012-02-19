@@ -156,6 +156,7 @@ STARTUP = startup_stm32f10x_md.S
 	DIRS	+= $(RTOS_ROOT)/Source
 	DIRS	+= $(RTOS_ROOT)/Source/portable/GCC/ARM_CM3
 	DIRS	+= $(RTOS_ROOT)/Source/include
+	DIRS	+= ../MyARMLib/STM32/STM32F103_Pinboard_II
 #	DIRS	+= $(RTOS_ROOT)/Demo/Common/Minimal
 	DIRS	+= $(RTOS_ROOT)/Demo/Common/include
 #	DIRS	+= $(RTOS_ROOT)/Demo/Common/ethernet/uIP/uip-1.0/uip 	
@@ -283,7 +284,7 @@ endif
 
 ############# targets
 
-all : start dirs $(AXF) $(ELF) $(BIN) $(LSS) $(OK)
+all : start dirs $(AXF) $(ELF) $(HEX) $(BIN) $(LSS) $(OK)
 
 build: clean all
 
