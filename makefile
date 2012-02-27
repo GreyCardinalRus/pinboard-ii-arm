@@ -80,6 +80,7 @@
 
 	OPTIMIZE	= -O2
 	USE_LTO		= NO
+	DEBUG       = -ggdb
 
 # compile options 
 	MCU			= cortex-m3
@@ -98,7 +99,8 @@
 
 #MCU = cortex-m4
 #STM32F407VG
-STARTUP = startup_stm32f10x_md.S
+# STARTUP = startup_stm32f10x_md.S
+STARTUP = startup_$(CHIP)
 
 	RTOS_ROOT=../FreeRTOS
 	CMSIS_DRIVER_DIR=../MyARMLib/CMSIS/include
@@ -147,12 +149,12 @@ STARTUP = startup_stm32f10x_md.S
 	LD_SCRIPT	= $(SRCDIR)/$(CHIP).ld
 
 # scmRTOS dir
-	SCMDIR		= ../scmRTOS
-	COMMON		= ../SamplesCommon
+#	SCMDIR		= ../scmRTOS
+#	COMMON		= ../SamplesCommon
  
 # source directories (all *.c, *.cpp and *.s files included)
 	DIRS	:= $(SRCDIR)
-	DIRS	+= $(COMMON)
+#	DIRS	+= $(COMMON)
 	DIRS	+= $(RTOS_ROOT)/Source
 	DIRS	+= $(RTOS_ROOT)/Source/portable/GCC/ARM_CM3
 	DIRS	+= $(RTOS_ROOT)/Source/include
@@ -223,7 +225,7 @@ STARTUP = startup_stm32f10x_md.S
 	CFLAGS	+= $(OPTIMIZE)
 	CFLAGS	+= -std=gnu99
 	CFLAGS	+= -D GCC_ARMCM3
-	CFLAGS	+= -g
+	CFLAGS	+= $(DEBUG)
 	CFLAGS	+= -ffunction-sections -fdata-sections
 #	CFLAGS	+= -Wall -Wextra
 #	CFLAGS	+= -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls
@@ -300,9 +302,9 @@ $(OK): $(ELF)
 	@$(SIZE) $(ELF)
 	@echo "Errors: none"
 
-$(AXF):	$(OBJS) makefile
+$(AXF):	$(OBJS)  makefile
 	@echo --- linking... axf
-	$(LD) $(OBJS) $(LIBS) $(LD_FLAGS) -o "$(AXF)"
+	$(LD) $(OBJS)  $(LIBS) $(LD_FLAGS) -o "$(AXF)"
 	
 $(ELF):	$(OBJS) makefile
 	@echo --- linking... 
@@ -337,6 +339,11 @@ $(OBJDIR)/%.o: %.c makefile
 $(OBJDIR)/%.o: %.S makefile
 	@echo --- assembling $<...
 	$(AS) -c $(AFLAGS) -o $@ $<
+
+$(OBJDIR)/%.o: %.s makefile
+	@echo --- assembling $<...
+	$(AS) -c $(AFLAGS) -o $@ $<
+	
 
 dirs: $(OBJDIR) $(EXEDIR) $(LSTDIR) $(BAKDIR)
 
