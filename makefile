@@ -69,7 +69,7 @@
 #----------------------------------------------------------------------------
 
 #############  program name
-	TARGET	= main
+	TARGET	= freertos
 
 # program version
 	VER_MAJOR	= 0
