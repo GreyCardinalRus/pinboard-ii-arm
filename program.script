@@ -9,7 +9,7 @@ flash info 0
 #sleep 500
 flash erase 0 0 255
 sleep 200
-flash write 0 ./RTOSDemo/RTOSDemo.bin 0
+flash write 0 ./exe/main.bin 0
 sleep 200
 reset run
 shutdown

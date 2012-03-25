@@ -69,7 +69,7 @@
 #----------------------------------------------------------------------------
 
 #############  program name
-	TARGET	= freertos
+	TARGET	= main
 
 # program version
 	VER_MAJOR	= 0
@@ -78,9 +78,9 @@
 	TOOL	= arm-none-eabi-
 #	TOOL	= arm-kgp-eabi-
 
-	OPTIMIZE	= -O2
+	OPTIMIZE	= -O0
 	USE_LTO		= NO
-	DEBUG       = -ggdb
+	DEBUG       = -g3 -ggdb
 
 # compile options 
 	MCU			= cortex-m3
@@ -212,7 +212,7 @@ STARTUP = startup_$(CHIP)
 		$(BASE)/.project
 
 # flags
-	FLAGS	= -mcpu=$(MCU) -mthumb
+	FLAGS	= -mcpu=$(MCU) -mthumb -ggdb
 	FLAGS	+= $(INCS)
 	FLAGS	+= -MD 
 	#-DGCC_ARMCM3

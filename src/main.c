@@ -36,6 +36,7 @@ void vTaskLED1(void *pvParameters) {
 		vTaskDelay(600);
 	}
 }
+
 void vTaskLED2(void *pvParameters) {
 	pvParameters = pvParameters;
 	for (;;) {
@@ -49,17 +50,32 @@ void vTaskLED2(void *pvParameters) {
 
 void vTaskLED3(void *pvParameters) {
 	pvParameters = pvParameters;
+	unsigned short i=0;
 	for (;;) {
-		GPIO_SetBits(GPIOB, GPIO_Pin_5);
-		vTaskDelay(800);
-		GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-		vTaskDelay(800);
+		for(i=0;i<80;i++)
+		{
+			//vTaskDelay(10);
+			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+			vTaskDelay(i/10);
+			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+			vTaskDelay(8-i/10);
+		}
+		for(i=0;i<80;i++)
+		{
+			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+			vTaskDelay(8-i/10);
+			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+			vTaskDelay(i/10);
+		}
 	}
 
 }
 
 //--------------------------------------------------------------
 int main(void) {
+	//По сбросу на PB3,PB4, PA15 используются для отладки по jtag.
+
+	AFIO->MAPR |=AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
 
 	GPIO_InitTypeDef GPIO_InitStructureA, GPIO_InitStructureB;
 
@@ -79,7 +95,7 @@ int main(void) {
 	GPIO_InitStructureB.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5; //| GPIO_Pin_9;
 	GPIO_InitStructureB.GPIO_Speed = GPIO_Speed_2MHz;
 	GPIO_InitStructureB.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_Init(GPIOA, &GPIO_InitStructureB);
+	GPIO_Init(GPIOB, &GPIO_InitStructureB);
 
 	xTaskCreate( vTaskLED0, ( signed char * ) "LED0", configMINIMAL_STACK_SIZE,
 			NULL, 2, ( xTaskHandle * ) NULL);
