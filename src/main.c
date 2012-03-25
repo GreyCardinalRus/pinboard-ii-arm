@@ -52,20 +52,25 @@ void vTaskLED3(void *pvParameters) {
 	pvParameters = pvParameters;
 	unsigned short i=0;
 	for (;;) {
-		for(i=0;i<80;i++)
+		for(i=0;i<200;i++)
 		{
 			//vTaskDelay(10);
 			GPIO_SetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(i/10);
+			vTaskDelay(i/50);
 			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(8-i/10);
+			vTaskDelay(10-i/20);
 		}
-		for(i=0;i<80;i++)
+		for(i=0;i<200;i++)
 		{
-			GPIO_SetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(8-i/10);
 			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(i/10);
+			vTaskDelay(i/20);
+			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+			vTaskDelay(10-i/20);
+
+			//			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+//			vTaskDelay(8-i/10);
+//			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+//			vTaskDelay(i/10);
 		}
 	}
 
