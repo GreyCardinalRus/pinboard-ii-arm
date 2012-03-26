@@ -1,0 +1,17 @@
+
+syntax: regexp
+axf
+syntax: regexp
+bin
+syntax: regexp
+elf
+syntax: regexp
+hex
+syntax: regexp
+map
+syntax: regexp
+lss
+syntax: regexp
+lst
+syntax: regexp
+.d
