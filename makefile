@@ -167,6 +167,7 @@ STARTUP = startup_$(CHIP)
 	#STM32F1_DISCOVERY_DRIVER_DIR=../MyARMLib/STM32/STM32F4_discovery
 	DIRS	+= $(CMSIS_DRIVER_DIR)
 	DIRS	+= ../MyARMLib/CMSIS/include
+	DIRS	+= ../MyARMLib/STM32
 	DIRS	+= ../MyARMLib/STM32/STM32F10x/include
 	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc
 	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src

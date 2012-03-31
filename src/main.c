@@ -3,6 +3,7 @@
 #include "stm32f10x_conf.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "rtc.h"
 #include <stdio.h>
 #include <string.h>
 //#include "lcd.h"
@@ -65,6 +66,7 @@ void vTaskTimer(void *pvParameters) {
 //}
 	vTaskDelay(1);
 }
+
 void vTaskLED01(void *pvParameters) {
 	//pbii_PWM_TIM3_Init();               // инициализация подсистемы ШИМ светодиодов
 	// установка начальных значений шима
@@ -185,19 +187,30 @@ void vTaskLED01(void *pvParameters) {
 	}
 }
 
-//void vTaskLED2(void *pvParameters) {
-//	pvParameters = pvParameters;
-//	for (;;) {
+void vTaskLED2(void *pvParameters) {
+	pvParameters = pvParameters;
+//	  GPIO_InitTypeDef  GPIO_InitStructure;
+//	  GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);
+//	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+//	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5;
+//	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+//	  for (;;) {
 //		GPIO_SetBits(GPIOB, GPIO_Pin_4);
 //		vTaskDelay(700);
 //		GPIO_ResetBits(GPIOB, GPIO_Pin_4);
 //		vTaskDelay(700);
 //	}
-//
-//}
+
+}
 
 void vTaskLED3(void *pvParameters) {
 	pvParameters = pvParameters;
+	GPIO_InitTypeDef GPIO_InitStructure;
+	//	  GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	unsigned short i = 0;
 	for (;;) {
 		for (i = 0; i < 200; i++) {
@@ -229,10 +242,37 @@ void vTaskLCD(void *pvParameters) {
 //	lcd_cursor_off(); // отключить мигание курсора
 //	wr_lcd_str(0, 0, "Hello from PBII!"); // вывод приветствия, ипользуется API lcd.h
 //
+
+//	Init_lcd();
+//	Lcd_clear();
+//	Lcd_goto(0, 3);
+//	Lcd_write_str("WH1602B");
+//	Lcd_goto(1, 4);
+//	Lcd_write_str("Test.");
+
 	for (;;) {
 	}
 }
 //--------------------------------------------------------------
+void vTaskBZR(void *pvParameters) {
+	pvParameters = pvParameters;
+	  GPIO_InitTypeDef  GPIO_InitStructure;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  GPIO_ResetBits(GPIOA,GPIO_Pin_0);
+//	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+//	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5;
+//	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+	  for (;;) {
+		GPIO_SetBits(GPIOA, GPIO_Pin_0);
+		vTaskDelay(70);
+		GPIO_ResetBits(GPIOA, GPIO_Pin_0);
+		vTaskDelay(70);
+	}
+
+}
 int main(void) {
 	//По сбросу на PB3,PB4, PA15 используются для отладки по jtag.
 
@@ -274,24 +314,19 @@ int main(void) {
 //	GPIO_InitStructureB.GPIO_Speed = GPIO_Speed_50MHz;
 //	GPIO_InitStructureB.GPIO_Mode = GPIO_Mode_Out_PP;
 //	GPIO_Init(GPIOB, &GPIO_InitStructureB);
-
+	rtc_init();
 	xTaskCreate( vTaskTimer, ( signed char * ) "Timer",
 			configMINIMAL_STACK_SIZE, NULL, 2, ( xTaskHandle * ) NULL);
 	xTaskCreate( vTaskLED01, ( signed char * ) "LED01",
 			configMINIMAL_STACK_SIZE, NULL, 2, ( xTaskHandle * ) NULL);
-//	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE,
-//			NULL, 2, ( xTaskHandle * ) NULL);
+	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE,
+			NULL, 2, ( xTaskHandle * ) NULL);
 	xTaskCreate( vTaskLED3, ( signed char * ) "LED3", configMINIMAL_STACK_SIZE,
 			NULL, 2, ( xTaskHandle * ) NULL);
 	xTaskCreate( vTaskLCD, ( signed char * ) "LCD", configMINIMAL_STACK_SIZE,
 			NULL, 2, ( xTaskHandle * ) NULL);
-		Init_lcd();
-		Lcd_clear();
-		Lcd_goto(0, 3);
-		Lcd_write_str("WH1602B");
-		Lcd_goto(1, 4);
-		Lcd_write_str("Test.");
-
+//	xTaskCreate( vTaskBZR, ( signed char * ) "BZR", configMINIMAL_STACK_SIZE,
+//			NULL, 2, ( xTaskHandle * ) NULL);
 	/* Start the scheduler. */
 	vTaskStartScheduler();
 

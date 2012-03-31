@@ -7,7 +7,10 @@ obj/stm32f10x_it.o: src/stm32f10x_it.c src/stm32f10x_it.h \
  ../MyARMLib/CMSIS/include/core_cmFunc.h \
  ../MyARMLib/STM32/STM32F10x/include/system_stm32f10x.h \
  src/stm32f10x_conf.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_bkp.h \
  ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_gpio.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_pwr.h \
  ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rcc.h \
  ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_rtc.h \
+ ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/stm32f10x_tim.h \
  ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc/misc.h

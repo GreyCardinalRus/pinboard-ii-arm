@@ -15,3 +15,7 @@ syntax: regexp
 lst
 syntax: regexp
 .d
+syntax: regexp
+d
+syntax: regexp
+lst

@@ -7,7 +7,7 @@
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 6
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
@@ -74,20 +74,29 @@
   27              		.loc 1 48 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
   31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
   49:./src/stm32f10x_it.c **** }
-  32              		.loc 1 49 0
-  33 0000 7047     		bx	lr
-  34              		.cfi_endproc
-  35              	.LFE55:
-  37 0002 00BF     		.section	.text.HardFault_Handler,"ax",%progbits
-  38              		.align	2
-  39              		.global	HardFault_Handler
-  40              		.thumb
-  41              		.thumb_func
-  43              	HardFault_Handler:
-  44              	.LFB56:
+  39              		.loc 1 49 0
+  40 0004 BD46     		mov	sp, r7
+  41 0006 80BC     		pop	{r7}
+  42 0008 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE55:
+  46 000a 00BF     		.section	.text.HardFault_Handler,"ax",%progbits
+  47              		.align	2
+  48              		.global	HardFault_Handler
+  49              		.thumb
+  50              		.thumb_func
+  52              	HardFault_Handler:
+  53              	.LFB56:
   50:./src/stm32f10x_it.c **** 
   51:./src/stm32f10x_it.c **** /**
   52:./src/stm32f10x_it.c ****   * @brief  This function handles Hard Fault exception.
@@ -96,27 +105,36 @@
   55:./src/stm32f10x_it.c ****   */
   56:./src/stm32f10x_it.c **** void HardFault_Handler(void)
   57:./src/stm32f10x_it.c **** {
-  45              		.loc 1 57 0
-  46              		.cfi_startproc
-  47              		@ args = 0, pretend = 0, frame = 0
-  48              		@ frame_needed = 0, uses_anonymous_args = 0
-  49              		@ link register save eliminated.
-  50              	.L3:
-  51 0000 FEE7     		b	.L3
-  52              		.cfi_endproc
-  53              	.LFE56:
-  55 0002 00BF     		.section	.text.MemManage_Handler,"ax",%progbits
-  56              		.align	2
-  57              		.global	MemManage_Handler
-  58              		.thumb
-  59              		.thumb_func
-  61              	MemManage_Handler:
-  62              	.LFB57:
+  54              		.loc 1 57 0
+  55              		.cfi_startproc
+  56              		@ args = 0, pretend = 0, frame = 0
+  57              		@ frame_needed = 1, uses_anonymous_args = 0
+  58              		@ link register save eliminated.
+  59 0000 80B4     		push	{r7}
+  60              	.LCFI2:
+  61              		.cfi_def_cfa_offset 4
+  62              		.cfi_offset 7, -4
+  63 0002 00AF     		add	r7, sp, #0
+  64              	.LCFI3:
+  65              		.cfi_def_cfa_register 7
   58:./src/stm32f10x_it.c ****   /* Go to infinite loop when Hard Fault exception occurs */
-  59:./src/stm32f10x_it.c ****   while (1)
-  60:./src/stm32f10x_it.c ****   {
-  61:./src/stm32f10x_it.c ****   }
+  59:./src/stm32f10x_it.c **** //  while (1)
+  60:./src/stm32f10x_it.c **** //  {
+  61:./src/stm32f10x_it.c **** //  }
   62:./src/stm32f10x_it.c **** }
+  66              		.loc 1 62 0
+  67 0004 BD46     		mov	sp, r7
+  68 0006 80BC     		pop	{r7}
+  69 0008 7047     		bx	lr
+  70              		.cfi_endproc
+  71              	.LFE56:
+  73 000a 00BF     		.section	.text.MemManage_Handler,"ax",%progbits
+  74              		.align	2
+  75              		.global	MemManage_Handler
+  76              		.thumb
+  77              		.thumb_func
+  79              	MemManage_Handler:
+  80              	.LFB57:
   63:./src/stm32f10x_it.c **** 
   64:./src/stm32f10x_it.c **** /**
   65:./src/stm32f10x_it.c ****   * @brief  This function handles Memory Manage exception.
@@ -125,26 +143,34 @@
   68:./src/stm32f10x_it.c ****   */
   69:./src/stm32f10x_it.c **** void MemManage_Handler(void)
   70:./src/stm32f10x_it.c **** {
-  63              		.loc 1 70 0
-  64              		.cfi_startproc
-  65              		@ args = 0, pretend = 0, frame = 0
-  66              		@ frame_needed = 0, uses_anonymous_args = 0
-  67              		@ link register save eliminated.
-  68              	.L5:
-  69 0000 FEE7     		b	.L5
-  70              		.cfi_endproc
-  71              	.LFE57:
-  73 0002 00BF     		.section	.text.BusFault_Handler,"ax",%progbits
-  74              		.align	2
-  75              		.global	BusFault_Handler
-  76              		.thumb
-  77              		.thumb_func
-  79              	BusFault_Handler:
-  80              	.LFB58:
+  81              		.loc 1 70 0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 1, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  86 0000 80B4     		push	{r7}
+  87              	.LCFI4:
+  88              		.cfi_def_cfa_offset 4
+  89              		.cfi_offset 7, -4
+  90 0002 00AF     		add	r7, sp, #0
+  91              	.LCFI5:
+  92              		.cfi_def_cfa_register 7
+  93              	.L4:
   71:./src/stm32f10x_it.c ****   /* Go to infinite loop when Memory Manage exception occurs */
   72:./src/stm32f10x_it.c ****   while (1)
   73:./src/stm32f10x_it.c ****   {
   74:./src/stm32f10x_it.c ****   }
+  94              		.loc 1 74 0 discriminator 1
+  95 0004 FEE7     		b	.L4
+  96              		.cfi_endproc
+  97              	.LFE57:
+  99 0006 00BF     		.section	.text.BusFault_Handler,"ax",%progbits
+ 100              		.align	2
+ 101              		.global	BusFault_Handler
+ 102              		.thumb
+ 103              		.thumb_func
+ 105              	BusFault_Handler:
+ 106              	.LFB58:
   75:./src/stm32f10x_it.c **** }
   76:./src/stm32f10x_it.c **** 
   77:./src/stm32f10x_it.c **** /**
@@ -154,26 +180,34 @@
   81:./src/stm32f10x_it.c ****   */
   82:./src/stm32f10x_it.c **** void BusFault_Handler(void)
   83:./src/stm32f10x_it.c **** {
-  81              		.loc 1 83 0
-  82              		.cfi_startproc
-  83              		@ args = 0, pretend = 0, frame = 0
-  84              		@ frame_needed = 0, uses_anonymous_args = 0
-  85              		@ link register save eliminated.
-  86              	.L7:
-  87 0000 FEE7     		b	.L7
-  88              		.cfi_endproc
-  89              	.LFE58:
-  91 0002 00BF     		.section	.text.UsageFault_Handler,"ax",%progbits
-  92              		.align	2
-  93              		.global	UsageFault_Handler
-  94              		.thumb
-  95              		.thumb_func
-  97              	UsageFault_Handler:
-  98              	.LFB59:
+ 107              		.loc 1 83 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 1, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 80B4     		push	{r7}
+ 113              	.LCFI6:
+ 114              		.cfi_def_cfa_offset 4
+ 115              		.cfi_offset 7, -4
+ 116 0002 00AF     		add	r7, sp, #0
+ 117              	.LCFI7:
+ 118              		.cfi_def_cfa_register 7
+ 119              	.L6:
   84:./src/stm32f10x_it.c ****   /* Go to infinite loop when Bus Fault exception occurs */
   85:./src/stm32f10x_it.c ****   while (1)
   86:./src/stm32f10x_it.c ****   {
   87:./src/stm32f10x_it.c ****   }
+ 120              		.loc 1 87 0 discriminator 1
+ 121 0004 FEE7     		b	.L6
+ 122              		.cfi_endproc
+ 123              	.LFE58:
+ 125 0006 00BF     		.section	.text.UsageFault_Handler,"ax",%progbits
+ 126              		.align	2
+ 127              		.global	UsageFault_Handler
+ 128              		.thumb
+ 129              		.thumb_func
+ 131              	UsageFault_Handler:
+ 132              	.LFB59:
   88:./src/stm32f10x_it.c **** }
   89:./src/stm32f10x_it.c **** 
   90:./src/stm32f10x_it.c **** /**
@@ -183,26 +217,34 @@
   94:./src/stm32f10x_it.c ****   */
   95:./src/stm32f10x_it.c **** void UsageFault_Handler(void)
   96:./src/stm32f10x_it.c **** {
-  99              		.loc 1 96 0
- 100              		.cfi_startproc
- 101              		@ args = 0, pretend = 0, frame = 0
- 102              		@ frame_needed = 0, uses_anonymous_args = 0
- 103              		@ link register save eliminated.
- 104              	.L9:
- 105 0000 FEE7     		b	.L9
- 106              		.cfi_endproc
- 107              	.LFE59:
- 109 0002 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
- 110              		.align	2
- 111              		.global	DebugMon_Handler
- 112              		.thumb
- 113              		.thumb_func
- 115              	DebugMon_Handler:
- 116              	.LFB60:
+ 133              		.loc 1 96 0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 1, uses_anonymous_args = 0
+ 137              		@ link register save eliminated.
+ 138 0000 80B4     		push	{r7}
+ 139              	.LCFI8:
+ 140              		.cfi_def_cfa_offset 4
+ 141              		.cfi_offset 7, -4
+ 142 0002 00AF     		add	r7, sp, #0
+ 143              	.LCFI9:
+ 144              		.cfi_def_cfa_register 7
+ 145              	.L8:
   97:./src/stm32f10x_it.c ****   /* Go to infinite loop when Usage Fault exception occurs */
   98:./src/stm32f10x_it.c ****   while (1)
   99:./src/stm32f10x_it.c ****   {
  100:./src/stm32f10x_it.c ****   }
+ 146              		.loc 1 100 0 discriminator 1
+ 147 0004 FEE7     		b	.L8
+ 148              		.cfi_endproc
+ 149              	.LFE59:
+ 151 0006 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	DebugMon_Handler
+ 154              		.thumb
+ 155              		.thumb_func
+ 157              	DebugMon_Handler:
+ 158              	.LFB60:
  101:./src/stm32f10x_it.c **** }
  102:./src/stm32f10x_it.c **** 
  103:./src/stm32f10x_it.c **** /**
@@ -221,34 +263,852 @@
  116:./src/stm32f10x_it.c ****   */
  117:./src/stm32f10x_it.c **** void DebugMon_Handler(void)
  118:./src/stm32f10x_it.c **** {
- 117              		.loc 1 118 0
- 118              		.cfi_startproc
- 119              		@ args = 0, pretend = 0, frame = 0
- 120              		@ frame_needed = 0, uses_anonymous_args = 0
- 121              		@ link register save eliminated.
+ 159              		.loc 1 118 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 0
+ 162              		@ frame_needed = 1, uses_anonymous_args = 0
+ 163              		@ link register save eliminated.
+ 164 0000 80B4     		push	{r7}
+ 165              	.LCFI10:
+ 166              		.cfi_def_cfa_offset 4
+ 167              		.cfi_offset 7, -4
+ 168 0002 00AF     		add	r7, sp, #0
+ 169              	.LCFI11:
+ 170              		.cfi_def_cfa_register 7
  119:./src/stm32f10x_it.c **** }
- 122              		.loc 1 119 0
- 123 0000 7047     		bx	lr
- 124              		.cfi_endproc
- 125              	.LFE60:
- 127 0002 00BF     		.text
- 128              	.Letext0:
- 129              		.file 2 "../MyARMLib/CMSIS/include/core_cm3.h"
- 130              		.file 3 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
+ 171              		.loc 1 119 0
+ 172 0004 BD46     		mov	sp, r7
+ 173 0006 80BC     		pop	{r7}
+ 174 0008 7047     		bx	lr
+ 175              		.cfi_endproc
+ 176              	.LFE60:
+ 178              		.global	k1_pressed
+ 179 000a 00BF     		.section	.bss.k1_pressed,"aw",%nobits
+ 182              	k1_pressed:
+ 183 0000 00       		.space	1
+ 184              		.global	k1_depressed
+ 185              		.section	.bss.k1_depressed,"aw",%nobits
+ 188              	k1_depressed:
+ 189 0000 00       		.space	1
+ 190              		.global	k2_pressed
+ 191              		.section	.bss.k2_pressed,"aw",%nobits
+ 194              	k2_pressed:
+ 195 0000 00       		.space	1
+ 196              		.global	k2_depressed
+ 197              		.section	.bss.k2_depressed,"aw",%nobits
+ 200              	k2_depressed:
+ 201 0000 00       		.space	1
+ 202              		.global	k3_pressed
+ 203              		.section	.bss.k3_pressed,"aw",%nobits
+ 206              	k3_pressed:
+ 207 0000 00       		.space	1
+ 208              		.global	k3_depressed
+ 209              		.section	.bss.k3_depressed,"aw",%nobits
+ 212              	k3_depressed:
+ 213 0000 00       		.space	1
+ 214              		.global	d_timer
+ 215              		.section	.bss.d_timer,"aw",%nobits
+ 216              		.align	2
+ 219              	d_timer:
+ 220 0000 00000000 		.space	4
+ 221              		.global	one_sec_flg
+ 222              		.section	.bss.one_sec_flg,"aw",%nobits
+ 225              	one_sec_flg:
+ 226 0000 00       		.space	1
+ 227              		.global	pinValues
+ 228              		.section	.bss.pinValues,"aw",%nobits
+ 229              		.align	2
+ 232              	pinValues:
+ 233 0000 0000     		.space	2
+ 234              		.global	position
+ 235 0002 0000     		.section	.bss.position,"aw",%nobits
+ 236              		.align	1
+ 239              	position:
+ 240 0000 0000     		.space	2
+ 241              		.global	encoder_changed
+ 242              		.section	.bss.encoder_changed,"aw",%nobits
+ 245              	encoder_changed:
+ 246 0000 00       		.space	1
+ 247              		.section	.text.Sys_Tick_Handler,"ax",%progbits
+ 248              		.align	2
+ 249              		.global	Sys_Tick_Handler
+ 250              		.thumb
+ 251              		.thumb_func
+ 253              	Sys_Tick_Handler:
+ 254              	.LFB62:
+ 120:./src/stm32f10x_it.c **** 
+ 121:./src/stm32f10x_it.c **** /**
+ 122:./src/stm32f10x_it.c ****   * @brief  This function handles PendSVC exception.
+ 123:./src/stm32f10x_it.c ****   * @param  None
+ 124:./src/stm32f10x_it.c ****   * @retval None
+ 125:./src/stm32f10x_it.c ****   */
+ 126:./src/stm32f10x_it.c **** //void PendSV_Handler(void)
+ 127:./src/stm32f10x_it.c **** //{
+ 128:./src/stm32f10x_it.c **** //}
+ 129:./src/stm32f10x_it.c **** 
+ 130:./src/stm32f10x_it.c **** /**
+ 131:./src/stm32f10x_it.c ****   * @brief  This function handles SysTick Handler.
+ 132:./src/stm32f10x_it.c ****   * @param  None
+ 133:./src/stm32f10x_it.c ****   * @retval None
+ 134:./src/stm32f10x_it.c ****   */
+ 135:./src/stm32f10x_it.c **** //void SysTick_Handler(void)
+ 136:./src/stm32f10x_it.c **** //{
+ 137:./src/stm32f10x_it.c **** //}
+ 138:./src/stm32f10x_it.c **** 
+ 139:./src/stm32f10x_it.c **** /******************************************************************************/
+ 140:./src/stm32f10x_it.c **** /*                 STM32F10x Peripherals Interrupt Handlers                   */
+ 141:./src/stm32f10x_it.c **** /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+ 142:./src/stm32f10x_it.c **** /*  available peripheral interrupt handler's name please refer to the startup */
+ 143:./src/stm32f10x_it.c **** /*  file (startup_stm32f10x_xx.s).                                            */
+ 144:./src/stm32f10x_it.c **** /******************************************************************************/
+ 145:./src/stm32f10x_it.c **** 
+ 146:./src/stm32f10x_it.c **** /**
+ 147:./src/stm32f10x_it.c ****   * @brief  This function handles PPP interrupt request.
+ 148:./src/stm32f10x_it.c ****   * @param  None
+ 149:./src/stm32f10x_it.c ****   * @retval None
+ 150:./src/stm32f10x_it.c ****   */
+ 151:./src/stm32f10x_it.c **** /*void PPP_IRQHandler(void)
+ 152:./src/stm32f10x_it.c **** {
+ 153:./src/stm32f10x_it.c **** }*/
+ 154:./src/stm32f10x_it.c **** 
+ 155:./src/stm32f10x_it.c **** /**
+ 156:./src/stm32f10x_it.c ****   * @}
+ 157:./src/stm32f10x_it.c ****   */ 
+ 158:./src/stm32f10x_it.c **** 
+ 159:./src/stm32f10x_it.c **** 
+ 160:./src/stm32f10x_it.c **** /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+ 161:./src/stm32f10x_it.c **** 
+ 162:./src/stm32f10x_it.c **** /*
+ 163:./src/stm32f10x_it.c **** 
+ 164:./src/stm32f10x_it.c **** ©2012 NEE
+ 165:./src/stm32f10x_it.c **** ОТКАЗ ОТ ЛЮБЫХ ВИДОВ ОТВЕСТВЕННОСТИ
+ 166:./src/stm32f10x_it.c **** USE FREELY
+ 167:./src/stm32f10x_it.c **** 
+ 168:./src/stm32f10x_it.c **** */
+ 169:./src/stm32f10x_it.c **** 
+ 170:./src/stm32f10x_it.c **** #include "stm32f10x_it.h"
+ 171:./src/stm32f10x_it.c **** 
+ 172:./src/stm32f10x_it.c **** 
+ 173:./src/stm32f10x_it.c **** //union times___
+ 174:./src/stm32f10x_it.c **** //{
+ 175:./src/stm32f10x_it.c **** //  uint64_t time_ll;
+ 176:./src/stm32f10x_it.c **** //  volatile uint32_t time_l; // системная переменная
+ 177:./src/stm32f10x_it.c **** //                            // обозначающая кол. миллисекунд проше
+ 178:./src/stm32f10x_it.c **** //                            // с начала действия программы
+ 179:./src/stm32f10x_it.c **** //  uint16_t time_s;
+ 180:./src/stm32f10x_it.c **** //}times__={0ull};
+ 181:./src/stm32f10x_it.c **** //
+ 182:./src/stm32f10x_it.c **** //
+ 183:./src/stm32f10x_it.c **** //uint16_t ocval1=333,ocval2=332; // состояние ШИМ светодиода LED2 и LED3
+ 184:./src/stm32f10x_it.c **** //uint8_t u_d1=0,u_d2=1;          // направление изменения 0-> яркость �
+ 185:./src/stm32f10x_it.c **** //                                // 1 -> яркость увеличивается
+ 186:./src/stm32f10x_it.c **** 
+ 187:./src/stm32f10x_it.c **** volatile uint8_t k1_pressed=0;  // флаг события нажатия на кнопку №1 1-
+ 188:./src/stm32f10x_it.c ****                                 // была нажата
+ 189:./src/stm32f10x_it.c **** volatile uint8_t k1_depressed=0;// флаг события отжатия кнопки №1 1-> к�
+ 190:./src/stm32f10x_it.c ****                                 // была отжата
+ 191:./src/stm32f10x_it.c **** volatile uint8_t k2_pressed=0;  // аналогично кнопка №2
+ 192:./src/stm32f10x_it.c **** volatile uint8_t k2_depressed=0;
+ 193:./src/stm32f10x_it.c **** volatile uint8_t k3_pressed=0;  // аналогично кнопка №3
+ 194:./src/stm32f10x_it.c **** volatile uint8_t k3_depressed=0;
+ 195:./src/stm32f10x_it.c **** 
+ 196:./src/stm32f10x_it.c **** volatile uint32_t d_timer=0;    // флаг запрета обновления показаний 
+ 197:./src/stm32f10x_it.c ****                                 // содержит количество миллисекунд д�
+ 198:./src/stm32f10x_it.c ****                                 // запрета, уменьшается на единицу ка�
+ 199:./src/stm32f10x_it.c ****                                 // миллисекунду, пока не достигнет ну�
+ 200:./src/stm32f10x_it.c **** volatile uint8_t one_sec_flg=0; // флаг запроса обновления показаний 
+ 201:./src/stm32f10x_it.c ****                                 // на экране, обновляется один раз в с�
+ 202:./src/stm32f10x_it.c **** 
+ 203:./src/stm32f10x_it.c **** uint8_t pinValues[2] = {0,0};   // предыдущее состояние контактов эн�
+ 204:./src/stm32f10x_it.c **** volatile int16_t position = 0;  // текущая позиция энкодера
+ 205:./src/stm32f10x_it.c **** volatile uint8_t encoder_changed = 0; // флаг изменения состояния энкод�
+ 206:./src/stm32f10x_it.c ****                                       // 1->позиция энкодера изменилась
+ 207:./src/stm32f10x_it.c **** // подпрограмма определения изменений состояния энкод
+ 208:./src/stm32f10x_it.c **** // взята из гугла по ключевым словам "arduino" "encoder"
+ 209:./src/stm32f10x_it.c **** // защита от дребезга обеспечивается дискретностью
+ 210:./src/stm32f10x_it.c **** // обновления информации о состоянии контактов энкоде�
+ 211:./src/stm32f10x_it.c **** // 1ms
+ 212:./src/stm32f10x_it.c **** /**  * A simple incremental Rotary Encoder decoder example
+ 213:./src/stm32f10x_it.c ****   *andrew@rocketnumbernine.com                                          *
+ 214:./src/stm32f10x_it.c ****   *http://www.rocketnumbernine.com/2010/03/06/decoding-a-rotary-encoder/ *
+ 215:./src/stm32f10x_it.c ****   * use freely */
+ 216:./src/stm32f10x_it.c **** void inline rotary_encoder_change(uint8_t changedPin, uint8_t value)
+ 217:./src/stm32f10x_it.c **** {
+ 218:./src/stm32f10x_it.c ****   pinValues[changedPin] = value;
+ 219:./src/stm32f10x_it.c ****   position += ((pinValues[0] == pinValues[1]) ^ changedPin) ? 1 : -1;
+ 220:./src/stm32f10x_it.c ****   encoder_changed=1;
+ 221:./src/stm32f10x_it.c **** }
+ 222:./src/stm32f10x_it.c **** 
+ 223:./src/stm32f10x_it.c **** // основное прерывание в системе, генерирующее события
+ 224:./src/stm32f10x_it.c **** // времени в системе, осуществляется антидребезг кнопо
+ 225:./src/stm32f10x_it.c **** // производится подсчет времени и реализуется изменен�
+ 226:./src/stm32f10x_it.c **** // ШИМ светодиодов LED2 и LED3
+ 227:./src/stm32f10x_it.c **** // периодичность 1 ms
+ 228:./src/stm32f10x_it.c **** void Sys_Tick_Handler(void)
+ 229:./src/stm32f10x_it.c **** {
+ 255              		.loc 1 229 0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 8
+ 258              		@ frame_needed = 1, uses_anonymous_args = 0
+ 259 0000 80B5     		push	{r7, lr}
+ 260              	.LCFI12:
+ 261              		.cfi_def_cfa_offset 8
+ 262              		.cfi_offset 14, -4
+ 263              		.cfi_offset 7, -8
+ 264 0002 82B0     		sub	sp, sp, #8
+ 265              	.LCFI13:
+ 266              		.cfi_def_cfa_offset 16
+ 267 0004 00AF     		add	r7, sp, #0
+ 268              	.LCFI14:
+ 269              		.cfi_def_cfa_register 7
+ 270              	.LBB2:
+ 230:./src/stm32f10x_it.c **** //  times__.time_ll++;            // обновить системное время
+ 231:./src/stm32f10x_it.c **** //  if ((times__.time_l%1000)==0) // есть ли начало секунды?
+ 232:./src/stm32f10x_it.c **** //  {                             // да
+ 233:./src/stm32f10x_it.c **** //    one_sec_flg=1;              // установить запрос показания
+ 234:./src/stm32f10x_it.c **** //                                // времени на экране
+ 235:./src/stm32f10x_it.c **** //  }
+ 236:./src/stm32f10x_it.c **** //  if (d_timer > 0)              // уменьшить счетчик запрета индика�
+ 237:./src/stm32f10x_it.c **** //                                // времени на экране
+ 238:./src/stm32f10x_it.c **** //  {
+ 239:./src/stm32f10x_it.c **** //    d_timer--;
+ 240:./src/stm32f10x_it.c **** //  }
+ 241:./src/stm32f10x_it.c **** //  TIM_SetCompare1(TIM3,ocval1); // установить новое значение ШИМ LED2
+ 242:./src/stm32f10x_it.c **** //  TIM_SetCompare2(TIM3,ocval2); // установить новое значение ШИМ LED3
+ 243:./src/stm32f10x_it.c **** //  if (u_d1==0)                  // генерация нового значения ШИМ LED2
+ 244:./src/stm32f10x_it.c **** //  {                             // если направление изменения яркос�
+ 245:./src/stm32f10x_it.c **** //                                // уменьшается
+ 246:./src/stm32f10x_it.c **** //    if (ocval1>1)               // то, если счетчик ШИМ имеет не
+ 247:./src/stm32f10x_it.c **** //                                // минимальное значение
+ 248:./src/stm32f10x_it.c **** //    {
+ 249:./src/stm32f10x_it.c **** //      ocval1--;                 // уменьшить значение на единицу
+ 250:./src/stm32f10x_it.c **** //    }
+ 251:./src/stm32f10x_it.c **** //    else
+ 252:./src/stm32f10x_it.c **** //    {
+ 253:./src/stm32f10x_it.c **** //      u_d1=1;                   // иначе изменить направление
+ 254:./src/stm32f10x_it.c **** //                                // изменения ШИМ на противоположное
+ 255:./src/stm32f10x_it.c **** //    }
+ 256:./src/stm32f10x_it.c **** //  }
+ 257:./src/stm32f10x_it.c **** //  else
+ 258:./src/stm32f10x_it.c **** //  {  // если направление изменения яркости увеличивает�
+ 259:./src/stm32f10x_it.c **** //    if (ocval1<664)             // и счетчик ШИМ не достиг максималь�
+ 260:./src/stm32f10x_it.c **** //                                // яркости
+ 261:./src/stm32f10x_it.c **** //    {
+ 262:./src/stm32f10x_it.c **** //      ocval1++;                 // увеличить яркость
+ 263:./src/stm32f10x_it.c **** //    }
+ 264:./src/stm32f10x_it.c **** //    else
+ 265:./src/stm32f10x_it.c **** //      u_d1=0;                   // если четчик достиг максимальной я
+ 266:./src/stm32f10x_it.c **** //                                // изменить направление изменения я�
+ 267:./src/stm32f10x_it.c **** //                                // на противоположное
+ 268:./src/stm32f10x_it.c **** //  }
+ 269:./src/stm32f10x_it.c **** //  if (u_d2==0)                  // генерация нового значения ШИМ LED3
+ 270:./src/stm32f10x_it.c **** //  {                             // аналогично LED2
+ 271:./src/stm32f10x_it.c **** //    if (ocval2>1)
+ 272:./src/stm32f10x_it.c **** //    {
+ 273:./src/stm32f10x_it.c **** //      ocval2--;
+ 274:./src/stm32f10x_it.c **** //    }
+ 275:./src/stm32f10x_it.c **** //    else
+ 276:./src/stm32f10x_it.c **** //    {
+ 277:./src/stm32f10x_it.c **** //      u_d2=1;
+ 278:./src/stm32f10x_it.c **** //    }
+ 279:./src/stm32f10x_it.c **** //  }
+ 280:./src/stm32f10x_it.c **** //  else
+ 281:./src/stm32f10x_it.c **** //  {
+ 282:./src/stm32f10x_it.c **** //    if (ocval2<664)
+ 283:./src/stm32f10x_it.c **** //    {
+ 284:./src/stm32f10x_it.c **** //      ocval2++;
+ 285:./src/stm32f10x_it.c **** //    }
+ 286:./src/stm32f10x_it.c **** //    else
+ 287:./src/stm32f10x_it.c **** //      u_d2=0;
+ 288:./src/stm32f10x_it.c **** //  }
+ 289:./src/stm32f10x_it.c ****   // key 1 section              //обработка состояния кнопок
+ 290:./src/stm32f10x_it.c ****   {                             // генерация событий сопряженных с
+ 291:./src/stm32f10x_it.c ****                                 // действиями кнопок
+ 292:./src/stm32f10x_it.c ****     static uint8_t k1_cntr = 0; // счетчик антидребезга кнопки
+ 293:./src/stm32f10x_it.c ****     static uint8_t k1_trigger=0;// флаг состояния кнопки 0-> кнопка отж
+ 294:./src/stm32f10x_it.c ****                                 // 1-> кнопка нажата
+ 295:./src/stm32f10x_it.c ****                                 // алгоритмом обеспечивается гистере
+ 296:./src/stm32f10x_it.c ****                                 // срабатывания кнопки
+ 297:./src/stm32f10x_it.c ****     if (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1)==0) // считать текущее сост.
+ 271              		.loc 1 297 0
+ 272 0006 4FF40060 		mov	r0, #2048
+ 273 000a C4F20100 		movt	r0, 16385
+ 274 000e 4FF00201 		mov	r1, #2
+ 275 0012 FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 276 0016 0346     		mov	r3, r0
+ 277 0018 002B     		cmp	r3, #0
+ 278 001a 3FD1     		bne	.L11
+ 298:./src/stm32f10x_it.c ****                                                     // кнопки A01
+ 299:./src/stm32f10x_it.c ****     {// если кнопка нажата
+ 300:./src/stm32f10x_it.c ****       if (k1_cntr<10)           // если счетчик меньше макс. знач.
+ 279              		.loc 1 300 0
+ 280 001c 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 281 0020 C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 282 0024 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 283 0026 092B     		cmp	r3, #9
+ 284 0028 77D8     		bhi	.L12
+ 301:./src/stm32f10x_it.c ****       {
+ 302:./src/stm32f10x_it.c ****         k1_cntr++;              // увеличить счетчик на 1
+ 285              		.loc 1 302 0
+ 286 002a 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 287 002e C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 288 0032 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 289 0034 03F10103 		add	r3, r3, #1
+ 290 0038 DAB2     		uxtb	r2, r3
+ 291 003a 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 292 003e C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 293 0042 1A70     		strb	r2, [r3, #0]
+ 303:./src/stm32f10x_it.c ****         //если счетчик достиг макс. знач. и кнопка считаетс
+ 304:./src/stm32f10x_it.c ****         if ((k1_cntr==10)&&(k1_trigger==0))
+ 294              		.loc 1 304 0
+ 295 0044 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 296 0048 C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 297 004c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 298 004e 0A2B     		cmp	r3, #10
+ 299 0050 63D1     		bne	.L12
+ 300              		.loc 1 304 0 is_stmt 0 discriminator 1
+ 301 0052 40F20003 		movw	r3, #:lower16:k1_trigger.5474
+ 302 0056 C0F20003 		movt	r3, #:upper16:k1_trigger.5474
+ 303 005a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 304 005c 002B     		cmp	r3, #0
+ 305 005e 5CD1     		bne	.L12
+ 305:./src/stm32f10x_it.c ****         {
+ 306:./src/stm32f10x_it.c ****           k1_trigger=1;   // считать кнопку нажатой
+ 306              		.loc 1 306 0 is_stmt 1
+ 307 0060 40F20003 		movw	r3, #:lower16:k1_trigger.5474
+ 308 0064 C0F20003 		movt	r3, #:upper16:k1_trigger.5474
+ 309 0068 4FF00102 		mov	r2, #1
+ 310 006c 1A70     		strb	r2, [r3, #0]
+ 307:./src/stm32f10x_it.c ****           if (k1_pressed==0) // если флаг события нажатия кнопки не �
+ 311              		.loc 1 307 0
+ 312 006e 40F20003 		movw	r3, #:lower16:k1_pressed
+ 313 0072 C0F20003 		movt	r3, #:upper16:k1_pressed
+ 314 0076 1B78     		ldrb	r3, [r3, #0]
+ 315 0078 DBB2     		uxtb	r3, r3
+ 316 007a 002B     		cmp	r3, #0
+ 317 007c 4DD1     		bne	.L12
+ 308:./src/stm32f10x_it.c ****           {
+ 309:./src/stm32f10x_it.c ****             k1_pressed++;    // активизировать событие нажатия кноп
+ 318              		.loc 1 309 0
+ 319 007e 40F20003 		movw	r3, #:lower16:k1_pressed
+ 320 0082 C0F20003 		movt	r3, #:upper16:k1_pressed
+ 321 0086 1B78     		ldrb	r3, [r3, #0]
+ 322 0088 DBB2     		uxtb	r3, r3
+ 323 008a 03F10103 		add	r3, r3, #1
+ 324 008e DAB2     		uxtb	r2, r3
+ 325 0090 40F20003 		movw	r3, #:lower16:k1_pressed
+ 326 0094 C0F20003 		movt	r3, #:upper16:k1_pressed
+ 327 0098 1A70     		strb	r2, [r3, #0]
+ 328 009a 3EE0     		b	.L12
+ 329              	.L11:
+ 310:./src/stm32f10x_it.c ****           }
+ 311:./src/stm32f10x_it.c ****         }
+ 312:./src/stm32f10x_it.c ****       }
+ 313:./src/stm32f10x_it.c ****     }
+ 314:./src/stm32f10x_it.c ****     else
+ 315:./src/stm32f10x_it.c ****     {// иначе, если кнопка не нажата
+ 316:./src/stm32f10x_it.c ****       if (k1_cntr > 0) // если счетчик антидребезга активен
+ 330              		.loc 1 316 0
+ 331 009c 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 332 00a0 C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 333 00a4 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 334 00a6 002B     		cmp	r3, #0
+ 335 00a8 37D0     		beq	.L12
+ 317:./src/stm32f10x_it.c ****       {
+ 318:./src/stm32f10x_it.c ****         k1_cntr--;    // уменьшить счетчик антидребезга на едини
+ 336              		.loc 1 318 0
+ 337 00aa 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 338 00ae C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 339 00b2 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 340 00b4 03F1FF33 		add	r3, r3, #-1
+ 341 00b8 DAB2     		uxtb	r2, r3
+ 342 00ba 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 343 00be C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 344 00c2 1A70     		strb	r2, [r3, #0]
+ 319:./src/stm32f10x_it.c ****         // если счетчик антидребезга стал пассивным и кноп
+ 320:./src/stm32f10x_it.c ****         // нажатой
+ 321:./src/stm32f10x_it.c ****         if ((k1_cntr==0)&&(k1_trigger==1))
+ 345              		.loc 1 321 0
+ 346 00c4 40F20003 		movw	r3, #:lower16:k1_cntr.5473
+ 347 00c8 C0F20003 		movt	r3, #:upper16:k1_cntr.5473
+ 348 00cc 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 349 00ce 002B     		cmp	r3, #0
+ 350 00d0 23D1     		bne	.L12
+ 351              		.loc 1 321 0 is_stmt 0 discriminator 1
+ 352 00d2 40F20003 		movw	r3, #:lower16:k1_trigger.5474
+ 353 00d6 C0F20003 		movt	r3, #:upper16:k1_trigger.5474
+ 354 00da 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 355 00dc 012B     		cmp	r3, #1
+ 356 00de 1CD1     		bne	.L12
+ 322:./src/stm32f10x_it.c ****         {
+ 323:./src/stm32f10x_it.c ****           k1_trigger=0;         // считать кнопку отжатой
+ 357              		.loc 1 323 0 is_stmt 1
+ 358 00e0 40F20003 		movw	r3, #:lower16:k1_trigger.5474
+ 359 00e4 C0F20003 		movt	r3, #:upper16:k1_trigger.5474
+ 360 00e8 4FF00002 		mov	r2, #0
+ 361 00ec 1A70     		strb	r2, [r3, #0]
+ 324:./src/stm32f10x_it.c ****           if (k1_depressed==0)  // если событие отжатия кнопки не акт�
+ 362              		.loc 1 324 0
+ 363 00ee 40F20003 		movw	r3, #:lower16:k1_depressed
+ 364 00f2 C0F20003 		movt	r3, #:upper16:k1_depressed
+ 365 00f6 1B78     		ldrb	r3, [r3, #0]
+ 366 00f8 DBB2     		uxtb	r3, r3
+ 367 00fa 002B     		cmp	r3, #0
+ 368 00fc 0DD1     		bne	.L12
+ 325:./src/stm32f10x_it.c ****           {
+ 326:./src/stm32f10x_it.c ****             k1_depressed++;     // активизировать событие отжатия кн�
+ 369              		.loc 1 326 0
+ 370 00fe 40F20003 		movw	r3, #:lower16:k1_depressed
+ 371 0102 C0F20003 		movt	r3, #:upper16:k1_depressed
+ 372 0106 1B78     		ldrb	r3, [r3, #0]
+ 373 0108 DBB2     		uxtb	r3, r3
+ 374 010a 03F10103 		add	r3, r3, #1
+ 375 010e DAB2     		uxtb	r2, r3
+ 376 0110 40F20003 		movw	r3, #:lower16:k1_depressed
+ 377 0114 C0F20003 		movt	r3, #:upper16:k1_depressed
+ 378 0118 1A70     		strb	r2, [r3, #0]
+ 379              	.L12:
+ 380              	.LBE2:
+ 381              	.LBB3:
+ 327:./src/stm32f10x_it.c ****           }
+ 328:./src/stm32f10x_it.c ****         }
+ 329:./src/stm32f10x_it.c ****       }
+ 330:./src/stm32f10x_it.c ****     }
+ 331:./src/stm32f10x_it.c ****   }
+ 332:./src/stm32f10x_it.c ****   // key 2 section             // аналогично кнопке №1
+ 333:./src/stm32f10x_it.c ****   {
+ 334:./src/stm32f10x_it.c ****     static uint8_t k2_cntr = 0;
+ 335:./src/stm32f10x_it.c ****     static uint8_t k2_trigger=0;
+ 336:./src/stm32f10x_it.c ****     if (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_2)==0)
+ 382              		.loc 1 336 0
+ 383 011a 4FF40060 		mov	r0, #2048
+ 384 011e C4F20100 		movt	r0, 16385
+ 385 0122 4FF00401 		mov	r1, #4
+ 386 0126 FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 387 012a 0346     		mov	r3, r0
+ 388 012c 002B     		cmp	r3, #0
+ 389 012e 3FD1     		bne	.L13
+ 337:./src/stm32f10x_it.c ****     {
+ 338:./src/stm32f10x_it.c ****       if (k2_cntr<10)
+ 390              		.loc 1 338 0
+ 391 0130 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 392 0134 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 393 0138 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 394 013a 092B     		cmp	r3, #9
+ 395 013c 77D8     		bhi	.L14
+ 339:./src/stm32f10x_it.c ****       {
+ 340:./src/stm32f10x_it.c ****         k2_cntr++;
+ 396              		.loc 1 340 0
+ 397 013e 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 398 0142 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 399 0146 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 400 0148 03F10103 		add	r3, r3, #1
+ 401 014c DAB2     		uxtb	r2, r3
+ 402 014e 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 403 0152 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 404 0156 1A70     		strb	r2, [r3, #0]
+ 341:./src/stm32f10x_it.c ****         if ((k2_cntr==10)&&(k2_trigger==0))
+ 405              		.loc 1 341 0
+ 406 0158 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 407 015c C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 408 0160 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 409 0162 0A2B     		cmp	r3, #10
+ 410 0164 63D1     		bne	.L14
+ 411              		.loc 1 341 0 is_stmt 0 discriminator 1
+ 412 0166 40F20003 		movw	r3, #:lower16:k2_trigger.5476
+ 413 016a C0F20003 		movt	r3, #:upper16:k2_trigger.5476
+ 414 016e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 415 0170 002B     		cmp	r3, #0
+ 416 0172 5CD1     		bne	.L14
+ 342:./src/stm32f10x_it.c ****         {
+ 343:./src/stm32f10x_it.c ****           k2_trigger=1;
+ 417              		.loc 1 343 0 is_stmt 1
+ 418 0174 40F20003 		movw	r3, #:lower16:k2_trigger.5476
+ 419 0178 C0F20003 		movt	r3, #:upper16:k2_trigger.5476
+ 420 017c 4FF00102 		mov	r2, #1
+ 421 0180 1A70     		strb	r2, [r3, #0]
+ 344:./src/stm32f10x_it.c ****           if (k2_pressed==0)
+ 422              		.loc 1 344 0
+ 423 0182 40F20003 		movw	r3, #:lower16:k2_pressed
+ 424 0186 C0F20003 		movt	r3, #:upper16:k2_pressed
+ 425 018a 1B78     		ldrb	r3, [r3, #0]
+ 426 018c DBB2     		uxtb	r3, r3
+ 427 018e 002B     		cmp	r3, #0
+ 428 0190 4DD1     		bne	.L14
+ 345:./src/stm32f10x_it.c ****           {
+ 346:./src/stm32f10x_it.c ****             k2_pressed++;
+ 429              		.loc 1 346 0
+ 430 0192 40F20003 		movw	r3, #:lower16:k2_pressed
+ 431 0196 C0F20003 		movt	r3, #:upper16:k2_pressed
+ 432 019a 1B78     		ldrb	r3, [r3, #0]
+ 433 019c DBB2     		uxtb	r3, r3
+ 434 019e 03F10103 		add	r3, r3, #1
+ 435 01a2 DAB2     		uxtb	r2, r3
+ 436 01a4 40F20003 		movw	r3, #:lower16:k2_pressed
+ 437 01a8 C0F20003 		movt	r3, #:upper16:k2_pressed
+ 438 01ac 1A70     		strb	r2, [r3, #0]
+ 439 01ae 3EE0     		b	.L14
+ 440              	.L13:
+ 347:./src/stm32f10x_it.c ****           }
+ 348:./src/stm32f10x_it.c ****         }
+ 349:./src/stm32f10x_it.c ****       }
+ 350:./src/stm32f10x_it.c ****     }
+ 351:./src/stm32f10x_it.c ****     else
+ 352:./src/stm32f10x_it.c ****     {
+ 353:./src/stm32f10x_it.c ****       if (k2_cntr > 0)
+ 441              		.loc 1 353 0
+ 442 01b0 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 443 01b4 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 444 01b8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 445 01ba 002B     		cmp	r3, #0
+ 446 01bc 37D0     		beq	.L14
+ 354:./src/stm32f10x_it.c ****       {
+ 355:./src/stm32f10x_it.c ****         k2_cntr--;
+ 447              		.loc 1 355 0
+ 448 01be 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 449 01c2 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 450 01c6 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 451 01c8 03F1FF33 		add	r3, r3, #-1
+ 452 01cc DAB2     		uxtb	r2, r3
+ 453 01ce 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 454 01d2 C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 455 01d6 1A70     		strb	r2, [r3, #0]
+ 356:./src/stm32f10x_it.c ****         if ((k2_cntr==0)&&(k2_trigger==1))
+ 456              		.loc 1 356 0
+ 457 01d8 40F20003 		movw	r3, #:lower16:k2_cntr.5475
+ 458 01dc C0F20003 		movt	r3, #:upper16:k2_cntr.5475
+ 459 01e0 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 460 01e2 002B     		cmp	r3, #0
+ 461 01e4 23D1     		bne	.L14
+ 462              		.loc 1 356 0 is_stmt 0 discriminator 1
+ 463 01e6 40F20003 		movw	r3, #:lower16:k2_trigger.5476
+ 464 01ea C0F20003 		movt	r3, #:upper16:k2_trigger.5476
+ 465 01ee 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 466 01f0 012B     		cmp	r3, #1
+ 467 01f2 1CD1     		bne	.L14
+ 357:./src/stm32f10x_it.c ****         {
+ 358:./src/stm32f10x_it.c ****           k2_trigger=0;
+ 468              		.loc 1 358 0 is_stmt 1
+ 469 01f4 40F20003 		movw	r3, #:lower16:k2_trigger.5476
+ 470 01f8 C0F20003 		movt	r3, #:upper16:k2_trigger.5476
+ 471 01fc 4FF00002 		mov	r2, #0
+ 472 0200 1A70     		strb	r2, [r3, #0]
+ 359:./src/stm32f10x_it.c ****           if (k2_depressed==0)
+ 473              		.loc 1 359 0
+ 474 0202 40F20003 		movw	r3, #:lower16:k2_depressed
+ 475 0206 C0F20003 		movt	r3, #:upper16:k2_depressed
+ 476 020a 1B78     		ldrb	r3, [r3, #0]
+ 477 020c DBB2     		uxtb	r3, r3
+ 478 020e 002B     		cmp	r3, #0
+ 479 0210 0DD1     		bne	.L14
+ 360:./src/stm32f10x_it.c ****           {
+ 361:./src/stm32f10x_it.c ****             k2_depressed++;
+ 480              		.loc 1 361 0
+ 481 0212 40F20003 		movw	r3, #:lower16:k2_depressed
+ 482 0216 C0F20003 		movt	r3, #:upper16:k2_depressed
+ 483 021a 1B78     		ldrb	r3, [r3, #0]
+ 484 021c DBB2     		uxtb	r3, r3
+ 485 021e 03F10103 		add	r3, r3, #1
+ 486 0222 DAB2     		uxtb	r2, r3
+ 487 0224 40F20003 		movw	r3, #:lower16:k2_depressed
+ 488 0228 C0F20003 		movt	r3, #:upper16:k2_depressed
+ 489 022c 1A70     		strb	r2, [r3, #0]
+ 490              	.L14:
+ 491              	.LBE3:
+ 492              	.LBB4:
+ 362:./src/stm32f10x_it.c ****           }
+ 363:./src/stm32f10x_it.c ****         }
+ 364:./src/stm32f10x_it.c ****       }
+ 365:./src/stm32f10x_it.c ****     }
+ 366:./src/stm32f10x_it.c ****   }
+ 367:./src/stm32f10x_it.c ****   // key 3 section             // аналогично кнопке №1
+ 368:./src/stm32f10x_it.c ****   {
+ 369:./src/stm32f10x_it.c ****     static uint8_t k3_cntr = 0;
+ 370:./src/stm32f10x_it.c ****     static uint8_t k3_trigger=0;
+ 371:./src/stm32f10x_it.c ****     if (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)==0)
+ 493              		.loc 1 371 0
+ 494 022e 4FF40060 		mov	r0, #2048
+ 495 0232 C4F20100 		movt	r0, 16385
+ 496 0236 4FF00801 		mov	r1, #8
+ 497 023a FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 498 023e 0346     		mov	r3, r0
+ 499 0240 002B     		cmp	r3, #0
+ 500 0242 3FD1     		bne	.L15
+ 372:./src/stm32f10x_it.c ****     {
+ 373:./src/stm32f10x_it.c ****       if (k3_cntr<10)
+ 501              		.loc 1 373 0
+ 502 0244 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 503 0248 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 504 024c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 505 024e 092B     		cmp	r3, #9
+ 506 0250 77D8     		bhi	.L16
+ 374:./src/stm32f10x_it.c ****       {
+ 375:./src/stm32f10x_it.c ****         k3_cntr++;
+ 507              		.loc 1 375 0
+ 508 0252 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 509 0256 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 510 025a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 511 025c 03F10103 		add	r3, r3, #1
+ 512 0260 DAB2     		uxtb	r2, r3
+ 513 0262 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 514 0266 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 515 026a 1A70     		strb	r2, [r3, #0]
+ 376:./src/stm32f10x_it.c ****         if ((k3_cntr==10)&&(k3_trigger==0))
+ 516              		.loc 1 376 0
+ 517 026c 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 518 0270 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 519 0274 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 520 0276 0A2B     		cmp	r3, #10
+ 521 0278 63D1     		bne	.L16
+ 522              		.loc 1 376 0 is_stmt 0 discriminator 1
+ 523 027a 40F20003 		movw	r3, #:lower16:k3_trigger.5478
+ 524 027e C0F20003 		movt	r3, #:upper16:k3_trigger.5478
+ 525 0282 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 526 0284 002B     		cmp	r3, #0
+ 527 0286 5CD1     		bne	.L16
+ 377:./src/stm32f10x_it.c ****         {
+ 378:./src/stm32f10x_it.c ****           k3_trigger=1;
+ 528              		.loc 1 378 0 is_stmt 1
+ 529 0288 40F20003 		movw	r3, #:lower16:k3_trigger.5478
+ 530 028c C0F20003 		movt	r3, #:upper16:k3_trigger.5478
+ 531 0290 4FF00102 		mov	r2, #1
+ 532 0294 1A70     		strb	r2, [r3, #0]
+ 379:./src/stm32f10x_it.c ****           if (k3_pressed==0)
+ 533              		.loc 1 379 0
+ 534 0296 40F20003 		movw	r3, #:lower16:k3_pressed
+ 535 029a C0F20003 		movt	r3, #:upper16:k3_pressed
+ 536 029e 1B78     		ldrb	r3, [r3, #0]
+ 537 02a0 DBB2     		uxtb	r3, r3
+ 538 02a2 002B     		cmp	r3, #0
+ 539 02a4 4DD1     		bne	.L16
+ 380:./src/stm32f10x_it.c ****           {
+ 381:./src/stm32f10x_it.c ****             k3_pressed++;
+ 540              		.loc 1 381 0
+ 541 02a6 40F20003 		movw	r3, #:lower16:k3_pressed
+ 542 02aa C0F20003 		movt	r3, #:upper16:k3_pressed
+ 543 02ae 1B78     		ldrb	r3, [r3, #0]
+ 544 02b0 DBB2     		uxtb	r3, r3
+ 545 02b2 03F10103 		add	r3, r3, #1
+ 546 02b6 DAB2     		uxtb	r2, r3
+ 547 02b8 40F20003 		movw	r3, #:lower16:k3_pressed
+ 548 02bc C0F20003 		movt	r3, #:upper16:k3_pressed
+ 549 02c0 1A70     		strb	r2, [r3, #0]
+ 550 02c2 3EE0     		b	.L16
+ 551              	.L15:
+ 382:./src/stm32f10x_it.c ****           }
+ 383:./src/stm32f10x_it.c ****         }
+ 384:./src/stm32f10x_it.c ****       }
+ 385:./src/stm32f10x_it.c ****     }
+ 386:./src/stm32f10x_it.c ****     else
+ 387:./src/stm32f10x_it.c ****     {
+ 388:./src/stm32f10x_it.c ****       if (k3_cntr > 0)
+ 552              		.loc 1 388 0
+ 553 02c4 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 554 02c8 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 555 02cc 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 556 02ce 002B     		cmp	r3, #0
+ 557 02d0 37D0     		beq	.L16
+ 389:./src/stm32f10x_it.c ****       {
+ 390:./src/stm32f10x_it.c ****         k3_cntr--;
+ 558              		.loc 1 390 0
+ 559 02d2 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 560 02d6 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 561 02da 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 562 02dc 03F1FF33 		add	r3, r3, #-1
+ 563 02e0 DAB2     		uxtb	r2, r3
+ 564 02e2 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 565 02e6 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 566 02ea 1A70     		strb	r2, [r3, #0]
+ 391:./src/stm32f10x_it.c ****         if ((k3_cntr==0)&&(k3_trigger==1))
+ 567              		.loc 1 391 0
+ 568 02ec 40F20003 		movw	r3, #:lower16:k3_cntr.5477
+ 569 02f0 C0F20003 		movt	r3, #:upper16:k3_cntr.5477
+ 570 02f4 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 571 02f6 002B     		cmp	r3, #0
+ 572 02f8 23D1     		bne	.L16
+ 573              		.loc 1 391 0 is_stmt 0 discriminator 1
+ 574 02fa 40F20003 		movw	r3, #:lower16:k3_trigger.5478
+ 575 02fe C0F20003 		movt	r3, #:upper16:k3_trigger.5478
+ 576 0302 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 577 0304 012B     		cmp	r3, #1
+ 578 0306 1CD1     		bne	.L16
+ 392:./src/stm32f10x_it.c ****         {
+ 393:./src/stm32f10x_it.c ****           k3_trigger=0;
+ 579              		.loc 1 393 0 is_stmt 1
+ 580 0308 40F20003 		movw	r3, #:lower16:k3_trigger.5478
+ 581 030c C0F20003 		movt	r3, #:upper16:k3_trigger.5478
+ 582 0310 4FF00002 		mov	r2, #0
+ 583 0314 1A70     		strb	r2, [r3, #0]
+ 394:./src/stm32f10x_it.c ****           if (k3_depressed==0)
+ 584              		.loc 1 394 0
+ 585 0316 40F20003 		movw	r3, #:lower16:k3_depressed
+ 586 031a C0F20003 		movt	r3, #:upper16:k3_depressed
+ 587 031e 1B78     		ldrb	r3, [r3, #0]
+ 588 0320 DBB2     		uxtb	r3, r3
+ 589 0322 002B     		cmp	r3, #0
+ 590 0324 0DD1     		bne	.L16
+ 395:./src/stm32f10x_it.c ****           {
+ 396:./src/stm32f10x_it.c ****             k3_depressed++;
+ 591              		.loc 1 396 0
+ 592 0326 40F20003 		movw	r3, #:lower16:k3_depressed
+ 593 032a C0F20003 		movt	r3, #:upper16:k3_depressed
+ 594 032e 1B78     		ldrb	r3, [r3, #0]
+ 595 0330 DBB2     		uxtb	r3, r3
+ 596 0332 03F10103 		add	r3, r3, #1
+ 597 0336 DAB2     		uxtb	r2, r3
+ 598 0338 40F20003 		movw	r3, #:lower16:k3_depressed
+ 599 033c C0F20003 		movt	r3, #:upper16:k3_depressed
+ 600 0340 1A70     		strb	r2, [r3, #0]
+ 601              	.L16:
+ 602              	.LBE4:
+ 603              	.LBB5:
+ 397:./src/stm32f10x_it.c ****           }
+ 398:./src/stm32f10x_it.c ****         }
+ 399:./src/stm32f10x_it.c ****       }
+ 400:./src/stm32f10x_it.c ****     }
+ 401:./src/stm32f10x_it.c ****   }
+ 402:./src/stm32f10x_it.c **** /**  * A simple incremental Rotary Encoder decoder example
+ 403:./src/stm32f10x_it.c ****   *andrew@rocketnumbernine.com                                          *
+ 404:./src/stm32f10x_it.c ****   *http://www.rocketnumbernine.com/2010/03/06/decoding-a-rotary-encoder/ *
+ 405:./src/stm32f10x_it.c ****   * use freely */
+ 406:./src/stm32f10x_it.c ****   { // считать текущее состояние контактов энкодера
+ 407:./src/stm32f10x_it.c ****     uint8_t pin0=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_0),
+ 604              		.loc 1 407 0
+ 605 0342 4FF44060 		mov	r0, #3072
+ 606 0346 C4F20100 		movt	r0, 16385
+ 607 034a 4FF00101 		mov	r1, #1
+ 608 034e FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 609 0352 0346     		mov	r3, r0
+ 610 0354 FB71     		strb	r3, [r7, #7]
+ 408:./src/stm32f10x_it.c ****             pin1=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_1);
+ 611              		.loc 1 408 0
+ 612 0356 4FF44060 		mov	r0, #3072
+ 613 035a C4F20100 		movt	r0, 16385
+ 614 035e 4FF00201 		mov	r1, #2
+ 615 0362 FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 616 0366 0346     		mov	r3, r0
+ 617 0368 BB71     		strb	r3, [r7, #6]
+ 409:./src/stm32f10x_it.c ****     if (pin0 != pinValues[0]) // если отличается от предыдущего
+ 618              		.loc 1 409 0
+ 619 036a 40F20003 		movw	r3, #:lower16:pinValues
+ 620 036e C0F20003 		movt	r3, #:upper16:pinValues
+ 621 0372 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 622 0374 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 623 0376 9A42     		cmp	r2, r3
+ 624 0378 06D0     		beq	.L17
+ 410:./src/stm32f10x_it.c ****                               // вызвать подпрограмму обработки изм�
+ 411:./src/stm32f10x_it.c ****                               // состояния энкодера
+ 412:./src/stm32f10x_it.c ****     {
+ 413:./src/stm32f10x_it.c ****       rotary_encoder_change(0, pin0);
+ 625              		.loc 1 413 0
+ 626 037a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 627 037c 4FF00000 		mov	r0, #0
+ 628 0380 1946     		mov	r1, r3
+ 629 0382 FFF7FEFF 		bl	rotary_encoder_change
+ 630 0386 0DE0     		b	.L10
+ 631              	.L17:
+ 414:./src/stm32f10x_it.c ****     }
+ 415:./src/stm32f10x_it.c ****     else if (pin1 != pinValues[1])
+ 632              		.loc 1 415 0
+ 633 0388 40F20003 		movw	r3, #:lower16:pinValues
+ 634 038c C0F20003 		movt	r3, #:upper16:pinValues
+ 635 0390 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 636 0392 BA79     		ldrb	r2, [r7, #6]	@ zero_extendqisi2
+ 637 0394 9A42     		cmp	r2, r3
+ 638 0396 05D0     		beq	.L10
+ 416:./src/stm32f10x_it.c ****     {
+ 417:./src/stm32f10x_it.c ****       rotary_encoder_change(1, pin1);
+ 639              		.loc 1 417 0
+ 640 0398 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 641 039a 4FF00100 		mov	r0, #1
+ 642 039e 1946     		mov	r1, r3
+ 643 03a0 FFF7FEFF 		bl	rotary_encoder_change
+ 644              	.L10:
+ 645              	.LBE5:
+ 418:./src/stm32f10x_it.c ****     }
+ 419:./src/stm32f10x_it.c ****   }
+ 420:./src/stm32f10x_it.c **** }
+ 646              		.loc 1 420 0
+ 647 03a4 07F10807 		add	r7, r7, #8
+ 648 03a8 BD46     		mov	sp, r7
+ 649 03aa 80BD     		pop	{r7, pc}
+ 650              		.cfi_endproc
+ 651              	.LFE62:
+ 653              		.section	.bss.k1_cntr.5473,"aw",%nobits
+ 656              	k1_cntr.5473:
+ 657 0000 00       		.space	1
+ 658              		.section	.bss.k1_trigger.5474,"aw",%nobits
+ 661              	k1_trigger.5474:
+ 662 0000 00       		.space	1
+ 663              		.section	.bss.k2_cntr.5475,"aw",%nobits
+ 666              	k2_cntr.5475:
+ 667 0000 00       		.space	1
+ 668              		.section	.bss.k2_trigger.5476,"aw",%nobits
+ 671              	k2_trigger.5476:
+ 672 0000 00       		.space	1
+ 673              		.section	.bss.k3_cntr.5477,"aw",%nobits
+ 676              	k3_cntr.5477:
+ 677 0000 00       		.space	1
+ 678              		.section	.bss.k3_trigger.5478,"aw",%nobits
+ 681              	k3_trigger.5478:
+ 682 0000 00       		.space	1
+ 683              		.text
+ 684              	.Letext0:
+ 685              		.file 2 "/home/valentin/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/bin/../lib/gcc/arm-none-
+ 686              		.file 3 "../MyARMLib/STM32/STM32F10x/include/stm32f10x.h"
+ 687              		.file 4 "../MyARMLib/CMSIS/include/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_it.c
-     /tmp/ccYMPBdP.s:19     .text.NMI_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:24     .text.NMI_Handler:00000000 NMI_Handler
-     /tmp/ccYMPBdP.s:38     .text.HardFault_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:43     .text.HardFault_Handler:00000000 HardFault_Handler
-     /tmp/ccYMPBdP.s:56     .text.MemManage_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:61     .text.MemManage_Handler:00000000 MemManage_Handler
-     /tmp/ccYMPBdP.s:74     .text.BusFault_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:79     .text.BusFault_Handler:00000000 BusFault_Handler
-     /tmp/ccYMPBdP.s:92     .text.UsageFault_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:97     .text.UsageFault_Handler:00000000 UsageFault_Handler
-     /tmp/ccYMPBdP.s:110    .text.DebugMon_Handler:00000000 $t
-     /tmp/ccYMPBdP.s:115    .text.DebugMon_Handler:00000000 DebugMon_Handler
+     /tmp/ccYo5b2q.s:19     .text.NMI_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:24     .text.NMI_Handler:00000000 NMI_Handler
+     /tmp/ccYo5b2q.s:47     .text.HardFault_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:52     .text.HardFault_Handler:00000000 HardFault_Handler
+     /tmp/ccYo5b2q.s:74     .text.MemManage_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:79     .text.MemManage_Handler:00000000 MemManage_Handler
+     /tmp/ccYo5b2q.s:100    .text.BusFault_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:105    .text.BusFault_Handler:00000000 BusFault_Handler
+     /tmp/ccYo5b2q.s:126    .text.UsageFault_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:131    .text.UsageFault_Handler:00000000 UsageFault_Handler
+     /tmp/ccYo5b2q.s:152    .text.DebugMon_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:157    .text.DebugMon_Handler:00000000 DebugMon_Handler
+     /tmp/ccYo5b2q.s:182    .bss.k1_pressed:00000000 k1_pressed
+     /tmp/ccYo5b2q.s:183    .bss.k1_pressed:00000000 $d
+     /tmp/ccYo5b2q.s:188    .bss.k1_depressed:00000000 k1_depressed
+     /tmp/ccYo5b2q.s:189    .bss.k1_depressed:00000000 $d
+     /tmp/ccYo5b2q.s:194    .bss.k2_pressed:00000000 k2_pressed
+     /tmp/ccYo5b2q.s:195    .bss.k2_pressed:00000000 $d
+     /tmp/ccYo5b2q.s:200    .bss.k2_depressed:00000000 k2_depressed
+     /tmp/ccYo5b2q.s:201    .bss.k2_depressed:00000000 $d
+     /tmp/ccYo5b2q.s:206    .bss.k3_pressed:00000000 k3_pressed
+     /tmp/ccYo5b2q.s:207    .bss.k3_pressed:00000000 $d
+     /tmp/ccYo5b2q.s:212    .bss.k3_depressed:00000000 k3_depressed
+     /tmp/ccYo5b2q.s:213    .bss.k3_depressed:00000000 $d
+     /tmp/ccYo5b2q.s:219    .bss.d_timer:00000000 d_timer
+     /tmp/ccYo5b2q.s:216    .bss.d_timer:00000000 $d
+     /tmp/ccYo5b2q.s:225    .bss.one_sec_flg:00000000 one_sec_flg
+     /tmp/ccYo5b2q.s:226    .bss.one_sec_flg:00000000 $d
+     /tmp/ccYo5b2q.s:232    .bss.pinValues:00000000 pinValues
+     /tmp/ccYo5b2q.s:229    .bss.pinValues:00000000 $d
+     /tmp/ccYo5b2q.s:239    .bss.position:00000000 position
+     /tmp/ccYo5b2q.s:236    .bss.position:00000000 $d
+     /tmp/ccYo5b2q.s:245    .bss.encoder_changed:00000000 encoder_changed
+     /tmp/ccYo5b2q.s:246    .bss.encoder_changed:00000000 $d
+     /tmp/ccYo5b2q.s:248    .text.Sys_Tick_Handler:00000000 $t
+     /tmp/ccYo5b2q.s:253    .text.Sys_Tick_Handler:00000000 Sys_Tick_Handler
+     /tmp/ccYo5b2q.s:656    .bss.k1_cntr.5473:00000000 k1_cntr.5473
+     /tmp/ccYo5b2q.s:661    .bss.k1_trigger.5474:00000000 k1_trigger.5474
+     /tmp/ccYo5b2q.s:666    .bss.k2_cntr.5475:00000000 k2_cntr.5475
+     /tmp/ccYo5b2q.s:671    .bss.k2_trigger.5476:00000000 k2_trigger.5476
+     /tmp/ccYo5b2q.s:676    .bss.k3_cntr.5477:00000000 k3_cntr.5477
+     /tmp/ccYo5b2q.s:681    .bss.k3_trigger.5478:00000000 k3_trigger.5478
+     /tmp/ccYo5b2q.s:657    .bss.k1_cntr.5473:00000000 $d
+     /tmp/ccYo5b2q.s:662    .bss.k1_trigger.5474:00000000 $d
+     /tmp/ccYo5b2q.s:667    .bss.k2_cntr.5475:00000000 $d
+     /tmp/ccYo5b2q.s:672    .bss.k2_trigger.5476:00000000 $d
+     /tmp/ccYo5b2q.s:677    .bss.k3_cntr.5477:00000000 $d
+     /tmp/ccYo5b2q.s:682    .bss.k3_trigger.5478:00000000 $d
                      .debug_frame:00000010 $d
 
-NO UNDEFINED SYMBOLS
+UNDEFINED SYMBOLS
+GPIO_ReadInputDataBit
+rotary_encoder_change
