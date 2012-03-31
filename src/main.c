@@ -212,25 +212,51 @@ void vTaskLED3(void *pvParameters) {
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	unsigned short i = 0;
+	RTC_t ct,nt;
+	uint16_t year;	/* 1..4095 */
+	uint8_t  month;	/* 1..12 */
+	uint8_t  mday;	/* 1.. 31 */
+	uint8_t  wday;	/* 0..6, Sunday = 0*/
+	uint8_t  hour;	/* 0..23 */
+	uint8_t  min;	/* 0..59 */
+	uint8_t  sec;	/* 0..59 */
+	uint8_t  dst;	/* 0 Winter, !=0 Summer */
+	ct.year=2012;
+	ct.month=3;
+	ct.mday=31;
+	ct.wday=5;
+	ct.hour=13;
+	ct.min=15;
+	ct.sec=3;
+	ct.dst=1;
+	rtc_settime (&ct);
 	for (;;) {
-		for (i = 0; i < 200; i++) {
-			//vTaskDelay(10);
-			GPIO_SetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(i / 50);
-			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(10 - i / 20);
-		}
-		for (i = 0; i < 200; i++) {
-			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(i / 20);
-			GPIO_SetBits(GPIOB, GPIO_Pin_5);
-			vTaskDelay(10 - i / 20);
+		rtc_gettime (&nt);
+		while(ct.sec==nt.sec) {vTaskDelay(10);rtc_gettime (&nt);}
+		GPIO_SetBits(GPIOB, GPIO_Pin_5);
+		ct = nt;
+		while(ct.sec==nt.sec) {vTaskDelay(10);rtc_gettime (&nt);}
+		GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+		ct = nt;
 
-			//			GPIO_SetBits(GPIOB, GPIO_Pin_5);
-//			vTaskDelay(8-i/10);
+//		for (i = 0; i < 200; i++) {
+//			//vTaskDelay(10);
+//			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+//			vTaskDelay(i / 50);
 //			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
-//			vTaskDelay(i/10);
-		}
+//			vTaskDelay(10 - i / 20);
+//		}
+//		for (i = 0; i < 200; i++) {
+//			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+//			vTaskDelay(i / 20);
+//			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+//			vTaskDelay(10 - i / 20);
+//
+//			//			GPIO_SetBits(GPIOB, GPIO_Pin_5);
+////			vTaskDelay(8-i/10);
+////			GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+////			vTaskDelay(i/10);
+//		}
 	}
 
 }
