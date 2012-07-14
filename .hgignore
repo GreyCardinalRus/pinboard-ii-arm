@@ -19,3 +19,7 @@ syntax: regexp
 d
 syntax: regexp
 lst
+syntax: regexp
+lst
+syntax: regexp
+.lst

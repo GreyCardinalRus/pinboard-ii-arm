@@ -4,13 +4,23 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "rtc.h"
+
+/* Подключаем библиотеку и драйвер GPIO */
+#include "hd44780.h"
+#include "hd44780_stm32f10x.h"
+
+
 #include <stdio.h>
 #include <string.h>
-//#include "lcd.h"
-#include "WH1602B.h"
-//#include "adc.h"
-//#include "pwm.h"
-//#include "serial.h"
+
+void init_lcd(void);
+void delay_microseconds(uint16_t us);
+uint32_t uint32_time_diff(uint32_t now, uint32_t before);
+void hd44780_assert_failure_handler(const char *filename, unsigned long line);
+
+HD44780 lcd;
+HD44780_STM32F10x_GPIO_Driver lcd_pindriver;
+volatile uint32_t systick_ms = 0;
 
 /*
  Используется в основном схема соединений применяемая в быстром старте для STM32 с некоторыми отличиями.
@@ -52,20 +62,23 @@ void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName)
 	for (;;)
 		;
 }
-void vTaskTimer(void *pvParameters) {
-	times__.time_ll++; // обновить системное время
-//if ((times__.time_l%1000)==0) // есть ли начало секунды?
-//{                             // да
-//  one_sec_flg=1;              // установить запрос показания
-//                              // времени на экране
+
+//void vTaskTimer(void *pvParameters) {
+//	times__.time_ll=0;
+//	for(;;){
+//	times__.time_ll++; // обновить системное время
+////if ((times__.time_l%1000)==0) // есть ли начало секунды?
+////{                             // да
+////  one_sec_flg=1;              // установить запрос показания
+////                              // времени на экране
+////}
+////if (d_timer > 0)              // уменьшить счетчик запрета индикации
+////                              // времени на экране
+////{
+////  d_timer--;
+////}
+//	vTaskDelay(1000);}
 //}
-//if (d_timer > 0)              // уменьшить счетчик запрета индикации
-//                              // времени на экране
-//{
-//  d_timer--;
-//}
-	vTaskDelay(1);
-}
 
 void vTaskLED01(void *pvParameters) {
 	//pbii_PWM_TIM3_Init();               // инициализация подсистемы ШИМ светодиодов
@@ -261,24 +274,48 @@ void vTaskLED3(void *pvParameters) {
 
 }
 
-void vTaskLCD(void *pvParameters) {
-	pvParameters = pvParameters;
-//	lcd_init(); // инициализация подсистемы LCD
-//	clrscr(); // очистка экрана
-//	lcd_cursor_off(); // отключить мигание курсора
-//	wr_lcd_str(0, 0, "Hello from PBII!"); // вывод приветствия, ипользуется API lcd.h
+//void vTaskLCD(void *pvParameters) {
+//	pvParameters = pvParameters;
+//	init_lcd(); // инициализация подсистемы LCD
+//	 delay_microseconds(1000);
+//	RTC_t ct,nt;
+////	Init_lcd();
+////	Lcd_clear();
+////
+//	char buf[10];
+//	const size_t buf_size = lcd.columns_amount + 1;
+////	char buf[buf_size], *end = buf;
+//	for (;;) {
+////		while(ct.sec==nt.sec) {vTaskDelay(10);rtc_gettime (&nt);}
+////		Lcd_goto(0, 0);
+////	//Lcd_write_str("WH1602B ");
+////	rtc_gettime (&ct);
+////	lcd_2x16_print_dec_xx(ct.hour);Lcd_write_str(":");lcd_2x16_print_dec_xx(ct.min);Lcd_write_str(":");lcd_2x16_print_dec_xx(ct.sec);
+////	Lcd_goto(1, 1);
+////	Lcd_write_str("Test.");
+////	ct = nt;
+//	//rtc_gettime (&ct);lcd_2x16_print_dec_xx(ct.sec);
+//	//sprintf(buf, "%d s\n\r", ct.sec);
+//		while(ct.sec==nt.sec) {vTaskDelay(10);rtc_gettime (&nt);}
+//		hd44780_clear(&lcd);
+//		//lcd_update_ms = systick_ms;
+//		rtc_gettime (&ct);
+////	      static unsigned counter = 0;
 //
-
-//	Init_lcd();
-//	Lcd_clear();
-//	Lcd_goto(0, 3);
-//	Lcd_write_str("WH1602B");
-//	Lcd_goto(1, 4);
-//	Lcd_write_str("Test.");
-
-	for (;;) {
-	}
-}
+////	      const size_t buf_size = lcd.columns_amount + 1;
+////	      char buf[buf_size], *end = buf;
+//	      //sprintf(buf, "%d s\n\r", ct.sec);
+//////	      snprintf(buf, buf_size, "%d", ct.sec);
+////	      *end = 0;
+//
+////	      ++counter;
+//
+//		hd44780_write_string(&lcd, "Here is Arnie: ");
+//
+//	//      hd44780_write_string(&lcd, buf);
+//
+//	}
+//}
 //--------------------------------------------------------------
 void vTaskBZR(void *pvParameters) {
 	pvParameters = pvParameters;
@@ -299,6 +336,7 @@ void vTaskBZR(void *pvParameters) {
 	}
 
 }
+
 int main(void) {
 	//По сбросу на PB3,PB4, PA15 используются для отладки по jtag.
 
@@ -340,17 +378,18 @@ int main(void) {
 //	GPIO_InitStructureB.GPIO_Speed = GPIO_Speed_50MHz;
 //	GPIO_InitStructureB.GPIO_Mode = GPIO_Mode_Out_PP;
 //	GPIO_Init(GPIOB, &GPIO_InitStructureB);
+
 	rtc_init();
-	xTaskCreate( vTaskTimer, ( signed char * ) "Timer",
-			configMINIMAL_STACK_SIZE, NULL, 2, ( xTaskHandle * ) NULL);
+//	xTaskCreate( vTaskTimer, ( signed char * ) "Timer",
+//			configMINIMAL_STACK_SIZE, NULL, 2, ( xTaskHandle * ) NULL);
 	xTaskCreate( vTaskLED01, ( signed char * ) "LED01",
 			configMINIMAL_STACK_SIZE, NULL, 2, ( xTaskHandle * ) NULL);
-	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE,
-			NULL, 2, ( xTaskHandle * ) NULL);
+//	xTaskCreate( vTaskLED2, ( signed char * ) "LED2", configMINIMAL_STACK_SIZE,
+//			NULL, 2, ( xTaskHandle * ) NULL);
 	xTaskCreate( vTaskLED3, ( signed char * ) "LED3", configMINIMAL_STACK_SIZE,
 			NULL, 2, ( xTaskHandle * ) NULL);
-	xTaskCreate( vTaskLCD, ( signed char * ) "LCD", configMINIMAL_STACK_SIZE,
-			NULL, 2, ( xTaskHandle * ) NULL);
+//	xTaskCreate( vTaskLCD, ( signed char * ) "LCD", configMINIMAL_STACK_SIZE,
+//			NULL, 2, ( xTaskHandle * ) NULL);
 //	xTaskCreate( vTaskBZR, ( signed char * ) "BZR", configMINIMAL_STACK_SIZE,
 //			NULL, 2, ( xTaskHandle * ) NULL);
 	/* Start the scheduler. */
@@ -367,18 +406,94 @@ void vApplicationTickHook(void) {
 
 //	TimingDelay_Decrement();
 }
-/*-----------------------------------------------------------*/
-uint32_t gettime(void) // получить текущее значение времени
+
+void delay_ms(uint16_t time)
 {
-	return times__.time_l;
+//	volatile uint32_t i;
+//
+//	while (time-- > 0)
+//	{
+//		i = 1000;
+//		while (i-- > 0)
+//		{
+//		}
+//	}
+	/* Block for 500ms. */
+//	 const portTickType xDelay = time / portTICK_RATE_MS;
+
+	     vTaskDelay( time / portTICK_RATE_MS );
 }
 
-void wait_ms(uint32_t ms) // подпрограмма отработки задержки
-// очень неточная, на малых значениях задержки
-// погрешность может достигать 10%-50%
+void init_lcd(void)
 {
-	uint32_t newtime = ms + gettime();
-	while (gettime() < newtime)
-		//while(newtime-- > 0)
-		continue;
+  /* Распиновка дисплея */
+  const HD44780_STM32F10x_Pinout lcd_pinout =
+  {
+    {
+      /* RS        */  { GPIOA, GPIO_Pin_6 },
+      /* ENABLE    */  { GPIOA, GPIO_Pin_5 },
+      /* RW        */  { GPIOA, GPIO_Pin_4 },
+      /* Backlight */  { NULL, 0 },
+      /* DP0       */  { NULL, 0 },
+      /* DP1       */  { NULL, 0 },
+      /* DP2       */  { NULL, 0 },
+      /* DP3       */  { NULL, 0 },
+      /* DP4       */  { GPIOA, GPIO_Pin_3 },
+      /* DP5       */  { GPIOA, GPIO_Pin_2 },
+      /* DP6       */  { GPIOA, GPIO_Pin_1 },
+      /* DP7       */  { GPIOA, GPIO_Pin_0 },
+    }
+  };
+
+  /* Настраиваем драйвер: указываем интерфейс драйвера (стандартный),
+     указанную выше распиновку и обработчик ошибок GPIO (необязателен). */
+  lcd_pindriver.interface = HD44780_STM32F10X_PINDRIVER_INTERFACE;
+  /* Если вдруг захотите сами вручную настраивать GPIO для дисплея
+     (зачем бы вдруг), напишите здесь ещё (библиотека учтёт это):
+  lcd_pindriver.interface.configure = NULL; */
+  lcd_pindriver.pinout = lcd_pinout;
+  lcd_pindriver.assert_failure_handler = hd44780_assert_failure_handler;
+
+  /* И, наконец, создаём конфигурацию дисплея: указываем наш драйвер,
+     функцию задержки, обработчик ошибок дисплея (необязателен) и опции.
+     На данный момент доступны две опции - использовать или нет
+     вывод RW дисплея (в последнем случае его нужно прижать к GND),
+     и то же для управления подсветкой. */
+  const HD44780_Config lcd_config =
+  {
+    (HD44780_GPIO_Interface*)&lcd_pindriver,
+    delay_microseconds,
+    hd44780_assert_failure_handler,
+    HD44780_OPT_USE_RW
+  };
+
+  /* Ну, а теперь всё стандартно: подаём тактирование на GPIO,
+     инициализируем дисплей: 16x2, 4-битный интерфейс, символы 5x8 точек. */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+  hd44780_init(&lcd, HD44780_MODE_4BIT, &lcd_config, 16, 2, HD44780_CHARSIZE_5x8);
+}
+
+void delay_microseconds(uint16_t us)
+{
+  SysTick->VAL = SysTick->LOAD;
+  const uint32_t systick_ms_start = systick_ms;
+
+  while (1)
+  {
+    uint32_t diff = uint32_time_diff(systick_ms, systick_ms_start);
+
+    if (diff >= ((uint32_t)us / 1000) + (us % 1000 ? 1 : 0))
+      break;
+  }
+}
+
+uint32_t uint32_time_diff(uint32_t now, uint32_t before)
+{
+  return (now >= before) ? (now - before) : (UINT32_MAX - before + now);
+}
+
+void hd44780_assert_failure_handler(const char *filename, unsigned long line)
+{
+  (void)filename; (void)line;
+  do {} while (1);
 }

@@ -75,8 +75,8 @@
 	VER_MAJOR	= 0
 	VER_MINOR	= 1
 
+#	TOOL	= arm-linux-gnueabi-
 	TOOL	= arm-none-eabi-
-#	TOOL	= arm-kgp-eabi-
 
 	OPTIMIZE	= -O0
 	USE_LTO		= NO
@@ -171,6 +171,7 @@ STARTUP = startup_$(CHIP)
 	DIRS	+= ../MyARMLib/STM32/STM32F10x/include
 	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/inc
 	DIRS	+= ../MyARMLib/STM32/STM32F10x_StdPeriph_Driver/src
+#	DIRS	+= ../MyARMLib/HD44780
 #	DIRS	+= ../MyARMLib/FreeRTOS
 
 # includes
@@ -364,8 +365,11 @@ clean:
 	-@$(RM) $(OBJDIR)/*.d 2>/dev/null
 	-@$(RM) $(OBJDIR)/*.o 2>/dev/null
 	-@$(RM) $(LSTDIR)/*.lst 2>/dev/null
+	-@$(RM) $(LSTDIR)/*.map 2>/dev/null
+	-@$(RM) $(LSTDIR)/*.lss 2>/dev/null
 	-@$(RM) $(ELF)
 	-@$(RM) $(HEX)
+	-@$(RM) $(BIN)
 	-@$(RM) $(LSS)
 	-@$(RM) $(MAP)
 

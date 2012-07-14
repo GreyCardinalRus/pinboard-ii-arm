@@ -24,10 +24,10 @@
 #define pin_d5          use_gpio>>2 // следующий по убыванию бит                                           7
 #define pin_d4          use_gpio>>3 // следующий по убыванию бит (последний бит в 4-х битной шине)         6
 
-#define Function_set                            0b00100000//4-bit,2 - line mode, 5*8 dots
+#define Function_set                      0b00100000//4-bit,2 - line mode, 5*8 dots
 #define Display_on_off_control   	      0b00001111/// display on,cursor off,blink off
-#define Display_clear                           0b00000001
-#define Entry_mode_set                          0b00000100//после 2 разряда слева. increment mode,entire shift off
+#define Display_clear                     0b00000001
+#define Entry_mode_set                    0b00000100//после 2 разряда слева. increment mode,entire shift off
 
 //#define Lcd_goto(x,y) Lcd_write_cmd(((((y)& 1)*0x40)+((x)& 7))|128)
 
@@ -35,7 +35,7 @@
 #define rs_1    port->ODR |=  pin_rs
 #define rs_0    port->ODR &=~ pin_rs
 #define e_1     port->ODR |=  pin_e
-#define e_0             port->ODR &=~ pin_e
+#define e_0     port->ODR &=~ pin_e
 #define rw_1    port->ODR |=  pin_rw
 #define rw_0    port->ODR &=~ pin_rw
 u32 del;
